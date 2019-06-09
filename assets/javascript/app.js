@@ -39,10 +39,10 @@ var btnLogOut = $("#btnLogOut");
 //Shows account errors and user notes. Can be separated if needed.
 var txtEmail = $("#txtEmail");
 var txtPassword = $("#txtPassword");
-var displayPrompt = $("#displayPrompt");
-
+var authPrompt = $("#authPrompt");
+var notesPrompt = $("#notesPrompt")
 //User data 
-var localUser;
+var addNoteForm = $("#addNoteForm");
 var addNote = $("#addNote");
 
 //Remove Notes Btn
@@ -56,15 +56,15 @@ btnSignUp.on('click', () => {
     const pass = txtPassword.val().trim();
 
     auth.createUserWithEmailAndPassword(email, pass).then(user => {
-        database.ref("/users").push({
+        database.ref("/users").child(auth.currentUser.uid).update({
             email: user.email,
             notes: ["Welcome to your notes!"],
             dateAdded: firebase.database.ServerValue.TIMESTAMP
         })
     }).catch(err => {
         console.log(err);
-        if (err.code === "auth/weak-password") displayPrompt.text(err.message)
-        else if (err.code === "auth/email-already-in-use") displayPrompt.text("Email already in use!")
+        if (err.code === "auth/weak-password") authPrompt.text(err.message)
+        else if (err.code === "auth/email-already-in-use") authPrompt.text("Email already in use!")
     })
 
 })
@@ -76,10 +76,10 @@ btnLogin.on('click', () => {
     auth.signInWithEmailAndPassword(email, pass).catch(err => {
         console.log(err);
 
-        if (err.code === "auth/user-not-found") displayPrompt.text("New email detected. Make sure you have registered first!")
-        else if (err.code === "auth/wrong-password") displayPrompt.text("Invalid password.")
-        else if (err.code === "auth/invalid-email") displayPrompt.text("Invalid email format.")
-        else if (err.code === "auth/wrong-password") displayPrompt.text("Invalid password.")
+        if (err.code === "auth/user-not-found") authPrompt.text("New email detected. Make sure you have registered first!")
+        else if (err.code === "auth/wrong-password") authPrompt.text("Invalid password.")
+        else if (err.code === "auth/invalid-email") authPrompt.text("Invalid email format.")
+        else if (err.code === "auth/wrong-password") authPrompt.text("Invalid password.")
     });
 })
 
@@ -89,43 +89,47 @@ btnLogOut.on('click', () => {
     console.log('logged out')
 })
 
+// --------------------------- User Notes ----------------------------//
+
 //When a user signs in/out listener
 auth.onAuthStateChanged(user => {
     if (user) {
-        localUser = user.email;
         /*Add/Remove a class "hide" for instant. */
-        txtEmail.addClass("hide");
-        txtPassword.addClass("hide");
-        btnLogin.addClass("hide");
-        btnSignUp.addClass("hide");
-        btnLogOut.removeClass('hide')
-        console.log(localUser + " has now logged in.");
+        txtEmail.addClass("d-none");
+        txtPassword.addClass("d-none");
+        btnLogin.addClass("d-none");
+        btnSignUp.addClass("d-none");
+        btnLogOut.removeClass("d-none")
+        addNote.removeClass("d-none")
+        authPrompt.text("Planner App")
+        console.log(auth.currentUser.email + " has now logged in.");
 
         //Get the current user data obj
         var userData;
-        database.ref("/users").orderByChild("email").equalTo(localUser).once('value')
+        database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
             .then(function (snapshot) {
+                console.log(snapshot.val());
+                
                 userData = Object.values(snapshot.val())[0];
                 //Convert the object to a list of numbered notes and display it to the screen
-                var userNotes = userData.notes.map((perNote, index) => ((index + 1) + ". " + perNote)).join("\n");
-                displayPrompt.html(`Welcome ${userData.email.split("@")[0]}, here are your notes: <br><br>${userNotes}`);
+                var userNotes = userData.notes.map((perNote, index) => ((index + 1) + ". " + perNote)).join("<br>");
+                notesPrompt.html(`Welcome ${userData.email.split("@")[0]}, here are your notes: <br><br>${userNotes}`);
             })
 
     } else {
-        //reset global-local user  
-        localUser = null;
-        txtEmail.removeClass("hide");
-        txtPassword.removeClass("hide");
-        btnLogin.removeClass("hide");
-        btnSignUp.removeClass("hide");
-        btnLogOut.addClass('hide')
+        txtEmail.removeClass("d-none");
+        txtPassword.removeClass("d-none");
+        btnLogin.removeClass("d-none");
+        btnSignUp.removeClass("d-none");
+        btnLogOut.addClass("d-none")
+        addNote.addClass("d-none")
+        notesPrompt.empty();
         console.log("User has now logged out.");
-        displayPrompt.text("Please Log in!")
+        authPrompt.text("Please Log in!")
     }
 }) 
 // ------------------------End Of Authentication----------------------//
 
-// --------------------------- User Notes ----------------------------//
 /**
  * 
  * @param {String} type decides which usage to execute.
@@ -140,34 +144,30 @@ auth.onAuthStateChanged(user => {
  */
 function updateUserNotes(type, note) {
     var userData;
-    database.ref("/users").orderByChild("email").equalTo(email).once('value')
+    database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
         .then(function (snapshot) {
             userData = Object.values(snapshot.val())[0];
             if (type === "add") userData.notes.push(note);
             else userData.notes.splice(note, 1);
-
-            /*
-                ToDo: Set this new data back to the user list in firebase, 
-                preferably with an update method and not a set method
-
-                //Example
-                var hopperRef = usersRef.child("gracehop");
-                hopperRef.update({
-                    "nickname": "Amazing Grace"
-                });
-            */
+            console.log(userData.notes);
+            addNote.val("");
+            console.log(auth.currentUser.uid);
+            
+            database.ref("/users").child(auth.currentUser.uid).update({
+                notes: userData.notes
+            });
         })
 }
 
-//Adding a new note into our list
-addNote.submit(function (event) {
+var newNote = ""; //Adding a new note into our list
+addNoteForm.submit(function (event) {
     event.preventDefault();
-    /*
-        //ToDo: When a user hits enter in the textbox, accept it as a submit
-        (So that we wont need a submit button)
-    */
     updateUserNotes("add", addNote.val().trim());
 });
+
+$(".btn").on("click", function(event) {
+    event.preventDefault();
+}) 
 
 //-------------------------End of User Notes ----------------------------//
 
