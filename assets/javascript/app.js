@@ -48,6 +48,8 @@ var addNote = $("#addNote");
 //Remove Notes Btn
 var noteBtn = $("#noteBtn");
 
+//-------------------------------Authentication----------------------//
+
 //Creating an account
 btnSignUp.on('click', () => {
     const email = txtEmail.val().trim();
@@ -120,8 +122,10 @@ auth.onAuthStateChanged(user => {
         console.log("User has now logged out.");
         displayPrompt.text("Please Log in!")
     }
-})
+}) 
+// ------------------------End Of Authentication----------------------//
 
+// --------------------------- User Notes ----------------------------//
 /**
  * 
  * @param {String} type decides which usage to execute.
@@ -165,5 +169,6 @@ addNote.submit(function (event) {
     updateUserNotes("add", addNote.val().trim());
 });
 
+//-------------------------End of User Notes ----------------------------//
 
 //End of file
