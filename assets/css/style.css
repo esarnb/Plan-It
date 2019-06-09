@@ -1,0 +1,9 @@
+#bg-modal {
+    background-color: #eee;
+}
+
+.errorMsg {
+    color: red;
+    font-size: 12px;
+    justify-content: left;
+}

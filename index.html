@@ -9,19 +9,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <title>PlanIt</title>
-    <style>
-        #bg-modal {
-            background-color: #eee;
-        }
-
-        .errorMsg {
-            color: red;
-            font-size: 12px;
-            justify-content: left;
-        }
-    </style>
+       
 </head>
 
 <body>
@@ -33,20 +25,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#calenderId">Calendar <span class="sr-only">(current)</span></a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id = 'todo-tab'>To Do List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#transportationId">Transportation</a>
+                    <a class="nav-link" href="#" id = 'transport-tab'>Transportation</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#weatherId">Weather</a>
+                    <a class="nav-link" href="#" id = 'weather-tab'>Weather</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#eventsId">Events</a>
+                    <a class="nav-link" href="#" id ='events-tab'>Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#foodId">Food</a>
+                    <a class="nav-link" href="#" id = 'food-tab'>Food</a>
                 </li>
             </ul>
             <!-- Sign in modal -->
@@ -68,41 +63,12 @@
         <div class="container text-center">
             <div class="card" id="widget">
                 <div class="card-body">
-                    <h5 class="card-title">Calendar</h5>
+                    <h5 class="card-title" id = 'widget-title'></h5>
                     <h6 class="card-subtitle mb-2 text-muted">
                         <p class="lead">Sunday, June 9th, 2019</p>
                     </h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                        took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                        five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                        passages, and more recently with desktop publishing software like Aldus PageMaker including
-                        versions of Lorem Ipsum.<br>
-
-                        Why do we use it?
-                        It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like).<br>
-
-
-                        Where does it come from?
-                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                        classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a
-                        Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin
-                        words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in
-                        classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32
-                        and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
-                        written in 45 BC. This book is a treatise on the theory of ethics, very popular during the
-                        Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in
-                        section 1.10.32.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <div id = 'content'></div>
+                  
                 </div>
             </div>
         </div>
