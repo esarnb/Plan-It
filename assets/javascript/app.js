@@ -1,7 +1,54 @@
 //Global Functions
 
 //Functions
+// ajax call for calendarific api data on click
+$("button").on("click", function() {
 
+$.ajax({
+    url: "https://calendarific.com/api/v2/holidays?&api_key=5aacde472af07a267319cf6071d535aa05e2a4d6",
+    method: "GET"
+  })
+  .then(function(response) {
+    console.log(response)
+
+    var calResults = response.holidays
+
+  })
+
+})
+// ajax call for bart api on click
+$("button").on("click", function() {
+// user input destination variable
+var bartDest = $(this).attr("data-bart");
+
+bartQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + bartDest + "&json=y";
+
+$.ajax({
+    url: bartQuery,
+    method: "GET"
+  })
+  .then(function(root) {
+    console.log(root)
+
+    var bartResults = root
+
+  })
+
+})
+
+$(document).ready(function() {
+    $.ajax({
+        url: "http://api.bart.gov/api/bsa.aspx?cmd=bsa&json=y",
+        method: "GET"
+      })
+      .then(function(root) {
+      
+        var bartStatus = root.bsa
+
+        $("#bart-status").text(bartStatus)
+    })
+
+})
 
 
 
