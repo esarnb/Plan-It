@@ -15,14 +15,17 @@
         #bg-modal {
             background-color: #eee;
         }
-        /* #form-left{
-            margin-right:0px;
-        } */
+
+        .errorMsg {
+            color: red;
+            font-size: 12px;
+            justify-content: left;
+        }
     </style>
 </head>
 
 <body>
-
+<!-- navbar starts -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,63 +53,25 @@
             <form class="form-inline my-2 my-lg-0" id="form-left">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModal">
-                    Sign In
+                    Login
                 </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal">
-                    Sign Out
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content" id="bg-modal">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp" placeholder="Enter email">
-                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email
-                                            with anyone else.</small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1"
-                                            placeholder="Password">
-                                    </div>
-                                    <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
             </form>
         </div>
     </nav>
 
-    <div class="jumbotron jumbotron-fluid bg-white">
+    <!-- main section -->
+    <div class="jumbotron jumbotron-fluid bg-gray">
         <!-- <div class="container text-center">
             <h1 class="display-5">Welcome</h1>
             <p class="lead">Sunday, June 9th, 2019</p>
         </div> -->
         <div class="container text-center">
-            <div class="card" id="calender">
+            <div class="card" id="widget">
                 <div class="card-body">
                     <h5 class="card-title">Calendar</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"><p class="lead">Sunday, June 9th, 2019</p></h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <p class="lead">Sunday, June 9th, 2019</p>
+                    </h6>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                         card's content.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
@@ -114,7 +79,7 @@
                         five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                         It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
                         passages, and more recently with desktop publishing software like Aldus PageMaker including
-                        versions of Lorem Ipsum.
+                        versions of Lorem Ipsum.<br>
 
                         Why do we use it?
                         It is a long established fact that a reader will be distracted by the readable content of a page
@@ -123,7 +88,7 @@
                         readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
                         their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
                         their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like).
+                        purpose (injected humour and the like).<br>
 
 
                         Where does it come from?
@@ -143,6 +108,43 @@
         </div>
     </div>
 
+
+    <!-- Modal 1 Sign In-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="bg-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email
+                                with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                placeholder="Password">
+                        </div>
+                        <div class="form-group form-check pl-0">
+                            <label for="exampleErrorMessage" class="errorMsg">Error Message</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -154,7 +156,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-        <script src="assets/javascript/test.js"></script>
+    <script src="assets/javascript/test.js"></script>
 </body>
 
 </html>
