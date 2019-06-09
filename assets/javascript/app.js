@@ -13,12 +13,14 @@ $.ajax({
 
     var calResults = response.holidays
 
+    $("#cal-results").text(calResults)
+
   })
 
 })
-// ajax call for bart api on click
+// ajax call for bart api on click for user input current station
 $("button").on("click", function() {
-// user input destination variable
+// user input destination variable, not sure if we are gonna use this or a dropdown with all the stations already listed
 var bartDest = $(this).attr("data-bart");
 
 bartQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + bartDest + "&json=y";
@@ -32,10 +34,12 @@ $.ajax({
 
     var bartResults = root
 
+    $("#bart-results").text(bartResults)
+
   })
 
 })
-
+// function to display bart status
 $(document).ready(function() {
     $.ajax({
         url: "http://api.bart.gov/api/bsa.aspx?cmd=bsa&json=y",
