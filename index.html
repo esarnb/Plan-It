@@ -44,20 +44,33 @@
         }
     </style>
 
-    <div id="app">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" id="authPrompt">Planner App</a>
+        <form class="form-inline">
+            <input  id="txtEmail" class="form-control mr-sm-2" type="text" placeholder="Email" aria-label="User Email">
+            <input  id="txtPassword" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="User Password">
+            <button id="btnLogin" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+            <button id="btnSignUp" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Up</button>
+            <button id="btnLogOut" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+        </form>
+    </nav>
+
+    <p id="notesPrompt"></p>
+    <form id="addNoteForm" class="form-inline">
+        <input  id="addNote" class="form-control mr-sm-2" type="text" placeholder="Add a new note" aria-label="New Note">
+    </form>
+    
+    <!-- <div id="app">
         <input type="email" id="txtEmail" placeholder="Enter Email" /> <br />
         <input type="password" id="txtPassword" placeholder="Enter Password" /><br />
-        <!-- <input type="text" id="txtUsername" placeholder="Enter a username" /><br/> -->
+        <input type="text" id="txtUsername" placeholder="Enter a username" /><br/> 
         <button id="btnLogin">Log in</button>
         <button id="btnSignUp">Sign Up</button>
         <button id="btnLogOut" class="hide">Log Out</button>
         <p id="displayPrompt"></p>
-        <!-- <button id="withFB">Log In with FaceBook</button>
-        <button id="withGithub">Log In with GitHub</button> -->
-    </div>
-    <div id="results"></div>
-
-
+        <button id="withFB">Log In with FaceBook</button>
+        <button id="withGithub">Log In with GitHub</button>
+    </div> -->
 
     <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
