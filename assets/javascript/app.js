@@ -21,9 +21,9 @@ $("button").on("click", function () {
 // ajax call for bart api on click for user input current station
 $("button").on("click", function () {
     // user input destination variable, not sure if we are gonna use this or a dropdown with all the stations already listed
-    var bartDest = $(this).attr("data-bart");
+    var bartStation = $(this).attr("data-bart");
 
-    bartQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + bartDest + "&json=y";
+    var bartQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + bartStation + "&json=y";
 
     $.ajax({
         url: bartQuery,
@@ -40,9 +40,39 @@ $("button").on("click", function () {
 
 })
 
-$("button").on("click", function () {
+function stationNameButton() {
+   
+        $.ajax({
+            url: "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y",
+            method: "GET"
+        })
+            .then(function (root) {
+                
+                var stationName;
+    
+                for (var i = 0; i < stationName.length; i++) {
 
-    var userLocation = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + latitude + "&longitude=" + longitude;
+                    stationName = root.stations.station[i];
+
+                    var newOption = $("<option>")
+                    newOption.addClass("station-button")
+                    newOption.attr("name-value", stationName)
+                    newOption.text(stationName)
+                    $("#exampleFormControlSelect1").append(newOption)
+    
+                }
+            })
+    }
+
+
+$("button").on("click", function () {
+    // if user provides location
+    if (!longitude === null) {
+        var userLocation = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + latitude + "&longitude=" + longitude;
+        // if uses does not provide location show hot and new restaurants
+    } else {
+        var userLocation = "https://api.yelp.com/v3/businesses/search/hot_and_new"
+    }
 
 
     $.ajax({
@@ -54,7 +84,7 @@ $("button").on("click", function () {
 
             var businesses = businesses
 
-            $("#cal-results").text(businesses)
+            $("#yelp-results").text(businesses)
 
         })
 
@@ -62,7 +92,7 @@ $("button").on("click", function () {
 })
 
 // function to display bart status
-$(document).ready(function () {
+$(document).ready(function (sendRequest) {
     $.ajax({
         url: "http://api.bart.gov/api/bsa.aspx?cmd=bsa&json=y",
         method: "GET"
@@ -73,9 +103,12 @@ $(document).ready(function () {
             var bartStatus = root.bsa
 
             $("#bart-status").text(bartStatus)
-        })
 
-})
+        })
+    });
+            
+
+
 
 // yelp api
 
