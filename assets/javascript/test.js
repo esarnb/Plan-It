@@ -37,7 +37,7 @@ $('#notes-tab').on('click', function () {
 
 // // On click, the transportation tab will show
 $('#transport-tab').on('click', function () {
-
+    $('#widget-display-top').empty()
     // The title will be Transportation and added to the id widget title
 
     $('#widget-title').text('Transportation');
@@ -89,7 +89,7 @@ $('#transport-tab').on('click', function () {
 // WEATHER TAB //
 
 $('#weather-tab').on('click', function () {
-
+    $('#widget-display-top').empty()
     $('#widget-title').text('Weather');
     $('#widget-input').empty()
     var weatherInput = $('<label for="location-input">Please Enter a Location</label>')
@@ -100,11 +100,13 @@ $('#weather-tab').on('click', function () {
     var weatherButton = ('<button type = "button" class="btn btn-primary" id = "location-submit">Submit</button>')
     $('#widget-button').append(weatherButton)
 
-    $('#widget-display').empty()
+
 
     $('#location-submit').on('click', function (event) {
 
         event.preventDefault();
+        $('#widget-display').empty()
+        $('#widget-display-top').empty()
 
         var locationInput = $('#location-input').val().trim()
         console.log(locationInput)
@@ -146,13 +148,13 @@ $('#weather-tab').on('click', function () {
     })
 })
 
-$('#events-tab').on('click', function () {
-    $('#widget-title').text('Events');
-})
+// $('#events-tab').on('click', function () {
+//     $('#widget-title').text('Events');
+// })
 
 $('#food-tab').on('click', function () {
     // The title will be Food and added to the id widget title
-
+    $('#widget-display-top').empty()
     $('#widget-title').text('Food');
 
     //ELEMENTS
@@ -169,6 +171,7 @@ $('#food-tab').on('click', function () {
     $('#widget-display').empty()
 
     $('#food-submit').on('click', function (event) {
+        $('#widget-display').empty()
 
         event.preventDefault();
 
