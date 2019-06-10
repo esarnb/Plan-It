@@ -6,7 +6,6 @@ var userLatitude;
 
 $(document).ready(function () {
     stationNameButton();
-    getLocal();
 })
 
 // ajax call for calendarific api data on click
@@ -47,6 +46,7 @@ $(document).ready(function () {
 //         })
 
 // })
+
 
 function stationNameButton() {
 
@@ -107,31 +107,7 @@ function stationNameButton() {
 
 
 
-$("#submit-transport").on("click", function () {
-    // if user provides location
-    if (!userLongitude === null) {
-        var userLocation = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + userLatitude + "&longitude=" + userLongitude;
-        // if uses does not provide location show hot and new restaurants
-    } else {
-        var userLocation = "https://api.yelp.com/v3/businesses/search/hot_and_new"
-    }
 
-
-    $.ajax({
-        url: userLocation,
-        method: "GET"
-    })
-        .then(function (businesses) {
-            console.log(businesses)
-
-            var businesses = businesses
-
-            $("#yelp-results").text(businesses)
-
-        })
-
-
-})
 
 // function to display bart status
 $(document).ready(function (sendRequest) {
@@ -168,22 +144,42 @@ function getLocal() {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/* Above, Matt only works. Below, Esar only works.    Stubbing. */
 /* Front End JS*/
 
 // Hide initial tables
+
+$('#notes-tab').on('click',function() {
+    $('#widget-title').text('Notes');
+    $('#widget-input').empty();
+    $('#widget-button').empty();
+    $('#widget-display').empty();
+    
+    var textArea = $('<div class="form-group">')
+    textArea.append($('<label for="comment">Comment:</label>'))
+    textArea.append($('<textarea class="form-control" rows="1" id = "comment"></textarea>'))
+    $('#widget-input').append(textArea)
+    var textArray = [];
+    var textButton = $('<button type = "button" class="btn btn-primary" id = "submit-text">Submit</button>')
+    $('#widget-button').append(textButton)
+
+    // $('#submit-text').on('click',function(event) {
+    //     event.preventDefault();
+
+    //     $('#widget-display-top').empty()
+    //     var textInput = $('#comment').val()
+        
+    //     textArray.push(textInput)
+    //     console.log(textArray)
+
+    //     for (var i = 0; i < textArray.length;i++) {
+    //         var p = $('<p>')
+    //         p.append(textArray[i])
+    //         $('#widget-display-top').append(p)
+    //     }
+        
+    // })
+})
+
 
 // TRANSPORTATION TAB //
 
@@ -307,6 +303,13 @@ $('#food-tab').on('click',function() {
 
         var foodInput = $('#food-input').val().trim()
         console.log(foodInput)
+        if (!longitude === null) {
+        var queryURL = 
+        } else {
+
+        
+
+        
         // This is our API key. Add your own API key between the ""
         var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
 
@@ -315,6 +318,7 @@ $('#food-tab').on('click',function() {
         console.log(queryURL)
         var heroku = 'https://cors-anywhere.herokuapp.com/'
         // We then created an AJAX call
+        }
         $.ajax({
         url: heroku+queryURL,
         headers: {
@@ -343,6 +347,42 @@ $('#food-tab').on('click',function() {
 
     })
 })
+$("#food-tab").on("click", function () {
+    // The title will be Food and added to the id widget title
+ 
+    $("#widget-title").text("Food");
+ 
+    //ELEMENTS
+    $("#widget-input").empty()
+    var foodInput = $("<label for=“food-input”>Please Enter a Location (for food)</label>")
+    foodInput.append($("<input type=“text” id=“food-input” placeholder=“city, country>"))
+    $("#widget-input").append(foodInput)
+ 
+    $("#widget-button").empty();
+    var foodButton = $("<div class=“col-auto my-1>")
+    foodButton.append("<button type = “button” class=“btn btn-primary” id = “food-submit”>Submit</button>")
+    $("#widget-button").append(foodButton)
+ 
+    $("#widget-display").empty()
+ 
+ $("#widget-display").append(businessDiv)
+                $("#widget-display").append(businessImageDiv)
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+/* Above, Matt only works. Below, Esar only works.    Stubbing. */
+
 
 
 /*
