@@ -1,6 +1,11 @@
-//Global Functions
+// //Global Functions
 
-//Functions
+// //Functions
+
+$(document).ready(function() {
+stationNameButton();
+})
+
 // ajax call for calendarific api data on click
 $("button").on("click", function () {
 
@@ -46,23 +51,25 @@ function stationNameButton() {
             url: "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y",
             method: "GET"
         })
-            .then(function (root) {
-                
-                var stationName;
-    
-                for (var i = 0; i < stationName.length; i++) {
+            .then(function (response) {
+                console.log(response)
+                var stationName = response.root.stations.station;
+                console.log(stationName)
+                for (var i = 0; i < stationName.length; i++){
 
-                    stationName = root.stations.station[i];
-
+                    var statName = response.root.stations.station[i].name;
+                    console.log(i)
                     var newOption = $("<option>")
                     newOption.addClass("station-button")
-                    newOption.attr("name-value", stationName)
-                    newOption.text(stationName)
-                    $("#exampleFormControlSelect1").append(newOption)
+                    newOption.attr("name-value", statName)
+                    newOption.text(statName)
+                    $("#select-form").append(newOption)
     
                 }
             })
     }
+
+
 
 
 $("button").on("click", function () {
