@@ -1,17 +1,26 @@
 // Hide initial table
 $('#weather-widget').hide()
-$('#transportation-widget').hide()
+$('#transport-widget').hide()
 
 // // On click, the transportation tab will show
-// $('#transport-tab').on('click',function() {
-//     $('#transport-select').show()
+$('#transport-tab').on('click',function() {
+    $('#transport-widget').show()
+    $('#display-page').empty()
+    $('#display-page').hide()
 
-//     // The title will be Transportation and added to the id widget title
-//     var title = $('<h1>')
-//     title.text('Transportation')
-//     $('#widget-title').html(title);
+    // The title will be Transportation and added to the id widget title
+    var title = $('<h1>')
+    title.text('Transportation')
+    $('.card-title').html(title);
 
-// })
+    $('#station-submit').on('click', function(event) {
+        $('display-page').show()
+        event.preventDefault()
+
+        var stationInput = $('#station-submit').val().trim()
+        console.log(stationInput)
+    })
+})
 
 // $('#submit-transport').on('click', function() {
 //     $('#transport-table').show()
@@ -21,8 +30,6 @@ $('#transportation-widget').hide()
 //     $('table').append(row)
 // });
     
-    
-        
     // for (i=0;i<train.length;i++) {
     //     var contentData = $('<th>'+train[i]+'</th><th>'+status[i]+'</th>')
     //     contentRowData.append(contentData)
@@ -41,6 +48,11 @@ $('#weather-tab').on('click',function() {
     $('#weather-widget').show();
     $('#display-page').empty();
     $('#display-page').hide()
+        
+    var title = $('<h1>');
+    title.text('Weather');
+    $('.card-title').html(title);
+
     $('#location-submit').on('click',function(event) {
         $('#display-page').show()
         event.preventDefault();
@@ -79,11 +91,6 @@ $('#weather-tab').on('click',function() {
         });
 
     })
-        
-    var title = $('<h1>');
-    title.text('Weather');
-    $('#widget-title').html(title);
-
 })
 $('#events-tab').on('click',function() {
     var title = $('<h1>')
@@ -92,6 +99,6 @@ $('#events-tab').on('click',function() {
 })
 $('#food-tab').on('click',function() {
     var title = $('<h1>')
-    title.text('Transportation')
+    title.text('Food')
     $('#widget-title').html(title);
 })
