@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,6 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    
 <!-- navbar starts -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,48 +49,48 @@
             <form class="form-inline my-2 my-lg-0" id="form-left">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModal">
-                    Login
+                    Sign In
+                </button>
+                <button type="button" class="btn btn-primary mr-2" id= 'sign-out'>
+                    Sign Out
                 </button>
             </form>
         </div>
     </nav>
 
-    <main></main>
-
-    <!-- <div class="jumbotron jumbotron-fluid bg-gray">
+    <!-- Widget for everything -->
+    <div class="jumbotron jumbotron-fluid bg-gray">
         <div class="container text-center">
             <div class="card">
-                <div class="card-body" id = 'widget'>
+                <div class="card-body">
+                
+                    <!-- Title of the widget -->
                     <h5 class="card-title" id = 'widget-title'></h5>
+
                     <h6 class="card-subtitle mb-2 text-muted">
                         <p class="lead">Sunday, June 9th, 2019</p>
                     </h6>
-                    <div class="form-group" id="transport-select">
-                        <label for="transport-select">Please Select a Station</label>
-                        <select class="form-control">
-                          <option>1</option>
-                          <option>2</option>    
-                        </select>
-                        <button class ='btn btn-primary' id = 'submit-transport'>Submit</button>
+    
+                    <!-- Input for the Widget -->
+                    <div id = 'widget-input'></div>
+    
+                    <div class="col-auto my-1">
+
+                        <!-- The widget button -->
+                        <div id = 'widget-button'>
+        
+                        </div>
                     </div>
 
-                    <table class = 'table table-sm table-hover' id = 'transport-table'>
-                        <thead>
-                            <tr>
-                                <th scope = 'col'>Train</th>
-                                <th scope = 'col'>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table> 
+                    <!-- The widget display -->
+                    <div id = 'widget-display'></div>
 
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
-    <div class="jumbotron jumbotron-fluid bg-gray" id = 'transport-widget'>
+    <!-- <div class="jumbotron jumbotron-fluid bg-gray" id = 'transport-widget'>
         <div class="container text-center">
             <div class="card">
                 <div class="card-body">
@@ -97,7 +99,7 @@
                         <p class="lead">Sunday, June 9th, 2019</p>
                     </h6>
                     
-                    <!-- DropDown Menu -->
+                    
                     <div class="form-group" id = 'transport-select'>
                         <label for="select-form">Please Select a Station</label>
                         <select class="form-control" id="select-form">
@@ -105,7 +107,7 @@
                             <option value="Station-2">Station Two</option>
                         </select>
                     </div>
-                    <!-- <input type="text" id="transport-input" placeholder="ci"> -->
+                    
                     <div class="col-auto my-1">
                         <button type = 'button' class="btn btn-primary" id = 'submit-transport'>Submit</button>
                     </div>
@@ -115,9 +117,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="jumbotron jumbotron-fluid bg-gray" id = 'weather-widget'>
+    <!-- <div class="jumbotron jumbotron-fluid bg-gray" id = 'weather-widget'>
         <div class="container text-center">
             <div class="card">
                 <div class="card-body">
@@ -126,7 +128,7 @@
                         <p class="lead">Sunday, June 9th, 2019</p>
                     </h6>
 
-                    <!-- Text Input -->
+                   
                     <label for="location-input">Please Enter a Location</label>
                     <input type="text" id="location-input" placeholder="city, country">
                     <div class="col-auto my-1">
@@ -138,33 +140,37 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="jumbotron jumbotron-fluid bg-gray" id = 'food-widget'>
+    </div> -->
+
+    <!-- <div class="jumbotron jumbotron-fluid bg-gray" id = 'food-widget'>
         <div class="container text-center">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <h6 class="card-subtitle mb-2 text-muted">
                         <p class="lead">Sunday, June 9th, 2019</p>
-                    </h6>
+                    </h6> -->
                     
                     <!-- DropDown Menu -->
-                    <label for="food-input">Please Enter a Location (for food)</label>
+
+                    <!-- <label for="food-input">Please Enter a Location (for food)</label>
                     <input type="text" id="food-input" placeholder="city, country">
                     <div class="col-auto my-1">
                         <button type = 'button' class="btn btn-primary" id = 'food-submit'>Submit</button>
-                    </div>
+                    </div> -->
                     <!-- <input type="text" id="transport-input" placeholder="ci"> -->
-                    
+<!--                     
                     <div id = 'foodDisplay'></div>
                     
-                
-                </div>
+                 -->
+                <!-- </div>
             </div>
         </div>
-    </div>
+    </div> -->
+
     <!--This will be used to display a welcome -->
-    <div class="jumbotron jumbotron-fluid bg-gray" id = 'display-page'>
+
+    <!-- <div class="jumbotron jumbotron-fluid bg-gray" id = 'display-page'>
         <div class="container text-center">
             <div class="card">
                 <div class="card-body">
@@ -172,7 +178,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 

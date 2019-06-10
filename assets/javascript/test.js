@@ -1,24 +1,27 @@
 // Hide initial tables
 
-$('#weather-widget').hide()
-$('#transport-widget').hide()
-$('#food-widget').hide()
-
 // TRANSPORTATION TAB //
 
 // // On click, the transportation tab will show
 $('#transport-tab').on('click',function() {
-    $('#transport-widget').show()
-    $('#display-page').empty()
-    $('#display-page').hide()
-
+   
     // The title will be Transportation and added to the id widget title
-    var title = $('<h1>')
-    title.text('Transportation')
-    $('.card-title').html(title);
+
+    $('#widget-title').text('Transportation');
+
+    //ELEMENTS 
+    var form = $('<div class="form-group">')
+    form.append($('<label for="select-form>Please Select a Station</label>'))
+
+    // ID for the Station Input
+
+    var select = ($('<select class ="form-control" id = "select-form">'))
+    select.append($('<option value="Station-1">Station One</option>'))
+    select.append($('<option value="Station-2">Station Two</option>'))
+    form.append(select)
+    $('#widget-input').append(form)
 
     $('#transport-submit').on('click', function(event) {
-        $('display-page').show()
         event.preventDefault()
 
         var stationInput = $('option').val()
@@ -48,13 +51,10 @@ $('#transport-tab').on('click',function() {
 // WEATHER TAB //
 
 $('#weather-tab').on('click',function() {
-    $('#weather-widget').show();
-    $('#display-page').empty();
-    $('#display-page').hide()
-        
-    var title = $('<h1>');
-    title.text('Weather');
-    $('.card-title').html(title);
+   
+    $('#widget-title').text('Weather');
+    $("")
+    $("#widget-input").append()
 
     $('#location-submit').on('click',function(event) {
      
@@ -96,9 +96,6 @@ $('#events-tab').on('click',function() {
 })
 
 $('#food-tab').on('click',function() {
-    $('#food-widget').show()
-    $('#display-page').empty();
-    $('#display-page').hide()
     
     var title = $('<h1>')
     title.text('Food')
@@ -141,20 +138,6 @@ $('#food-tab').on('click',function() {
             $('#foodDisplay').append(businessDiv)
             $('#foodDisplay').append(businessImageDiv)
         }
-
-
-
-
-        // if () {
-        //     $('#weatherDisplay').append('That is not a valid location')
-            
-        // }
-       
-        // Create CODE HERE to log the resulting object
-        // Create CODE HERE to transfer content to HTML
-        // Create CODE HERE to calculate the temperature (converted from Kelvin)
-        // Hint: To convert from Kelvin to Fahrenheit: F = (K - 273.15) * 1.80 + 32
-        // Create CODE HERE to dump the temperature content into HTML
 
         });
 
