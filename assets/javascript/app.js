@@ -105,6 +105,8 @@ function stationNameButton() {
 
 
 
+
+
 $("button").on("click", function () {
     // if user provides location
     if (!longitude === null) {
