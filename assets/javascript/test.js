@@ -67,25 +67,6 @@ $('#transport-tab').on('click', function () {
     })
 })
 
-// $('#submit-transport').on('click', function() {
-//     $('#transport-table').show()
-//     var row = $('<tr>');
-//     row.append($('<td>').text('Train T'))
-//     row.append($('<td>').text('On Time'))
-//     $('table').append(row)
-// });
-
-// for (i=0;i<train.length;i++) {
-//     var contentData = $('<th>'+train[i]+'</th><th>'+status[i]+'</th>')
-//     contentRowData.append(contentData)
-// }
-// $('#transport-table').show()
-
-// Appending items to table
-
-// $('table').append(contentRowHeader)
-// $('table').append(contentRowData)
-
 // WEATHER TAB //
 
 $('#weather-tab').on('click', function () {
@@ -100,8 +81,6 @@ $('#weather-tab').on('click', function () {
     var weatherButton = ('<button type = "button" class="btn btn-primary" id = "location-submit">Submit</button>')
     $('#widget-button').append(weatherButton)
 
-
-
     $('#location-submit').on('click', function (event) {
 
         event.preventDefault();
@@ -115,7 +94,7 @@ $('#weather-tab').on('click', function () {
 
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput + "&appid=" + APIKey;
-        var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + locationInput + "&mode=xml&appid=" + APIKey;
+        var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + locationInput + "&appid=" + APIKey;
 
         // We then created an AJAX call
         $.ajax({
@@ -133,7 +112,7 @@ $('#weather-tab').on('click', function () {
 
             $('#widget-display').append(locationTag)
             var tempTag = $('<p>')
-            tempTag.append('Temperature: ' + fah)
+            tempTag.append('Current Temperature: ' + fah.toFixed(1) + '℉')
             $('#widget-display').append(tempTag)
         });
 
@@ -142,7 +121,24 @@ $('#weather-tab').on('click', function () {
             method: "GET"
         }).then(function (response) {
             console.log(response)
+            var forecastDiv = $('<div>')
+            var tempList = [response.list[4].main.temp, response.list[12].main.temp, response.list[20].main.temp, response.list[28].main.temp, response.list[36].main.temp]
+            var fahList = []
+            for (var i = 0; i < tempList.length; i++) {
+                var fah = (tempList[i] - 273.15) * 1.80 + 32
+                fah = fah.toFixed(1)
+                fahList.push(fah)
+            }
 
+            console.log(fahList)
+
+            forecastDiv.append($('<p>' + response.list[4].dt_txt.substring(0, 11) + ": " + fahList[0] + '℉</p>'))
+            forecastDiv.append($('<p>' + response.list[12].dt_txt.substring(0, 11) + ": " + fahList[1] + '℉</p>'))
+            forecastDiv.append($('<p>' + response.list[20].dt_txt.substring(0, 11) + ": " + fahList[2] + '℉</p>'))
+            forecastDiv.append($('<p>' + response.list[28].dt_txt.substring(0, 11) + ": " + fahList[3] + '℉</p>'))
+            forecastDiv.append($('<p>' + response.list[36].dt_txt.substring(0, 11) + ": " + fahList[4] + '℉</p>'))
+
+            $('#widget-display').append(forecastDiv)
         });
 
     })
