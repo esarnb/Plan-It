@@ -1,81 +1,138 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/test.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <title>PlanIt</title>
+       
 </head>
 
 <body>
-    <!-- <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">Planit!</h1>
-            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+<!-- navbar starts -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#calenderId">Calendar <span class="sr-only">(current)</span></a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id = 'todo-tab'>To Do List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id = 'transport-tab'>Transportation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id = 'weather-tab'>Weather</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id ='events-tab'>Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id = 'food-tab'>Food</a>
+                </li>
+            </ul>
+            <!-- Sign in modal -->
+            <form class="form-inline my-2 my-lg-0" id="form-left">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModal">
+                    Login
+                </button>
+            </form>
         </div>
-    </div>
-    <form>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-    </form> -->
-
-
-    <!-- Stubb Bottom is esar  -->
-
-    <style>
-        #app {
-            width: 50%;
-            margin: 100px auto;
-        }
-
-        .hide {
-            display: none;
-        }
-    </style>
-
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" id="authPrompt">Planner App</a>
-        <form class="form-inline">
-            <input  id="txtEmail" class="form-control mr-sm-2" type="text" placeholder="Email" aria-label="User Email">
-            <input  id="txtPassword" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="User Password">
-            <button id="btnLogin" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-            <button id="btnSignUp" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Up</button>
-            <button id="btnLogOut" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
-        </form>
     </nav>
 
-    <p id="notesPrompt"></p>
-    <form id="addNoteForm" class="form-inline">
-        <input  id="addNote" class="form-control mr-sm-2" type="text" placeholder="Add a new note" aria-label="New Note">
-    </form>
-    
-    <!-- <div id="app">
-        <input type="email" id="txtEmail" placeholder="Enter Email" /> <br />
-        <input type="password" id="txtPassword" placeholder="Enter Password" /><br />
-        <input type="text" id="txtUsername" placeholder="Enter a username" /><br/> 
-        <button id="btnLogin">Log in</button>
-        <button id="btnSignUp">Sign Up</button>
-        <button id="btnLogOut" class="hide">Log Out</button>
-        <p id="displayPrompt"></p>
-        <button id="withFB">Log In with FaceBook</button>
-        <button id="withGithub">Log In with GitHub</button>
-    </div> -->
+    <!-- main section -->
+    <div class="jumbotron jumbotron-fluid bg-gray">
+        <!-- <div class="container text-center">
+            <h1 class="display-5">Welcome</h1>
+            <p class="lead">Sunday, June 9th, 2019</p>
+        </div> -->
+        <div class="container text-center">
+            <div class="card" id="widget">
+                <div class="card-body">
+                    <h5 class="card-title" id = 'widget-title'></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <p class="lead">Sunday, June 9th, 2019</p>
+                    </h6>
+                    <div class="form-group" id = 'transport-select'>
+                        <label for="select-form">Select a station</label>
+                        <select class="form-control" id="select-form">
+                          <option>Station 1</option>
+                          <option>Station 2</option>
+                          <option>Station 3</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary mb-2" id = 'submit-transport'>Submit</button>
+                    </div>
+                    <table id = 'transport-table'></table>
+                    
 
-    <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal 1 Sign In-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="bg-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email
+                                with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                placeholder="Password">
+                        </div>
+                        <div class="form-group form-check pl-0">
+                            <label for="exampleErrorMessage" class="errorMsg">Error Message</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="assets/javascript/test.js"></script>
 </body>
 
 </html>

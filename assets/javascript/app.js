@@ -2,57 +2,84 @@
 
 //Functions
 // ajax call for calendarific api data on click
-$("button").on("click", function() {
+$("button").on("click", function () {
 
-$.ajax({
-    url: "https://calendarific.com/api/v2/holidays?&api_key=5aacde472af07a267319cf6071d535aa05e2a4d6",
-    method: "GET"
-  })
-  .then(function(response) {
-    console.log(response)
+    $.ajax({
+        url: "https://calendarific.com/api/v2/holidays?&api_key=5aacde472af07a267319cf6071d535aa05e2a4d6",
+        method: "GET"
+    })
+        .then(function (response) {
+            console.log(response)
 
-    var calResults = response.holidays
+            var calResults = response.holidays
 
-    $("#cal-results").text(calResults)
+            $("#cal-results").text(calResults)
 
-  })
+        })
 
 })
 // ajax call for bart api on click for user input current station
-$("button").on("click", function() {
-// user input destination variable, not sure if we are gonna use this or a dropdown with all the stations already listed
-var bartDest = $(this).attr("data-bart");
+$("button").on("click", function () {
+    // user input destination variable, not sure if we are gonna use this or a dropdown with all the stations already listed
+    var bartDest = $(this).attr("data-bart");
 
-bartQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + bartDest + "&json=y";
+    bartQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + bartDest + "&json=y";
 
-$.ajax({
-    url: bartQuery,
-    method: "GET"
-  })
-  .then(function(root) {
-    console.log(root)
+    $.ajax({
+        url: bartQuery,
+        method: "GET"
+    })
+        .then(function (root) {
+            console.log(root)
 
-    var bartResults = root
+            var bartResults = root
 
-    $("#bart-results").text(bartResults)
+            $("#bart-results").text(bartResults)
 
-  })
+        })
 
 })
+
+$("button").on("click", function () {
+
+    var userLocation = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + latitude + "&longitude=" + longitude;
+
+
+    $.ajax({
+        url: userLocation,
+        method: "GET"
+    })
+        .then(function (businesses) {
+            console.log(businesses)
+
+            var businesses = businesses
+
+            $("#cal-results").text(businesses)
+
+        })
+
+
+})
+
 // function to display bart status
-$(document).ready(function() {
+$(document).ready(function () {
     $.ajax({
         url: "http://api.bart.gov/api/bsa.aspx?cmd=bsa&json=y",
         method: "GET"
-      })
-      .then(function(root) {
-      
-        var bartStatus = root.bsa
-
-        $("#bart-status").text(bartStatus)
     })
+        .then(function (root) {
+            console.log(root)
+
+            var bartStatus = root.bsa
+
+            $("#bart-status").text(bartStatus)
+        })
 
 })
+
+// yelp api
+
+
 
 
 
@@ -160,7 +187,7 @@ auth.onAuthStateChanged(user => {
         database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
             .then(function (snapshot) {
                 console.log(snapshot.val());
-                
+
                 userData = Object.values(snapshot.val())[0];
                 //Convert the object to a list of numbered notes and display it to the screen
                 var userNotes = userData.notes.map((perNote, index) => ((index + 1) + ". " + perNote)).join("<br>");
@@ -178,7 +205,7 @@ auth.onAuthStateChanged(user => {
         console.log("User has now logged out.");
         authPrompt.text("Please Log in!")
     }
-}) 
+})
 // ------------------------End Of Authentication----------------------//
 
 /**
@@ -203,7 +230,7 @@ function updateUserNotes(type, note) {
             console.log(userData.notes);
             addNote.val("");
             console.log(auth.currentUser.uid);
-            
+
             database.ref("/users").child(auth.currentUser.uid).update({
                 notes: userData.notes
             });
@@ -216,9 +243,9 @@ addNoteForm.submit(function (event) {
     updateUserNotes("add", addNote.val().trim());
 });
 
-$(".btn").on("click", function(event) {
+$(".btn").on("click", function (event) {
     event.preventDefault();
-}) 
+})
 
 //-------------------------End of User Notes ----------------------------//
 
