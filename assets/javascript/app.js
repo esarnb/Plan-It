@@ -148,37 +148,6 @@ function getLocal() {
 
 // Hide initial tables
 
-$('#notes-tab').on('click',function() {
-    $('#widget-title').text('Notes');
-    $('#widget-input').empty();
-    $('#widget-button').empty();
-    $('#widget-display').empty();
-    
-    var textArea = $('<div class="form-group">')
-    textArea.append($('<label for="comment">Comment:</label>'))
-    textArea.append($('<textarea class="form-control" rows="1" id = "comment"></textarea>'))
-    $('#widget-input').append(textArea)
-    var textArray = [];
-    var textButton = $('<button type = "button" class="btn btn-primary" id = "submit-text">Submit</button>')
-    $('#widget-button').append(textButton)
-
-    // $('#submit-text').on('click',function(event) {
-    //     event.preventDefault();
-
-    //     $('#widget-display-top').empty()
-    //     var textInput = $('#comment').val()
-        
-    //     textArray.push(textInput)
-    //     console.log(textArray)
-
-    //     for (var i = 0; i < textArray.length;i++) {
-    //         var p = $('<p>')
-    //         p.append(textArray[i])
-    //         $('#widget-display-top').append(p)
-    //     }
-        
-    // })
-})
 
 
 // TRANSPORTATION TAB //
@@ -304,7 +273,7 @@ $('#food-tab').on('click',function() {
         var foodInput = $('#food-input').val().trim()
         console.log(foodInput)
         if (!longitude === null) {
-        var queryURL = 
+        var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + 37.786882 + "&longitude=" + -122.399972"
         } else {
 
         
@@ -539,6 +508,37 @@ $(".btn").on("click", function (event) {
     event.preventDefault();
 })
 
+$('#notes-tab').on('click',function() {
+    $('#widget-title').text('Notes');
+    $('#widget-input').empty();
+    $('#widget-button').empty();
+    $('#widget-display').empty();
+    
+    var textArea = $('<div class="form-group">')
+    textArea.append($('<label for="comment">Comment:</label>'))
+    textArea.append($('<textarea class="form-control" rows="1" id = "comment"></textarea>'))
+    $('#widget-input').append(textArea)
+    var textArray = [];
+    var textButton = $('<button type = "button" class="btn btn-primary" id = "submit-text">Submit</button>')
+    $('#widget-button').append(textButton)
+
+    $('#submit-text').on('click',function(event) {
+        event.preventDefault();
+
+        $('#widget-display-top').empty()
+        var textInput = $('#comment').val()
+        
+        textArray.push(textInput)
+        console.log(textArray)
+
+        for (var i = 0; i < textArray.length;i++) {
+            var p = $('<p>')
+            p.append(textArray[i])
+            $('#widget-display-top').append(p)
+        }
+        
+    })
+})
 //-------------------------End of User Notes ----------------------------//
 
 //End of file
