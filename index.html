@@ -1,23 +1,45 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link rel="stylesheet" href="assets/css/test.css">
-
-    <title>PlanIt</title>
-       
-</head>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/css/test.css">
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/favicons/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/favicons/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/favicons/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/favicons/apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/favicons/apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/favicons/apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/favicons/apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/favicons/apple-touch-icon-152x152.png" />
+        <link rel="icon" type="image/png" href="assets/favicons/favicon-196x196.png" sizes="196x196" />
+        <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/png" href="assets/favicons/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="assets/favicons/favicon-16x16.png" sizes="16x16" />
+        <link rel="icon" type="image/png" href="assets/favicons/favicon-128.png" sizes="128x128" />
+        <meta name="application-name" content="&nbsp;"/>
+        <meta name="msapplication-TileColor" content="#FFFFFF" />
+        <meta name="msapplication-TileImage" content="assets/favicons/mstile-144x144.png" />
+        <meta name="msapplication-square70x70logo" content="assets/favicons/mstile-70x70.png" />
+        <meta name="msapplication-square150x150logo" content="assets/favicons/mstile-150x150.png" />
+        <meta name="msapplication-wide310x150logo" content="assets/favicons/mstile-310x150.png" />
+        <meta name="msapplication-square310x310logo" content="assets/favicons/mstile-310x310.png" />
+    
+        <title>PlanIt</title>
+           
+    </head>
 
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   
 <!-- navbar starts -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,11 +47,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#calenderId">Calendar <span class="sr-only">(current)</span></a>
-                </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" id = 'todo-tab'>To Do List</a>
+                    <a class="nav-link" href="#" id = 'notes-tab'>Notes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" id = 'transport-tab'>Transportation</a>
@@ -47,41 +66,136 @@
             <!-- Sign in modal -->
             <form class="form-inline my-2 my-lg-0" id="form-left">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModal">
-                    Login
+                <button type="button" class="btn btn-primary mr-2" id= 'sign-out'>
+                    Sign Out
                 </button>
             </form>
         </div>
     </nav>
 
-    <!-- main section -->
+    <!-- Widget for everything -->
     <div class="jumbotron jumbotron-fluid bg-gray">
-        <!-- <div class="container text-center">
-            <h1 class="display-5">Welcome</h1>
-            <p class="lead">Sunday, June 9th, 2019</p>
-        </div> -->
         <div class="container text-center">
-            <div class="card" id="widget">
+            <div class="card">
                 <div class="card-body">
+                
+                    <!-- Title of the widget -->
                     <h5 class="card-title" id = 'widget-title'></h5>
+
                     <h6 class="card-subtitle mb-2 text-muted">
                         <p class="lead">Sunday, June 9th, 2019</p>
                     </h6>
-                    <div class="form-group" id = 'transport-select'>
-                        <label for="select-form">Select a station</label>
-                        <select class="form-control" id="select-form">
-                        </select>
-                        <button type="submit" class="btn btn-primary mb-2" id = 'submit-transport'>Submit</button>
+    
+                    <!-- Input for the Widget -->
+                    <div id = 'widget-input'></div>
+    
+                    <div class="col-auto my-1">
+
+                        <!-- The widget button -->
+                        <div id = 'widget-button'>
+        
+                        </div>
                     </div>
-                    <table id = 'transport-table'></table>
-                    <p id="show-local"></p>
-                    <p id="yelp-results"></p>
-                    
+
+                    <!-- The widget display -->
+                    <div id = 'widget-display'></div>
 
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- <div class="jumbotron jumbotron-fluid bg-gray" id = 'transport-widget'>
+        <div class="container text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <p class="lead">Sunday, June 9th, 2019</p>
+                    </h6>
+                    
+                    
+                    <div class="form-group" id = 'transport-select'>
+                        <label for="select-form">Please Select a Station</label>
+                        <select class="form-control" id="select-form">
+                        </select>
+                    </div>
+                    <table id = 'transport-table'></table>
+                    <p id="show-local"></p>
+                    <p id="yelp-results"></p>
+                    
+                    <div class="col-auto my-1">
+                        <button type = 'button' class="btn btn-primary" id = 'submit-transport'>Submit</button>
+                    </div>
+                    <div id = 'transportDisplay'></div>
+                    
+                
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="jumbotron jumbotron-fluid bg-gray" id = 'weather-widget'>
+        <div class="container text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <p class="lead">Sunday, June 9th, 2019</p>
+                    </h6>
+
+                   
+                    <label for="location-input">Please Enter a Location</label>
+                    <input type="text" id="location-input" placeholder="city, country">
+                    <div class="col-auto my-1">
+                        <button type = 'button' class="btn btn-primary" id = 'location-submit'>Submit</button>
+                    </div>
+                    <div id = 'weatherDisplay'></div>
+                   
+                
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="jumbotron jumbotron-fluid bg-gray" id = 'food-widget'>
+        <div class="container text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <p class="lead">Sunday, June 9th, 2019</p>
+                    </h6> -->
+                    
+                    <!-- DropDown Menu -->
+
+                    <!-- <label for="food-input">Please Enter a Location (for food)</label>
+                    <input type="text" id="food-input" placeholder="city, country">
+                    <div class="col-auto my-1">
+                        <button type = 'button' class="btn btn-primary" id = 'food-submit'>Submit</button>
+                    </div> -->
+                    <!-- <input type="text" id="transport-input" placeholder="ci"> -->
+<!--                     
+                    <div id = 'foodDisplay'></div>
+                    
+                 -->
+                <!-- </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!--This will be used to display a welcome -->
+
+    <!-- <div class="jumbotron jumbotron-fluid bg-gray" id = 'display-page'>
+        <div class="container text-center">
+            <div class="card">
+                <div class="card-body">
+                    <p>Welcome! Please Select a Tab to Start</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
 
 
     <!-- Modal 1 Sign In-->
@@ -110,10 +224,10 @@
                                 placeholder="Password">
                         </div>
                         <div class="form-group form-check pl-0">
-                            <label for="exampleErrorMessage" class="errorMsg">Error Message</label>
+                            <label for="exampleErrorMessage" id="authPrompt" class="errorMsg">Error Message</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
-                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                        <button type="button" id="authLogin" class="btn btn-primary">Login</button>
+                        <button type="button" id="authSignUp" class="btn btn-primary">Sign Up</button>
                     </form>
                 </div>
             </div>
@@ -122,7 +236,6 @@
    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
     <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
@@ -136,3 +249,4 @@
 </body>
 
 </html>
+
