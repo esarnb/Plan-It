@@ -1,44 +1,79 @@
 // Hide initial table
-$('#transport-select').hide()
-$('#transport-table').hide()
+$('#widget').hide()
+// $('#transport-select').hide()
+// $('#submit-transport').hide()
+// $('')
 
-// On click, the transportation tab will show
-$('#transport-tab').on('click',function() {
-    $('#transport-select').show()
+// // On click, the transportation tab will show
+// $('#transport-tab').on('click',function() {
+//     $('#transport-select').show()
 
-    // The title will be Transportation and added to the id widget title
-    var title = $('<h1>')
-    title.text('Transportation')
-    $('#widget-title').html(title);
+//     // The title will be Transportation and added to the id widget title
+//     var title = $('<h1>')
+//     title.text('Transportation')
+//     $('#widget-title').html(title);
 
-})
+// })
 
-$('#submit-transport').on('click', function() {
-    $('#transport-table').show()
-    // Adding Row for Table Headers
-    var contentRowHeader = $('<tr>')
-    var contentHeader = $('<th>Transport</th><th>Status<th>')
-    contentRowHeader.append(contentHeader)
-
-
-    // Adding Data to table Headers
-    var contentRowData = $('<tr>')
-    var contentData = $('<td>(Place Holder for Data)</td><td>(Place Holder for Data)</td>')
-    contentRowData.append(contentData)
+// $('#submit-transport').on('click', function() {
+//     $('#transport-table').show()
+//     var row = $('<tr>');
+//     row.append($('<td>').text('Train T'))
+//     row.append($('<td>').text('On Time'))
+//     $('table').append(row)
+// });
+    
+    
+        
+    // for (i=0;i<train.length;i++) {
+    //     var contentData = $('<th>'+train[i]+'</th><th>'+status[i]+'</th>')
+    //     contentRowData.append(contentData)
+    // }
+    // $('#transport-table').show()
 
     // Appending items to table
     
-    $('table').append(contentRowHeader)
-    $('table').append(contentRowData)
-})
+    // $('table').append(contentRowHeader)
+    // $('table').append(contentRowData)
+
 
 
 
 $('#weather-tab').on('click',function() {
-    
-    var title = $('<h1>')
-    title.text('Weather')
+    $('#widget').show()
+
+    $('#location-submit').on('click',function(event) {
+        event.preventDefault();
+
+        var locationInput = $('#location-input').val().trim()
+        console.log(locationInput)
+        // This is our API key. Add your own API key between the ""
+        var APIKey = "fb510d3360292806c424e84f2751add1";
+
+        // Here we are building the URL we need to query the database
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+locationInput+"&appid=" + APIKey;
+
+        // We then created an AJAX call
+        $.ajax({
+        url: queryURL,
+        method: "GET"
+        }).then(function(response) {
+        console.log(response)
+
+        // Create CODE HERE to Log the queryURL
+        // Create CODE HERE to log the resulting object
+        // Create CODE HERE to transfer content to HTML
+        // Create CODE HERE to calculate the temperature (converted from Kelvin)
+        // Hint: To convert from Kelvin to Fahrenheit: F = (K - 273.15) * 1.80 + 32
+        // Create CODE HERE to dump the temperature content into HTML
+
+        });
+    })
+        
+    var title = $('<h1>');
+    title.text('Weather');
     $('#widget-title').html(title);
+
 })
 $('#events-tab').on('click',function() {
     var title = $('<h1>')

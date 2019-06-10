@@ -8,15 +8,7 @@
     justify-content: left;
 }
 
-#transport-select {
-    display: flex;
-    justify-content: center;
-}
 
 #select-form {
     width: 20%;
-}
-
-th {
-    margin-right: 10%;
 }

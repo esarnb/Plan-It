@@ -17,6 +17,8 @@
 </head>
 
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   
 <!-- navbar starts -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -25,9 +27,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#calenderId">Calendar <span class="sr-only">(current)</span></a>
-                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="#" id = 'todo-tab'>To Do List</a>
                 </li>
@@ -54,31 +53,54 @@
         </div>
     </nav>
 
-    <!-- main section -->
-    <div class="jumbotron jumbotron-fluid bg-gray">
-        <!-- <div class="container text-center">
-            <h1 class="display-5">Welcome</h1>
-            <p class="lead">Sunday, June 9th, 2019</p>
-        </div> -->
+    <!-- <div class="jumbotron jumbotron-fluid bg-gray">
         <div class="container text-center">
-            <div class="card" id="widget">
-                <div class="card-body">
+            <div class="card">
+                <div class="card-body" id = 'widget'>
                     <h5 class="card-title" id = 'widget-title'></h5>
                     <h6 class="card-subtitle mb-2 text-muted">
                         <p class="lead">Sunday, June 9th, 2019</p>
                     </h6>
-                    <div class="form-group" id = 'transport-select'>
-                        <label for="select-form">Select a station</label>
-                        <select class="form-control" id="select-form">
-                          <option>Station 1</option>
-                          <option>Station 2</option>
-                          <option>Station 3</option>
+                    <div class="form-group" id="transport-select">
+                        <label for="transport-select">Please Select a Station</label>
+                        <select class="form-control">
+                          <option>1</option>
+                          <option>2</option>    
                         </select>
-                        <button type="submit" class="btn btn-primary mb-2" id = 'submit-transport'>Submit</button>
+                        <button class ='btn btn-primary' id = 'submit-transport'>Submit</button>
                     </div>
-                    <table id = 'transport-table'></table>
-                    
 
+                    <table class = 'table table-sm table-hover' id = 'transport-table'>
+                        <thead>
+                            <tr>
+                                <th scope = 'col'>Train</th>
+                                <th scope = 'col'>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table> 
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="jumbotron jumbotron-fluid bg-gray">
+        <div class="container text-center">
+            <div class="card">
+                <div class="card-body" id = 'widget'>
+                    <h5 class="card-title" id = 'widget-title'></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <p class="lead">Sunday, June 9th, 2019</p>
+                    </h6>
+                    
+                    <label for="location-input">Please Enter a Location</label>
+                    <input type="text" id="location-input" placeholder="city, country">
+                    <div class="col-auto my-1">
+                        <button type = 'button' class="btn btn-primary" id = 'location-submit'>Submit</button>
+                    </div>
+                
                 </div>
             </div>
         </div>
@@ -113,8 +135,8 @@
                         <div class="form-group form-check pl-0">
                             <label for="exampleErrorMessage" class="errorMsg">Error Message</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
-                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                        <button class="btn btn-primary">Login</button>
+                        <button class="btn btn-primary">Sign Up</button>
                     </form>
                 </div>
             </div>
@@ -123,9 +145,10 @@
    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
