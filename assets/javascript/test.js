@@ -1,6 +1,10 @@
-// Hide initial table
+// Hide initial tables
+
 $('#weather-widget').hide()
 $('#transport-widget').hide()
+$('#food-widget').hide()
+
+// TRANSPORTATION TAB //
 
 // // On click, the transportation tab will show
 $('#transport-tab').on('click',function() {
@@ -13,11 +17,11 @@ $('#transport-tab').on('click',function() {
     title.text('Transportation')
     $('.card-title').html(title);
 
-    $('#station-submit').on('click', function(event) {
+    $('#transport-submit').on('click', function(event) {
         $('display-page').show()
         event.preventDefault()
 
-        var stationInput = $('#station-submit').val().trim()
+        var stationInput = $('option').val()
         console.log(stationInput)
     })
 })
@@ -41,8 +45,7 @@ $('#transport-tab').on('click',function() {
     // $('table').append(contentRowHeader)
     // $('table').append(contentRowData)
 
-
-
+// WEATHER TAB //
 
 $('#weather-tab').on('click',function() {
     $('#weather-widget').show();
@@ -54,7 +57,7 @@ $('#weather-tab').on('click',function() {
     $('.card-title').html(title);
 
     $('#location-submit').on('click',function(event) {
-        $('#display-page').show()
+     
         event.preventDefault();
 
         var locationInput = $('#location-input').val().trim()
@@ -79,8 +82,73 @@ $('#weather-tab').on('click',function() {
         locationTag.append(locationInput)
         $('#weatherDisplay').append(locationTag)
         var tempTag = $('<p>')
-        tempTag.append(fah)
+        tempTag.append('Temperature: '+fah)
         $('#weatherDisplay').append(tempTag)
+
+        });
+    })
+})
+
+$('#events-tab').on('click',function() {
+    var title = $('<h1>')
+    title.text('Events')
+    $('.card-title').html(title);
+})
+
+$('#food-tab').on('click',function() {
+    $('#food-widget').show()
+    $('#display-page').empty();
+    $('#display-page').hide()
+    
+    var title = $('<h1>')
+    title.text('Food')
+    $('.card-title').html(title);
+
+    $('#food-submit').on('click',function(event) {
+     
+        event.preventDefault();
+
+        var foodInput = $('#food-input').val().trim()
+        console.log(foodInput)
+        // This is our API key. Add your own API key between the ""
+        var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
+
+        // Here we are building the URL we need to query the database
+        var queryURL = "https://api.yelp.com/v3/businesses/search?&location="+foodInput
+        console.log(queryURL)
+        var heroku = 'https://cors-anywhere.herokuapp.com/'
+        // We then created an AJAX call
+        $.ajax({
+        url: heroku+queryURL,
+        headers: {
+            'Authorization': 'Bearer '+APIKey
+        },
+        method: "GET"
+        }).then(function(response) {
+        console.log(response)
+        
+        var business = response.businesses
+        for (var i = 0;i< business.length;i++) {
+            var businessName = response.businesses[i].name
+            var businessImage = response.businesses[i].image_url
+            
+            var businessImageDiv = $('<img src ='+ businessImage+'>')
+            
+            
+            var businessDiv = $('<h4>')
+            businessDiv.append(businessName)
+            
+            $('#foodDisplay').append(businessDiv)
+            $('#foodDisplay').append(businessImageDiv)
+        }
+
+
+
+
+        // if () {
+        //     $('#weatherDisplay').append('That is not a valid location')
+            
+        // }
        
         // Create CODE HERE to log the resulting object
         // Create CODE HERE to transfer content to HTML
@@ -92,13 +160,4 @@ $('#weather-tab').on('click',function() {
 
     })
 })
-$('#events-tab').on('click',function() {
-    var title = $('<h1>')
-    title.text('Events')
-    $('#widget-title').html(title);
-})
-$('#food-tab').on('click',function() {
-    var title = $('<h1>')
-    title.text('Food')
-    $('#widget-title').html(title);
-})
+
