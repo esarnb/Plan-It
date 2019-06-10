@@ -161,8 +161,8 @@ function getLocal() {
     }
 
     function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude;
+        // x.innerHTML = "Latitude: " + position.coords.latitude +
+        //     "<br>Longitude: " + position.coords.longitude;
             userLongitude = position.coords.longitude;
             userLatitude = position.coords.latitude
     }
