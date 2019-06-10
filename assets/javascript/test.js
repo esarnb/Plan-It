@@ -1,4 +1,3 @@
-// Hide initial tables
 
 // NOTES TAB //
 
@@ -18,6 +17,7 @@ $('#notes-tab').on('click',function() {
 
     $('#submit-text').on('click',function(event) {
         event.preventDefault();
+
         $('#widget-display-top').empty()
         var textInput = $('#comment').val()
         
@@ -113,6 +113,7 @@ $('#weather-tab').on('click',function() {
 
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+locationInput+"&appid=" + APIKey;
+        var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q="+locationInput+"&mode=xml&appid="+ APIKey;
 
         // We then created an AJAX call
         $.ajax({
@@ -132,8 +133,16 @@ $('#weather-tab').on('click',function() {
         var tempTag = $('<p>')
         tempTag.append('Temperature: '+fah)
         $('#widget-display').append(tempTag)
+        });
+
+        $.ajax({
+            url: forecastURL,
+            method: "GET"
+            }).then(function(response) {
+            console.log(response)
 
         });
+
     })
 })
 
