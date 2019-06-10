@@ -150,9 +150,23 @@ $('#events-tab').on('click',function() {
     $('#widget-title').text('Events');
 })
 
-$('#food-tab').on('click',function() {
+$('#food-tab').on('click', function () {
+    // The title will be Food and added to the id widget title
 
-    $('#widget-title').html('Food');
+    $('#widget-title').text('Food');
+
+    //ELEMENTS
+    $('#widget-input').empty()
+    var foodInput = $('<label for="food-input">Please Enter a Location (for food)</label>')
+    foodInput.append($('<input type="text" id="food-input" placeholder="city, country">'))
+    $("#widget-input").append(foodInput)
+
+    $('#widget-button').empty();
+    var foodButton = $('<div class="col-auto my-1">')
+    foodButton.append('<button type = "button" class="btn btn-primary" id = "food-submit">Submit</button>')
+    $('#widget-button').append(foodButton)
+
+    $('#widget-display').empty()
 
     $('#food-submit').on('click',function(event) {
      
@@ -188,8 +202,8 @@ $('#food-tab').on('click',function() {
             var businessDiv = $('<h4>')
             businessDiv.append(businessName)
             
-            $('#foodDisplay').append(businessDiv)
-            $('#foodDisplay').append(businessImageDiv)
+            $('#widget-display').append(businessDiv)
+            $('#widget-display').append(businessImageDiv)
         }
 
         });
