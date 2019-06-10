@@ -9,17 +9,22 @@ $('#transport-tab').on('click',function() {
 
     $('#widget-title').text('Transportation');
 
-    //ELEMENTS 
-    var form = $('<div class="form-group">')
-    form.append($('<label for="select-form>Please Select a Station</label>'))
+    //ELEMENTS
+    $('#widget-input').empty() 
+    var transportForm = $('<div class="form-group">')
+    transportForm.append($('<label for="select-form>Please Select a Station</label>'))
 
     // ID for the Station Input
 
-    var select = ($('<select class ="form-control" id = "select-form">'))
-    select.append($('<option value="Station-1">Station One</option>'))
-    select.append($('<option value="Station-2">Station Two</option>'))
-    form.append(select)
-    $('#widget-input').append(form)
+    var transportSelect = ($('<select class ="form-control" id = "select-form">'))
+    transportSelect.append($('<option value="Station-1">Station One</option>'))
+    transportSelect.append($('<option value="Station-2">Station Two</option>'))
+    transportForm.append(transportSelect)
+    $('#widget-input').append(transportForm)
+
+    $('#widget-button').empty()
+    var transportButton = $('<button type = "button" class="btn btn-primary" id = "submit-transport">Submit</button>')
+    $('#widget-button').append(transportButton)
 
     $('#transport-submit').on('click', function(event) {
         event.preventDefault()
@@ -53,8 +58,16 @@ $('#transport-tab').on('click',function() {
 $('#weather-tab').on('click',function() {
    
     $('#widget-title').text('Weather');
-    $("")
-    $("#widget-input").append()
+    $('#widget-input').empty() 
+    var weatherInput = $('<label for="location-input">Please Enter a Location</label>') 
+    weatherInput.append($('<input type="text" id = "location-input" placeholder="city,country">'))
+    $("#widget-input").append(weatherInput)
+
+    $('#widget-button').empty();
+    var weatherButton = ('<button type = "button" class="btn btn-primary" id = "location-submit">Submit</button>')
+    $('#widget-button').append(weatherButton)
+
+    $('#widget-display').empty()
 
     $('#location-submit').on('click',function(event) {
      
@@ -80,10 +93,12 @@ $('#weather-tab').on('click',function() {
         var fah = (kelvin-273.15)*1.80+32
         var locationTag = $('<h3>')
         locationTag.append(locationInput)
-        $('#weatherDisplay').append(locationTag)
+
+        
+        $('#widget-display').append(locationTag)
         var tempTag = $('<p>')
         tempTag.append('Temperature: '+fah)
-        $('#weatherDisplay').append(tempTag)
+        $('#widget-display').append(tempTag)
 
         });
     })
