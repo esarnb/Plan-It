@@ -1,81 +1,116 @@
 // //Global Functions
 
 // //Functions
+var userLongitude;
+var userLatitude;
 
-$(document).ready(function() {
-stationNameButton();
+$(document).ready(function () {
+    stationNameButton();
+    getLocal();
 })
 
 // ajax call for calendarific api data on click
-$("button").on("click", function () {
+// $("button").on("click", function () {
+
+//     $.ajax({
+//         url: "https://calendarific.com/api/v2/holidays?&api_key=5aacde472af07a267319cf6071d535aa05e2a4d6",
+//         method: "GET"
+//     })
+//         .then(function (response) {
+//             console.log(response)
+
+//             var calResults = response.holidays
+
+//             $("#cal-results").text(calResults)
+
+//         })
+
+// })
+// ajax call for bart api on click for user input current station
+// $("button").on("click", function () {
+// user input destination variable, not sure if we are gonna use this or a dropdown with all the stations already listed
+// var bartStation = $(this).attr("data-bart");
+
+//     var bartQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + bartStation + "&json=y";
+
+//     $.ajax({
+//         url: bartQuery,
+//         method: "GET"
+//     })
+//         .then(function (root) {
+//             console.log(root)
+
+//             var bartResults = root
+
+//             $("#bart-results").text(bartResults)
+
+//         })
+
+// })
+
+function stationNameButton() {
 
     $.ajax({
-        url: "https://calendarific.com/api/v2/holidays?&api_key=5aacde472af07a267319cf6071d535aa05e2a4d6",
+        url: "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y",
         method: "GET"
     })
         .then(function (response) {
             console.log(response)
+            var stationName = response.root.stations.station;
+            // console.log(stationName)
+            for (var i = 0; i < stationName.length; i++) {
 
-            var calResults = response.holidays
+                var statName = response.root.stations.station[i].name;
+                // console.log(i)
+                var newOption = $("<option>")
+                newOption.addClass("station-button")
+                newOption.attr("name-value", statName)
+                newOption.text(statName)
+                $("#select-form").append(newOption)
 
-            $("#cal-results").text(calResults)
-
+            }
         })
+}
 
-})
-// ajax call for bart api on click for user input current station
-$("button").on("click", function () {
-    // user input destination variable, not sure if we are gonna use this or a dropdown with all the stations already listed
-    var bartStation = $(this).attr("data-bart");
+// $("#submit-transport").on("click", function () {
+//     var namesQuery = "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y";
+//     var pickedPlace = $("#select-form").val().trim();
+//     $.ajax({
+//         url: namesQuery,
+//         method: "GET"
+//     })
+//         .then(function (response) {
+//             // console.log(response);
+//             var jsObjects = response.root.stations.station
+//             var result = jsObjects.filter(obj => {
+//                 return obj.name === pickedPlace
+//             })
+//             var abbrev = result[0].abbr;
+//             console.log(abbrev);
+//             /////////Second Query////////
+//             var abbrQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + abbrev + "&key=MW9S-E7SL-26DU-VV8V&json=y";
+//             $.ajax({
+//                 url: abbrQuery,
+//                 method: "GET"
+//             })
+//                 .then(function (response) {
+//                     console.log(response);
+//                     var bartInfo = response.root.station.etd[i]
+//                     console.log(bartInfo)
+//                     $("#transport-table").text(bartInfo)
 
-    var bartQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + bartStation + "&json=y";
 
-    $.ajax({
-        url: bartQuery,
-        method: "GET"
-    })
-        .then(function (root) {
-            console.log(root)
-
-            var bartResults = root
-
-            $("#bart-results").text(bartResults)
-
-        })
-
-})
-
-function stationNameButton() {
-   
-        $.ajax({
-            url: "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y",
-            method: "GET"
-        })
-            .then(function (response) {
-                console.log(response)
-                var stationName = response.root.stations.station;
-                console.log(stationName)
-                for (var i = 0; i < stationName.length; i++){
-
-                    var statName = response.root.stations.station[i].name;
-                    console.log(i)
-                    var newOption = $("<option>")
-                    newOption.addClass("station-button")
-                    newOption.attr("name-value", statName)
-                    newOption.text(statName)
-                    $("#select-form").append(newOption)
-    
-                }
-            })
-    }
+//                 })
+//         })
+// })
 
 
 
 
-$("button").on("click", function () {
+$("#submit-transport").on("click", function () {
     // if user provides location
-    if (!longitude === null) {
-        var userLocation = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + latitude + "&longitude=" + longitude;
+    if (!userLongitude === null) {
+        var userLocation = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + userLatitude + "&longitude=" + userLongitude;
         // if uses does not provide location show hot and new restaurants
     } else {
         var userLocation = "https://api.yelp.com/v3/businesses/search/hot_and_new"
@@ -112,12 +147,28 @@ $(document).ready(function (sendRequest) {
             $("#bart-status").text(bartStatus)
 
         })
-    });
-            
+});
 
 
 
-// yelp api
+
+function getLocal() {
+    var x = document.getElementById("show-local");
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude;
+            userLongitude = position.coords.longitude;
+            userLatitude = position.coords.latitude
+    }
+
+}
+
 
 
 
