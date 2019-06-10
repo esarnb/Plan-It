@@ -1,8 +1,6 @@
 // Hide initial table
-$('#widget').hide()
-// $('#transport-select').hide()
-// $('#submit-transport').hide()
-// $('')
+$('#weather-widget').hide()
+$('#transportation-widget').hide()
 
 // // On click, the transportation tab will show
 // $('#transport-tab').on('click',function() {
@@ -40,9 +38,11 @@ $('#widget').hide()
 
 
 $('#weather-tab').on('click',function() {
-    $('#widget').show()
-
+    $('#weather-widget').show();
+    $('#display-page').empty();
+    $('#display-page').hide()
     $('#location-submit').on('click',function(event) {
+        $('#display-page').show()
         event.preventDefault();
 
         var locationInput = $('#location-input').val().trim()
@@ -60,7 +60,16 @@ $('#weather-tab').on('click',function() {
         }).then(function(response) {
         console.log(response)
 
-        // Create CODE HERE to Log the queryURL
+        var kelvin = response.main.temp
+
+        var fah = (kelvin-273.15)*1.80+32
+        var locationTag = $('<h3>')
+        locationTag.append(locationInput)
+        $('#weatherDisplay').append(locationTag)
+        var tempTag = $('<p>')
+        tempTag.append(fah)
+        $('#weatherDisplay').append(tempTag)
+       
         // Create CODE HERE to log the resulting object
         // Create CODE HERE to transfer content to HTML
         // Create CODE HERE to calculate the temperature (converted from Kelvin)
@@ -68,6 +77,7 @@ $('#weather-tab').on('click',function() {
         // Create CODE HERE to dump the temperature content into HTML
 
         });
+
     })
         
     var title = $('<h1>');

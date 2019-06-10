@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" id = 'todo-tab'>To Do List</a>
+                    <a class="nav-link" href="#" id = 'todo-tab'>Notes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" id = 'transport-tab'>Transportation</a>
@@ -86,10 +86,10 @@
         </div>
     </div> -->
 
-    <div class="jumbotron jumbotron-fluid bg-gray">
+    <div class="jumbotron jumbotron-fluid bg-gray" id = 'weather-widget'>
         <div class="container text-center">
             <div class="card">
-                <div class="card-body" id = 'widget'>
+                <div class="card-body">
                     <h5 class="card-title" id = 'widget-title'></h5>
                     <h6 class="card-subtitle mb-2 text-muted">
                         <p class="lead">Sunday, June 9th, 2019</p>
@@ -100,11 +100,23 @@
                     <div class="col-auto my-1">
                         <button type = 'button' class="btn btn-primary" id = 'location-submit'>Submit</button>
                     </div>
+                    <div id = 'weatherDisplay'></div>
+                   
                 
                 </div>
             </div>
         </div>
     </div>
+    <div class="jumbotron jumbotron-fluid bg-gray" id = 'display-page'>
+        <div class="container text-center">
+            <div class="card">
+                <div class="card-body">
+                    <p>Welcome! Please Select a Tab to Start</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- Modal 1 Sign In-->
