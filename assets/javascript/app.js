@@ -8,22 +8,22 @@ $(document).ready(function () {
 })
 
 // ajax call for calendarific api data on click
-$("button").on("click", function () {
+// $("button").on("click", function () {
 
-    $.ajax({
-        url: "https://calendarific.com/api/v2/holidays?&api_key=5aacde472af07a267319cf6071d535aa05e2a4d6",
-        method: "GET"
-    })
-        .then(function (response) {
-            console.log(response)
+//     $.ajax({
+//         url: "https://calendarific.com/api/v2/holidays?&api_key=5aacde472af07a267319cf6071d535aa05e2a4d6",
+//         method: "GET"
+//     })
+//         .then(function (response) {
+//             console.log(response)
 
-            var calResults = response.holidays
+//             var calResults = response.holidays
 
-            $("#cal-results").text(calResults)
+//             $("#cal-results").text(calResults)
 
-        })
+//         })
 
-})
+// })
 // ajax call for bart api on click for user input current station
 // $("button").on("click", function () {
 // user input destination variable, not sure if we are gonna use this or a dropdown with all the stations already listed
