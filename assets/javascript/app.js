@@ -1,12 +1,19 @@
+
+/**
+ *  To Do: 
+ *      Convert alert() and confirm() to modals
+ *      Need to add more weather data.
+ * 
+ *  Fix: Transportation Submit, Food Submit.
+ *          
+ * 
+ * Finished: 
+ *      Notes and Authentication
+*/
+
+
 // Notes Tab
 
-var notesPrompt = $("#notesPrompt")
-//User data 
-var addNoteForm = $("#addNoteForm");
-var addNote = $("#addNote");
-
-//Remove Notes Btn
-var noteBtn = $("#noteBtn");
 /**
  * 
  * @param {String} type decides which usage to execute.
@@ -17,65 +24,82 @@ var noteBtn = $("#noteBtn");
  * Function uses the type during function execution to decide 
  * whether the user is adding a new note from a fill-in form, 
  * or deleting a note from a button click. Then, the new object 
- * is updated and automatically updated on screen
+ * is updated to firebase.
  */
 function updateUserNotes(type, note) {
-    var userData;
     database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
-        .then(function (snapshot) {
-            userData = Object.values(snapshot.val())[0];
-            if (type === "add") userData.notes.push(note);
-            else userData.notes.splice(note, 1);
-            addNote.val("");
+    .then(function (snapshot) {
+        var userData = Object.values(snapshot.val())[0];
+        if (!userData.notes) userData.notes = []; 
+        if (type === "add") userData.notes.push(note);
+        else if (type === "remove") userData.notes.splice(note, 1);
 
-            database.ref("/users").child(auth.currentUser.uid).update({
-                notes: userData.notes
-            });
-        })
+        database.ref("/users").child(auth.currentUser.uid).update({
+            notes: userData.notes
+        });
+    })
 }
 
-var newNote = ""; //Adding a new note into our list
-addNoteForm.submit(function (event) {
-    event.preventDefault();
-    updateUserNotes("add", addNote.val().trim());
-});
-
-$(".btn").on("click", function (event) {
-    event.preventDefault();
-})
-
 $('#notes-tab').on('click', function () {
+    if (!auth.currentUser) {
+        alert("You need to first sign in!");
+        return;
+    }
     $('#widget-title').text('Notes');
     $('#widget-input').empty();
     $('#widget-button').empty();
     $('#widget-display').empty();
 
     var textArea = $('<div class="form-group">')
+    textArea.append("<br>")
     textArea.append($('<label for="comment">Comment:</label>'))
     textArea.append($('<textarea class="form-control" rows="1" id = "comment"></textarea>'))
+    
     $('#widget-input').append(textArea)
-    var textArray = [];
+
+    var commentTextBox = $("#comment");
     var textButton = $('<button type = "button" class="btn btn-primary" id = "submit-text">Submit</button>')
     $('#widget-button').append(textButton)
 
-    $('#submit-text').on('click', function (event) {
-        event.preventDefault();
+    var notesSubmitButton = $("#submit-text")
 
-        $('#widget-display-top').empty()
-        var textInput = $('#comment').val()
-
-        textArray.push(textInput)
-        console.log(textArray)
-
-        for (var i = 0; i < textArray.length; i++) {
-            var p = $('<p>')
-            p.append(textArray[i])
-            $('#widget-display-top').append(p)
+    var textArray;
+    database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).on("value", function(snapshot) {
+        textArray = Object.values(snapshot.val())[0].notes;
+        if (!textArray) { updateUserNotes("add", "Welcome to your notes!") }
+        else {
+            textArray = textArray.map((perNote, index) => ((index + 1) + ". " + perNote+"<br><br>").replace("\n", "<br>"));
+            $('#widget-display-top').empty()        
+            for (var i = 0; i < textArray.length; i++) {
+                var p = $('<p>')
+                p.append(textArray[i])
+                p.addClass("clickTextDelete")
+                p.attr("data-position", i)
+                $('#widget-display-top').append(p)
+            }
         }
+    });
 
-    })
+    $(document).on('click', '.clickTextDelete', function(event) {
+        console.log(event);
+        if(!auth.currentUser) location.reload();        
+        var confirmed = confirm("Would you like to delete this text?");
+        if (confirmed) updateUserNotes("remove", $(this).attr("data-position"))
+    });
+
+    notesSubmitButton.on('click', function (event) {
+        event.preventDefault();
+        if(!auth.currentUser) location.reload();
+        var textInput = commentTextBox.val().trim()
+        if (textInput) {
+            updateUserNotes("add", textInput)
+        }
+        commentTextBox.val("")
+    })        
+    
 })
 
+//////////////////////////////////////////////Working Above, Need to fix Below//////////////////////////////////////////////
 
 // TRANSPORTATION TAB //
 function stationNameButton() {
@@ -118,8 +142,6 @@ $('#transport-tab').on('click', function () {
     // ID for the Station Input
 
     var transportSelect = ($('<select class ="form-control" id = "select-form">'))
-    transportSelect.append($('<option value="Station-1">Station One</option>'))
-    transportSelect.append($('<option value="Station-2">Station Two</option>'))
     transportForm.append(transportSelect)
     $('#widget-input').append(transportForm)
 
@@ -163,6 +185,9 @@ $('#transport-tab').on('click', function () {
 
 
 // WEATHER TAB //
+function convert2Decimals(longDecimal) {
+    return parseFloat(Math.round(longDecimal * 100) / 100).toFixed(2);
+}
 
 $('#weather-tab').on('click', function () {
 
@@ -179,7 +204,7 @@ $('#weather-tab').on('click', function () {
     $('#widget-display').empty()
 
     $('#location-submit').on('click', function (event) {
-
+        $('#widget-display').empty()
         event.preventDefault();
 
         var locationInput = $('#location-input').val().trim()
@@ -200,13 +225,16 @@ $('#weather-tab').on('click', function () {
             var kelvin = response.main.temp
 
             var fah = (kelvin - 273.15) * 1.80 + 32
+
+            fah = convert2Decimals(fah);
+
             var locationTag = $('<h3>')
-            locationTag.append(locationInput)
+            locationTag.append("Location: "+locationInput)
 
 
             $('#widget-display').append(locationTag)
             var tempTag = $('<p>')
-            tempTag.append('Temperature: ' + fah)
+            tempTag.append('Current Temperature: ' + fah + "&deg;F")
             $('#widget-display').append(tempTag)
 
         });
@@ -316,20 +344,6 @@ $('#food-tab').on('click', function () {
 })
 
 
-
-
-
-
-
-
-
-
-
-
-/* Above, Matt only works. Below, Esar only works.    Stubbing. */
-
-
-
 /*
 
         AUTHENTICATION VARIABLES
@@ -413,21 +427,20 @@ auth.onAuthStateChanged(user => {
         authPrompt.text("Planner App")
         console.log("User has now logged in.");
 
-        //Get the current user data obj
-        var userData;
-        database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
-            .then(function (snapshot) {
-                userData = Object.values(snapshot.val())[0];
-                //Convert the object to a list of numbered notes and display it to the screen
-                var userNotes = userData.notes.map((perNote, index) => ((index + 1) + ". " + perNote)).join("<br>");
-                notesPrompt.html(`Welcome ${userData.email.split("@")[0]}, here are your notes: <br><br>${userNotes}`);
-            })
+        // //Get the current user data obj
+        // var userData;
+        // database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
+        //     .then(function (snapshot) {
+        //         userData = Object.values(snapshot.val())[0];
+        //         //Convert the object to a list of numbered notes and display it to the screen
+        //         var userNotes = userData.notes.map((perNote, index) => ((index + 1) + ". " + perNote)).join("<br>");
+        //     })
 
     } else {
-        notesPrompt.empty();
         btnLogOut.text("Login")
         console.log("User has now logged out.");
         authPrompt.text("Please Log in!")
+
     }
 })
 // ------------------------End Of Authentication----------------------//
