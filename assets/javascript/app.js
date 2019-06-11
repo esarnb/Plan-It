@@ -98,9 +98,7 @@ $('#notes-tab').on('click', function () {
     
 })
 
-//////////////////////////////////////////////Working Above, Need to fix Below//////////////////////////////////////////////
-
-// TRANSPORTATION TAB //
+// TRANSPORTATION TAB 
 function stationNameButton() {
 
     $.ajax({
