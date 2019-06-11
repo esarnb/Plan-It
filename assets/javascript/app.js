@@ -98,8 +98,6 @@ $('#notes-tab').on('click', function () {
     
 })
 
-//////////////////////////////////////////////Working Above, Need to fix Below//////////////////////////////////////////////
-
 // TRANSPORTATION TAB //
 function stationNameButton() {
 
@@ -224,7 +222,7 @@ $('#transport-tab').on('click', function () {
 })
 
 
-// WEATHER TAB //
+// WEATHER TAB 
 $('#weather-tab').on('click', function () {
     $("#widget-display").empty()
     $('#widget-display-top').empty()
