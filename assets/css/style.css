@@ -1,0 +1,20 @@
+#bg-modal {
+    background-color: #eee;
+}
+
+.errorMsg {
+    color: red;
+    font-size: 12px;
+    justify-content: left;
+}
+
+
+#select-form {
+    width: 20%;
+    margin: 0 auto;
+}
+
+#comment {
+    width: 20%;
+    margin: 0 auto;
+}

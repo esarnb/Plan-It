@@ -80,8 +80,7 @@ $('#notes-tab').on('click', function () {
         }
     });
 
-    $(document).on('click', '.clickTextDelete', function(event) {
-        console.log(event);
+    $(document).on('click', '.clickTextDelete', function() {
         if(!auth.currentUser) location.reload();        
         var confirmed = confirm("Would you like to delete this text?");
         if (confirmed) updateUserNotes("remove", $(this).attr("data-position"))
