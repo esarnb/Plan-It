@@ -40,6 +40,7 @@ function updateUserNotes(type, note) {
     })
 }
 
+//Notes Tab
 $('#notes-tab').on('click', function () {
     if (!auth.currentUser) {
         alert("You need to first sign in!");
