@@ -98,7 +98,6 @@ $('#notes-tab').on('click', function () {
     
 })
 
-//////////////////////////////////////////////Working Above, Need to fix Below//////////////////////////////////////////////
 
 // TRANSPORTATION TAB //
 function stationNameButton() {
@@ -311,7 +310,7 @@ $('#weather-tab').on('click', function () {
 // })
 
 
-// Food Tab Start
+// Food Tab // -----------------------------------------
 var userLongitude;
 var userLatitude;
 var businessDiv;
