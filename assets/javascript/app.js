@@ -11,7 +11,7 @@
  *      Notes and Authentication
 */
 
-
+var widgetTop = $("#widget-display-top");
 // Notes Tab
 
 /**
@@ -125,10 +125,11 @@ function stationNameButton() {
         })
 }
 // // On click, the transportation tab will show
-
+var antiSFmilbrae = "#f1e64b3f";
 $('#transport-tab').on('click', function () {
     stationNameButton();
-
+    widgetTop.empty();
+    $("#widget-display").empty()
     // The title will be Transportation and added to the id widget title
 
     $('#widget-title').text('Transportation');
@@ -148,8 +149,14 @@ $('#transport-tab').on('click', function () {
     var transportButton = $('<button type = "button" class="btn btn-primary" id = "submit-transport">Submit</button>')
     $('#widget-button').append(transportButton)
 
-    $('#transport-submit').on('click', function (event) {
+    // var transTable = $("<thead>");
+    // transTable.append(transRow)
+    // var transHead = $("<th>")
+    
+
+    $('#submit-transport').on('click', function (event) {
         event.preventDefault()
+        $("#widget-display").empty()
         var namesQuery = "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y";
         var pickedPlace = $("#select-form").val().trim();
         $.ajax({
@@ -157,7 +164,7 @@ $('#transport-tab').on('click', function () {
             method: "GET"
         })
             .then(function (response) {
-                // console.log(response);
+                console.log(response);
                 var jsObjects = response.root.stations.station
                 var result = jsObjects.filter(obj => {
                     return obj.name === pickedPlace
@@ -171,10 +178,44 @@ $('#transport-tab').on('click', function () {
                     method: "GET"
                 })
                     .then(function (response) {
-                        console.log(response);
-                        var bartInfo = response.root.station.etd[i]
-                        console.log(bartInfo)
-                        $("#transport-table").text(bartInfo)
+                        // console.log("180 LOG");
+                        
+                        var trainTypes = response.root.station[0].etd
+                        // console.log(`Train Types: ${trainTypes}`);
+                        var transTable = $("<table>").addClass("table")
+                        transTable.addClass("table-bordered");
+
+                        var transHead = $("<thead>");
+                        var transR = $("<tr>").addClass("customColor");
+                        transR.addClass("font-weight-bold")
+                        // transR.addClass("")
+                        transR.append($("<th>").text("Train Types"))
+                        transR.append($("<th>").text("Minutes Away"))
+                        transR.append($("<th>").text("Platform"))
+                        transR.append($("<th>").text("Train Cars Length"))
+                        transR.append($("<th>").text("Direction Headed"))
+                        transHead.append(transR);
+                        transTable.append(transHead);
+                        $("widget-display").append(transTable);
+                        
+                        for (var i = 0; i < trainTypes.length; i++) {
+                            // console.log("185 LOG");
+                            for(var j = 0; j < trainTypes[i].estimate.length; j++) {
+                            // console.log("187 LOG");
+                            var transRow = $(`<tr style=background-color:${trainTypes[i].estimate[j].hexcolor+"3f"}>`)
+                                transRow.append($("<td>").text(`${trainTypes[i].destination} Train: ${j+1} `))
+                                transRow.append($("<td>").text(trainTypes[i].estimate[j].minutes))
+                                transRow.append($("<td>").text(trainTypes[i].estimate[j].platform))
+                                transRow.append($("<td>").text(trainTypes[i].estimate[j].length))
+                                transRow.append($("<td>").text(trainTypes[i].estimate[j].direction))
+                            console.log(transRow);
+                            transTable.append(transRow)
+                        }
+                    } 
+                    $("#widget-display").append(transTable)
+                        
+                        
+                        // $("#transport-table").text(bartInfo)
 
 
                     })
@@ -184,59 +225,82 @@ $('#transport-tab').on('click', function () {
 
 
 // WEATHER TAB //
-function convert2Decimals(longDecimal) {
-    return parseFloat(Math.round(longDecimal * 100) / 100).toFixed(2);
-}
-
 $('#weather-tab').on('click', function () {
-
+    $("#widget-display").empty()
+    $('#widget-display-top').empty()
     $('#widget-title').text('Weather');
     $('#widget-input').empty()
     var weatherInput = $('<label for="location-input">Please Enter a Location</label>')
     weatherInput.append($('<input type="text" id = "location-input" placeholder="city,country">'))
     $("#widget-input").append(weatherInput)
-
     $('#widget-button').empty();
     var weatherButton = ('<button type = "button" class="btn btn-primary" id = "location-submit">Submit</button>')
     $('#widget-button').append(weatherButton)
-
-    $('#widget-display').empty()
-
     $('#location-submit').on('click', function (event) {
-        $('#widget-display').empty()
         event.preventDefault();
-
+        $('#widget-display').empty()
+        $('#widget-display-top').empty()
         var locationInput = $('#location-input').val().trim()
         console.log(locationInput)
         // This is our API key. Add your own API key between the ""
         var APIKey = "fb510d3360292806c424e84f2751add1";
-
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput + "&appid=" + APIKey;
-
+        var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + locationInput + "&appid=" + APIKey;
         // We then created an AJAX call
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
             console.log(response)
-
             var kelvin = response.main.temp
-
             var fah = (kelvin - 273.15) * 1.80 + 32
-
-            fah = convert2Decimals(fah);
-
             var locationTag = $('<h3>')
-            locationTag.append("Location: "+locationInput)
-
-
+            locationTag.append(locationInput)
             $('#widget-display').append(locationTag)
             var tempTag = $('<p>')
-            tempTag.append('Current Temperature: ' + fah + "&deg;F")
+            tempTag.append('Current Temperature: ' + fah.toFixed(1) + '℉')
             $('#widget-display').append(tempTag)
 
+            $.ajax({
+                url: forecastURL,
+                method: "GET"
+            }).then(function (response) {
+                console.log(response)
+                var forecastDiv = $('<div>')
+                var tempList = [response.list[4].main.temp, response.list[12].main.temp, response.list[20].main.temp, response.list[28].main.temp, response.list[36].main.temp]
+                var fahList = []
+                for (var i = 0; i < tempList.length; i++) {
+                    var fah = (tempList[i] - 273.15) * 1.80 + 32
+                    fah = fah.toFixed(1)
+                    fahList.push(fah)
+                }
+                console.log(fahList)
+                var forecastList = [];
+                var forecast1 = ($('<p>' + response.list[4].dt_txt.substring(0, 11) + "<br>" + fahList[0] + '℉</p>'))
+                var forecast2 = ($('<p>' + response.list[12].dt_txt.substring(0, 11) + "<br>" + fahList[1] + '℉</p>'))
+                var forecast3 = ($('<p>' + response.list[20].dt_txt.substring(0, 11) + "<br>" + fahList[2] + '℉</p>'))
+                var forecast4 = ($('<p>' + response.list[28].dt_txt.substring(0, 11) + "<br>" + fahList[3] + '℉</p>'))
+                var forecast5 = ($('<p>' + response.list[36].dt_txt.substring(0, 11) + "<br>" + fahList[4] + '℉</p>'))
+                forecastList.push(forecast1, forecast2, forecast3, forecast4, forecast5);
+                console.log(forecastList);
+                var cardDeckForfast = ($("<div>").addClass("card-deck"));
+                for (var i = 0; i < forecastList.length; i++) {
+                    cardForfast = ($("<div>").addClass("card"));
+                    var cardBody = ($("<div>").addClass("card-body"));
+                    var cardTitle = ($("<h5>").addClass("card-title"));
+                    cardTitle.append(forecastList[i]);
+                    var cardText = ($("<div>").addClass("card-text"));
+                    cardBody.append(cardTitle);
+                    cardBody.append(cardText);
+                    cardForfast.append(cardBody);
+                    cardDeckForfast.append(cardForfast);
+                    forecastDiv.append(cardDeckForfast);
+                    $('#widget-display').append(forecastDiv)
+                }
+            });
         });
+        
     })
 })
 
@@ -268,9 +332,14 @@ function getLocal() {
 
 }
 
-
+// if (userLongitude) {
+//     var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + userLatitude + "&longitude=" + userLongitude;
+//     console.log(queryURL)
+// } else {
+    https://api.yelp.com/v3/autocomplete?text=del&latitude=37.786882&longitude=-122.399972
 $('#food-tab').on('click', function () {
-
+    widgetTop.empty();
+    getLocal();
     var title = $('<h1>')
     title.text('Food')
     $('.card-title').html(title);
@@ -279,13 +348,13 @@ $('#food-tab').on('click', function () {
 
     //ELEMENTS
     $("#widget-input").empty()
-    var foodInput = $("<label for=“food-input”>Please Enter a Location (for food)</label>")
-    foodInput.append($("<input type=“text” id=“food-input” placeholder=“city, country>"))
+    var foodInput = $("<label for='food-input'>Please Enter a Location (for food)</label>")
+    foodInput.append($("<input type='text' id='food-input' placeholder='city, country'>"))
     $("#widget-input").append(foodInput)
 
     $("#widget-button").empty();
-    var foodButton = $("<div class=“col-auto my-1>")
-    foodButton.append("<button type = “button” class=“btn btn-primary” id = “food-submit”>Submit</button>")
+    var foodButton = $("<div class='col-auto my-1'>")
+    foodButton.append("<button type = 'button' class='btn btn-primary' id = 'food-submit'>Submit</button>")
     $("#widget-button").append(foodButton)
 
     $("#widget-display").empty()
@@ -293,26 +362,21 @@ $('#food-tab').on('click', function () {
     $("#widget-display").append(businessDiv)
     $("#widget-display").append(businessImageDiv)
 
-    $('#food-submit').on('click', function (event) {
+     $('#food-submit').on('click', function (event) {
+        widgetTop.empty();
 
         event.preventDefault();
 
         var foodInput = $('#food-input').val().trim()
-        console.log(userLatitude)
-        if (!longitude === null) {
-            var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + userLatitude + "&longitude=" + userLongitude;
-            console.log(queryURL)
-        } else {
+        console.log(foodInput)
+        // This is our API key. Add your own API key between the ""
+        var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
 
-            // This is our API key. Add your own API key between the ""
-            var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
-
-            // Here we are building the URL we need to query the database
-            var queryURL = "https://api.yelp.com/v3/businesses/search?&location=" + foodInput
-            console.log(queryURL)
-            var heroku = 'https://cors-anywhere.herokuapp.com/'
-            // We then created an AJAX call
-        }
+        // Here we are building the URL we need to query the database
+        var queryURL = "https://api.yelp.com/v3/businesses/search?&location=" + foodInput
+        console.log(queryURL)
+        var heroku = 'https://cors-anywhere.herokuapp.com/'
+        // We then created an AJAX call
         $.ajax({
             url: heroku + queryURL,
             headers: {
@@ -327,19 +391,56 @@ $('#food-tab').on('click', function () {
                 var businessName = response.businesses[i].name
                 var businessImage = response.businesses[i].image_url
 
-                var businessImageDiv = $('<img src =' + businessImage + '>')
+                var businessImageDiv = $('<img src =' + businessImage + ' style = widgth = "200px" height = "200px">')
 
 
                 var businessDiv = $('<h4>')
                 businessDiv.append(businessName)
 
-                $('#foodDisplay').append(businessDiv)
-                $('#foodDisplay').append(businessImageDiv)
+                $('#widget-display').append(businessDiv)
+                $('#widget-display').append(businessImageDiv)
             }
 
         });
 
     })
+    // --------------------------------------------------  Geolocation -------------------------------------- //
+    
+    var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + 37.786882 + "&longitude=" + -122.399972;
+            console.log(queryURL)
+            var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
+            var heroku = 'https://cors-anywhere.herokuapp.com/'
+            $.ajax({
+                url: heroku + queryURL,
+                headers: {
+                    'Authorization': 'Bearer ' + APIKey
+                },
+                method: "GET"
+            }).then(function (response) {
+                console.log(JSON.stringify(response));
+                
+            })
+    $("ownLocationButton").on('click', function(event) {
+        if (userLongitude) {
+            var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + 37.786882 + "&longitude=" + -122.399972;
+            console.log(queryURL)
+            var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
+            var heroku = 'https://cors-anywhere.herokuapp.com/'
+            $.ajax({
+                url: heroku + queryURL,
+                headers: {
+                    'Authorization': 'Bearer ' + APIKey
+                },
+                method: "GET"
+            }).then(function (response) {
+                console.log(response);
+                
+            })
+        } else {
+            $('#food-submit').click()
+        }
+     })
+
 })
 
 
