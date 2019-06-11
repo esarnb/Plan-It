@@ -104,7 +104,7 @@ $('#notes-tab').on('click', function () {
 function stationNameButton() {
 
     $.ajax({
-        url: "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y",
+        url: "https://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y",
         method: "GET"
     })
         .then(function (response) {
@@ -157,7 +157,7 @@ $('#transport-tab').on('click', function () {
     $('#submit-transport').on('click', function (event) {
         event.preventDefault()
         $("#widget-display").empty()
-        var namesQuery = "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y";
+        var namesQuery = "https://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y";
         var pickedPlace = $("#select-form").val().trim();
         $.ajax({
             url: namesQuery,
@@ -172,7 +172,7 @@ $('#transport-tab').on('click', function () {
                 var abbrev = result[0].abbr;
                 console.log(abbrev);
                 /////////Second Query////////
-                var abbrQuery = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + abbrev + "&key=MW9S-E7SL-26DU-VV8V&json=y";
+                var abbrQuery = "https://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + abbrev + "&key=MW9S-E7SL-26DU-VV8V&json=y";
                 $.ajax({
                     url: abbrQuery,
                     method: "GET"
