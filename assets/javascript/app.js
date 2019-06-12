@@ -251,7 +251,8 @@ $('#weather-tab').on('click', function () {
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput + "&appid=" + APIKey;
         var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + locationInput + "&appid=" + APIKey;
-
+        console.log(forecastURL);
+        
         // We then created an AJAX call
         $.ajax({
             url: queryURL,
@@ -282,26 +283,31 @@ $('#weather-tab').on('click', function () {
                         sum = 0;
                     }
                 }
-                
-                var minMaxF = [];
-                for (var k = 0; k < response.list.length; k++) {
-                    minMaxF.push({min: kelvin2Fahrenheit(response.list[k].main.temp_min), max: kelvin2Fahrenheit(response.list[k].main.temp_max)})
-                }
 
-                console.log(minMaxF);
+                // var  min = 1000, max = 0;
+                // var s,r,temparray,chunk = 8;
+                // for (s=0,r=response.list.length; s<r; s+=chunk) {
+                //     temparray = response.list.slice(s,s+chunk);
+                //     for(var k = 0; k < temparray.length; k++) {
+                //         if (temparray[k].main.temp_min < min) min = temparray[k].main.temp;
+                //         if (temparray[k].main.temp_max > max) max = temparray[k].main.temp;
+                //     }
+                // }
+                // console.log(`Min: ${min} Max: ${max}`);
                 
                 var eachday=[4, 12, 20, 28, 36];
                 for(var j = 0; j < avg5Day.length; j++) {
+                    if (response.list[eachday[j]].weather.main === "Cloudy") skyType = "assets/images/clouds.png"
+                    else skyType = "assets/images/sun.png"
                     var day = $("<p>");
                     day.text(moment(response.list[eachday[j]].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do"))
                     day.append($("<p>").text("Avg Temp: " + avg5Day[j]))
-                    // day.append($("<p>").text("High: " + minMaxF[eachday[j]].max))
-                    // day.append($("<p>").text("Low: " + minMaxF[eachday[j]].min))
-                    day.append($("<p>").text("Humidity: " + response.list[eachday[j]].main.humidity + "%"))
+                    // day.append($("<p>").text("High: " + kelvin2Fahrenheit(min)))
+                    // day.append($("<p>").text("Low: " + kelvin2Fahrenheit(max)))
+                    day.append($("<p>").text("Humidity: " + response.list[eachday[j]].main.humidity + "%"));
+                    day.append($(`<img src='${skyType}' width= '100px' height= '100px'>`))
                     forecastList.push(day)
                 }
-
-                // forecastList.push(monday, tuesday, wednesday, thursday, friday);
 
                 var cardDeckForfast = ($("<div>").addClass("card-deck"));
                 for (var i = 0; i < forecastList.length; i++) {
