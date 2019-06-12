@@ -98,7 +98,10 @@ $('#notes-tab').on('click', function () {
     
 })
 
-// TRANSPORTATION TAB 
+
+
+// TRANSPORTATION TAB //
+
 function stationNameButton() {
 
     $.ajax({
@@ -317,7 +320,7 @@ $('#weather-tab').on('click', function () {
 // })
 
 
-// Food Tab Start
+// Food Tab // -----------------------------------------
 var userLongitude;
 var userLatitude;
 var businessDiv;
@@ -391,22 +394,37 @@ $('#food-tab').on('click', function () {
             method: "GET"
         }).then(function (response) {
             console.log(response)
-
+            console.log(heroku + queryURL);
             var business = response.businesses
-            for (var i = 0; i < business.length; i++) {
-                var businessName = response.businesses[i].name
-                var businessImage = response.businesses[i].image_url
+            
+            var k = 0;
+            var p = 0;
 
-                var businessImageDiv = $('<img src =' + businessImage + ' style = widgth = "200px" height = "200px">')
+            for (var k = 0; k < business.length; k++) {
+        
+                var cardDeckFood = ($("<div>").addClass("card-deck"));
+                for (var j = 0; j < 4; j++) {
+                    var businessName = response.businesses[p].name
+                    console.log(businessName);
+                    var businessImage = response.businesses[p].image_url
+                    p++;
+                    var cardFood = ($("<div>").addClass("card"));
 
+                    var cardImg = $("<img src = " + businessImage + ">").addClass("card-img-top thumbnailImg");
 
-                var businessDiv = $('<h4>')
-                businessDiv.append(businessName)
-
-                $('#widget-display').append(businessDiv)
-                $('#widget-display').append(businessImageDiv)
+                    cardFood.append(cardImg);
+                    
+                    var cardBodyFood = ($("<div>").addClass("card-body"));
+                    var cardTitleFood = ($("<div>").addClass("card-title"));
+                    
+                    cardTitleFood.text(businessName);
+                    cardBodyFood.append(cardTitleFood);
+                    cardFood.append(cardBodyFood);
+                    
+                    cardDeckFood.append(cardFood);
+                    $('#widget-display').append(cardDeckFood)    
+                }
             }
-
         });
 
     })
