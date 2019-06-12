@@ -1,15 +1,13 @@
-
 /**
- *  To Do: 
- *      Convert alert() and confirm() to modals
- *      Need to add more weather data.
- * 
- *  Fix: Transportation Submit, Food Submit.
- *          
- * 
- * Finished: 
- *      Notes and Authentication
-*/
+ * Look at trello for ToDo's or ask a member.
+ */
+//Begin JS for index.html//
+
+
+//Dynamic time across all tabs
+setInterval(function(){
+    $("#dynamicTime").text(moment().format("dddd, MMMM Do, hh:mm:ss A"))
+}, 1000)
 
 var widgetTop = $("#widget-display-top");
 // Notes Tab
@@ -81,6 +79,8 @@ $('#notes-tab').on('click', function () {
     });
 
     $(document).on('click', '.clickTextDelete', function() {
+        console.log($(this).attr("data-position"));
+        
         if(!auth.currentUser) location.reload();        
         var confirmed = confirm("Would you like to delete this text?");
         if (confirmed) updateUserNotes("remove", $(this).attr("data-position"))
@@ -97,8 +97,6 @@ $('#notes-tab').on('click', function () {
     })        
     
 })
-
-
 
 // TRANSPORTATION TAB //
 
@@ -232,8 +230,13 @@ $('#transport-tab').on('click', function () {
     })
 })
 
+function kelvin2Fahrenheit(kelvinTemp) {
+    return ((((kelvinTemp - 273.15) * (9/5)) + 32).toFixed(2)+"℉")
 
-// WEATHER TAB //
+    
+}
+
+// WEATHER TAB 
 $('#weather-tab').on('click', function () {
     $("#widget-display").empty()
     $('#widget-display-top').empty()
@@ -250,25 +253,28 @@ $('#weather-tab').on('click', function () {
         $('#widget-display').empty()
         $('#widget-display-top').empty()
         var locationInput = $('#location-input').val().trim()
+        if (!locationInput) return;
         console.log(locationInput)
         // This is our API key. Add your own API key between the ""
         var APIKey = "fb510d3360292806c424e84f2751add1";
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput + "&appid=" + APIKey;
         var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + locationInput + "&appid=" + APIKey;
+        console.log(forecastURL);
+        
         // We then created an AJAX call
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response)
+            // console.log(response)
             var kelvin = response.main.temp
-            var fah = (kelvin - 273.15) * 1.80 + 32
-            var locationTag = $('<h3>')
-            locationTag.append(locationInput)
-            $('#widget-display').append(locationTag)
+            var fah = kelvin2Fahrenheit(kelvin)
+            // var locationTag = $('<h3>')
+            // locationTag.append(locationInput)
+            // $('#widget-display').append(locationTag)
             var tempTag = $('<p>')
-            tempTag.append('Current Temperature: ' + fah.toFixed(1) + '℉')
+            tempTag.append('Current Temperature: ' + fah)
             $('#widget-display').append(tempTag)
 
             $.ajax({
@@ -277,28 +283,48 @@ $('#weather-tab').on('click', function () {
             }).then(function (response) {
                 console.log(response)
                 var forecastDiv = $('<div>')
-                var tempList = [response.list[4].main.temp, response.list[12].main.temp, response.list[20].main.temp, response.list[28].main.temp, response.list[36].main.temp]
-                var fahList = []
-                for (var i = 0; i < tempList.length; i++) {
-                    var fah = (tempList[i] - 273.15) * 1.80 + 32
-                    fah = fah.toFixed(1)
-                    fahList.push(fah)
-                }
-                console.log(fahList)
                 var forecastList = [];
-                var forecast1 = ($('<p>' + response.list[4].dt_txt.substring(0, 11) + "<br>" + fahList[0] + '℉</p>'))
-                var forecast2 = ($('<p>' + response.list[12].dt_txt.substring(0, 11) + "<br>" + fahList[1] + '℉</p>'))
-                var forecast3 = ($('<p>' + response.list[20].dt_txt.substring(0, 11) + "<br>" + fahList[2] + '℉</p>'))
-                var forecast4 = ($('<p>' + response.list[28].dt_txt.substring(0, 11) + "<br>" + fahList[3] + '℉</p>'))
-                var forecast5 = ($('<p>' + response.list[36].dt_txt.substring(0, 11) + "<br>" + fahList[4] + '℉</p>'))
-                forecastList.push(forecast1, forecast2, forecast3, forecast4, forecast5);
-                console.log(forecastList);
+                var sum = 0, avg5Day=[];
+                for(var i = 1; i <= response.list.length; i++) {
+                    sum += response.list[i-1].main.temp
+                    if (i % 8 == 0) {
+                        avg5Day.push( kelvin2Fahrenheit((sum / 8)) )
+                        sum = 0;
+                    }
+                }
+
+                // var  min = 1000, max = 0;
+                // var s,r,temparray,chunk = 8;
+                // for (s=0,r=response.list.length; s<r; s+=chunk) {
+                //     temparray = response.list.slice(s,s+chunk);
+                //     for(var k = 0; k < temparray.length; k++) {
+                //         if (temparray[k].main.temp_min < min) min = temparray[k].main.temp;
+                //         if (temparray[k].main.temp_max > max) max = temparray[k].main.temp;
+                //     }
+                // }
+                // console.log(`Min: ${min} Max: ${max}`);
+                
+                var eachday=[4, 12, 20, 28, 36];
+                for(var j = 0; j < avg5Day.length; j++) {
+                    if (response.list[eachday[j]].weather.main === "Cloudy") skyType = "assets/images/clouds.png"
+                    else skyType = "assets/images/sun.png"
+                    var day = $("<p>");
+                    day.text(moment(response.list[eachday[j]].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do"))
+                    day.append($("<p>").text("Avg Temp: " + avg5Day[j]))
+                    // day.append($("<p>").text("High: " + kelvin2Fahrenheit(min)))
+                    // day.append($("<p>").text("Low: " + kelvin2Fahrenheit(max)))
+                    day.append($("<p>").text("Humidity: " + response.list[eachday[j]].main.humidity + "%"));
+                    day.append($(`<img src='${skyType}' width= '100px' height= '100px'>`))
+                    forecastList.push(day)
+                }
+
                 var cardDeckForfast = ($("<div>").addClass("card-deck"));
                 for (var i = 0; i < forecastList.length; i++) {
                     cardForfast = ($("<div>").addClass("card"));
                     var cardBody = ($("<div>").addClass("card-body"));
                     var cardTitle = ($("<h5>").addClass("card-title"));
                     cardTitle.append(forecastList[i]);
+
                     var cardText = ($("<div>").addClass("card-text"));
                     cardBody.append(cardTitle);
                     cardBody.append(cardText);
