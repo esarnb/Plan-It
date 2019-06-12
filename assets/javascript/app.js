@@ -386,20 +386,50 @@ $('#food-tab').on('click', function () {
             console.log(response)
 
             var business = response.businesses
-            for (var i = 0; i < business.length; i++) {
-                var businessName = response.businesses[i].name
-                var businessImage = response.businesses[i].image_url
+            // for (var i = 0; i < business.length; i++) {
+            //     var businessName = response.businesses[i].name
+            //     var businessImage = response.businesses[i].image_url
 
-                var businessImageDiv = $('<img src =' + businessImage + ' style = widgth = "200px" height = "200px">')
+            //var businessImageDiv = $('<img src =' + businessImage + ' style = widgth = "200px" height = "200px">')
+            // var businessDiv = $('<h4>')
+            // businessDiv.append(businessName)
+            // $('#widget-display').append(businessDiv)
+            // $('#widget-display').append(businessImageDiv)
+            // }
+            // var wrapper = ($("<div>").addClass("container-fluid"));
+            // var rows = ($("<div>").addClass("row"));
+            // var rows = ($("<div>").addClass("row"));
 
+            var k = 0;
+            var p = 0;
 
-                var businessDiv = $('<h4>')
-                businessDiv.append(businessName)
+            for (var k = 0; k < business.length; k++) {
+        
+                var cardDeckFood = ($("<div>").addClass("card-deck"));
+                for (var j = 0; j < 4; j++) {
+                    var businessName = response.businesses[p].name
+                    var businessImage = response.businesses[p].image_url
+                    p++;
+                    var cardFood = ($("<div>").addClass("card"));
 
-                $('#widget-display').append(businessDiv)
-                $('#widget-display').append(businessImageDiv)
+                    var cardImg = $("<img src = " + businessImage + ">").addClass("card-img-top thumbnailImg");
+
+                    cardFood.append(cardImg);
+
+                    var cardBodyFood = ($("<div>").addClass("card-body"));
+                    var cardTitleFood = ($("<h5>").addClass("card-title"));
+                    // var cardTextFood = ($("<div>").addClass("card-text"));
+                    cardTitleFood.text(businessName);
+                    cardTitleFood.append(businessName);
+                    cardBodyFood.append(cardTitleFood);
+                    // cardBodyFood.append(cardTextFood);
+
+                    cardDeckFood.append(cardFood);
+
+                    $('#widget-display').append(cardDeckFood)
+                    // $("<br>").append(cardDeckFood);
+                }
             }
-
         });
 
     })
