@@ -81,17 +81,31 @@ $('#notes-tab').on('click', function () {
         else {
             textArray = textArray.map((perNote, index) => ((index + 1) + ". " + perNote+"").replace("\n", "<br>"));
             $('#widget-display-top').empty()        
+
+            var notesCard = $('<div>').addClass('card');
+            var notesCardBody = $("<div>").addClass("card-body");
+            var notesCardTitle = $("<h5>").addClass("card-title")
+            var notesCardText = $("<div>").addClass("card-text")
+            // Work Here for adding card
+            
+            // End work adding card 
+
+
             for (var i = 0; i < textArray.length; i++) {
                 var p = $('<span>')
                 p.append(textArray[i])
-                p.append(`<button class = "btn btn-primary delete-button" data-position='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
-                p.append(`<button class = "btn btn-primary edit-button" data-position='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
+                p.append(`<button class = "btn.sm btn-primary delete-button" data-position='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
+                p.append(`<button class = "btn.sm btn-primary edit-button" data-position='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
                 p.append('<br>')
                 p.attr("data-posloc", i)
                 // p.addClass('my-notes')
                 console.log(p.attr('data-posloc'))
-                $('#widget-display-top').append(p)
+                notesCardText.append(p)
             }
+            notesCardTitle.append(notesCardText)
+            notesCardBody.append(notesCardTitle)
+            notesCard.append(notesCardBody)
+            $('#widget-display-top').append(notesCard)
         }
     });
     $(document).on('click', '.delete-button' , function() { deleteOrEdit = $(this).attr('data-position') })

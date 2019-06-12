@@ -25,4 +25,15 @@
     background-color:  #66666648
 }
 
+.delete-button{
+    padding: 5px;
+    border: none;
+    margin: 5px 10px;
+}
+
+.edit-button{
+    padding: 5px;
+    border: none;
+    margin: 5px 10px;
+}
 
