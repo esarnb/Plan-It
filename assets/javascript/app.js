@@ -1,15 +1,13 @@
-
 /**
- *  To Do: 
- *      Convert alert() and confirm() to modals
- *      Need to add more weather data.
- * 
- *  Fix: Transportation Submit, Food Submit.
- *          
- * 
- * Finished: 
- *      Notes and Authentication
-*/
+ * Look at trello for ToDo's or ask a member.
+ */
+//Begin JS for index.html//
+
+
+//Dynamic time across all tabs
+setInterval(function(){
+    $("#dynamicTime").text(moment().format("dddd, MMMM Do, hh:mm:ss A"))
+}, 1000)
 
 var widgetTop = $("#widget-display-top");
 // Notes Tab
@@ -81,6 +79,8 @@ $('#notes-tab').on('click', function () {
     });
 
     $(document).on('click', '.clickTextDelete', function() {
+        console.log($(this).attr("data-position"));
+        
         if(!auth.currentUser) location.reload();        
         var confirmed = confirm("Would you like to delete this text?");
         if (confirmed) updateUserNotes("remove", $(this).attr("data-position"))
@@ -245,6 +245,7 @@ $('#weather-tab').on('click', function () {
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput + "&appid=" + APIKey;
         var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + locationInput + "&appid=" + APIKey;
+
         // We then created an AJAX call
         $.ajax({
             url: queryURL,
@@ -275,11 +276,11 @@ $('#weather-tab').on('click', function () {
                 }
                 console.log(fahList)
                 var forecastList = [];
-                var forecast1 = ($('<p>' + response.list[4].dt_txt.substring(0, 11) + "<br>" + fahList[0] + '℉</p>'))
-                var forecast2 = ($('<p>' + response.list[12].dt_txt.substring(0, 11) + "<br>" + fahList[1] + '℉</p>'))
-                var forecast3 = ($('<p>' + response.list[20].dt_txt.substring(0, 11) + "<br>" + fahList[2] + '℉</p>'))
-                var forecast4 = ($('<p>' + response.list[28].dt_txt.substring(0, 11) + "<br>" + fahList[3] + '℉</p>'))
-                var forecast5 = ($('<p>' + response.list[36].dt_txt.substring(0, 11) + "<br>" + fahList[4] + '℉</p>'))
+                var forecast1 = ($('<p>' + moment(response.list[4].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[0] + '℉</p>'))
+                var forecast2 = ($('<p>' + moment(response.list[12].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[1] + '℉</p>'))
+                var forecast3 = ($('<p>' + moment(response.list[20].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[2] + '℉</p>'))
+                var forecast4 = ($('<p>' + moment(response.list[28].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[3] + '℉</p>'))
+                var forecast5 = ($('<p>' + moment(response.list[36].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[4] + '℉</p>'))
                 forecastList.push(forecast1, forecast2, forecast3, forecast4, forecast5);
                 console.log(forecastList);
                 var cardDeckForfast = ($("<div>").addClass("card-deck"));
