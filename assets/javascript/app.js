@@ -26,12 +26,20 @@ var widgetTop = $("#widget-display-top");
  * or deleting a note from a button click. Then, the new object 
  * is updated to firebase.
  */
+
+
 function updateUserNotes(type, note) {
+    console.log(note)
     database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
     .then(function (snapshot) {
         var userData = Object.values(snapshot.val())[0];
         if (!userData.notes) userData.notes = []; 
         if (type === "add") userData.notes.push(note);
+        else if(type === 'replace') {
+            var edit = $('#edit-comment').val().trim()
+            userData.notes.splice(note,1,edit);
+            console.log(userData.notes)
+        }
         else if (type === "remove") userData.notes.splice(note, 1);
 
         database.ref("/users").child(auth.currentUser.uid).update({
@@ -53,8 +61,8 @@ $('#notes-tab').on('click', function () {
 
     var textArea = $('<div class="form-group">')
     textArea.append("<br>")
-    textArea.append($('<label for="comment">Comment:</label>'))
-    textArea.append($('<textarea class="form-control" rows="1" id = "comment"></textarea>'))
+    textArea.append($('<label for="comment">Add Note</label>'))
+    textArea.append($('<textarea class="form-control bg-light" rows="1" id = "comment"></textarea>'))
     
     $('#widget-input').append(textArea)
 
@@ -67,24 +75,41 @@ $('#notes-tab').on('click', function () {
     var textArray;
     database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).on("value", function(snapshot) {
         textArray = Object.values(snapshot.val())[0].notes;
-        if (!textArray) { updateUserNotes("add", "Welcome to your notes!") }
+        
+        if (!textArray) { $('#widget-display-top').text('Welcome to your Notes!')}
         else {
-            textArray = textArray.map((perNote, index) => ((index + 1) + ". " + perNote+"<br><br>").replace("\n", "<br>"));
+            textArray = textArray.map((perNote, index) => ((index + 1) + ". " + perNote+"").replace("\n", "<br>"));
             $('#widget-display-top').empty()        
             for (var i = 0; i < textArray.length; i++) {
-                var p = $('<p>')
+                var p = $('<span>')
                 p.append(textArray[i])
-                p.addClass("clickTextDelete")
-                p.attr("data-position", i)
+                p.append(`<button class = "btn btn-primary delete-button" data-posloc='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
+                p.append(`<button class = "btn btn-primary edit-button" data-posloc='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
+                p.append('<br>')
+                p.attr("data-posloc", i)
+                // p.addClass('my-notes')
+                console.log(p.attr('data-posloc'))
                 $('#widget-display-top').append(p)
             }
         }
     });
+    $(document).on('click', '.delete-button' , function() {
+        // console.log($(this).attr('data-posloc'))
+        updateUserNotes("remove", $(this).attr("data-posloc"))
+    })
 
+    $(document).on('click', '.edit-button' , function() {
+       
+        updateUserNotes('replace', $(this).attr("data-posloc"))
+    })
+    $(document).on('click', '.confirm-button', function() {
+        $('#editModal').modal('hide')
+
+    })
     $(document).on('click', '.clickTextDelete', function() {
         if(!auth.currentUser) location.reload();        
         var confirmed = confirm("Would you like to delete this text?");
-        if (confirmed) updateUserNotes("remove", $(this).attr("data-position"))
+        if (confirmed) updateUserNotes("remove", $(this).attr("data-posloc"))
     });
 
     notesSubmitButton.on('click', function (event) {
