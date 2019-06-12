@@ -92,20 +92,40 @@ $('#notes-tab').on('click', function () {
 
 
             for (var i = 0; i < textArray.length; i++) {
-                var p = $('<span>')
+                var p = $('<p class="note" data-position = '+i+'>')
                 p.append(textArray[i])
-                p.append(`<button class = "btn.sm btn-primary delete-button" data-position='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
-                p.append(`<button class = "btn.sm btn-primary edit-button" data-position='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
-                p.append('<br>')
+                // p.append(`<button class = "btn.sm btn-primary delete-button" data-position='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
+                // p.append(`<button class = "btn.sm btn-primary edit-button" data-position='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
                 p.attr("data-posloc", i)
-                // p.addClass('my-notes')
                 console.log(p.attr('data-posloc'))
                 notesCardText.append(p)
+                notesCardText.append('<br>')
             }
+    
             notesCardTitle.append(notesCardText)
             notesCardBody.append(notesCardTitle)
             notesCard.append(notesCardBody)
             $('#widget-display-top').append(notesCard)
+            $('.delete-button').hide()
+            $('.edit-button').hide()
+
+            // on hover, we want to append a delete or edit button that the user can select
+
+            $('.note').hover(function(){
+                
+                // appending the edit button on hover
+                $(this).append($(`<button class = "btn.sm btn-primary edit-button" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#editModal">Edit</button>`))
+
+                // appending the delete button on hover
+                $(this).append($(`<button class = "btn.sm btn-primary delete-button" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#deleteModal">Delete</button>`))
+               
+               
+            }, function () {
+
+                // Here I remove both of the buttons when I move the cursor off of it
+                $(this).find('button:last').remove();
+                $(this).find('button:last').remove();
+            })
         }
     });
     $(document).on('click', '.delete-button' , function() { deleteOrEdit = $(this).attr('data-position') })
