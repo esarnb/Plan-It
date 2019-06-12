@@ -96,8 +96,8 @@ $('#notes-tab').on('click', function () {
                 p.append(textArray[i])
                 // p.append(`<button class = "btn.sm btn-primary delete-button" data-position='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
                 // p.append(`<button class = "btn.sm btn-primary edit-button" data-position='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
-                p.attr("data-posloc", i)
-                console.log(p.attr('data-posloc'))
+                // p.attr("data-posloc", i)
+                // console.log(p.attr('data-posloc'))
                 notesCardText.append(p)
                 notesCardText.append('<br>')
             }
@@ -114,10 +114,10 @@ $('#notes-tab').on('click', function () {
             $('.note').hover(function(){
                 
                 // appending the edit button on hover
-                $(this).append($(`<button class = "btn.sm btn-primary edit-button" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#editModal">Edit</button>`))
+                $(this).append($(`<button class = "btn btn-primary edit-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#editModal">&#128463</button>`))
 
                 // appending the delete button on hover
-                $(this).append($(`<button class = "btn.sm btn-primary delete-button" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#deleteModal">Delete</button>`))
+                $(this).append($(`<button class = "btn btn-primary delete-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#deleteModal">&#128465</button>`))
                
                
             }, function () {

@@ -26,14 +26,19 @@
 }
 
 .delete-button{
-    padding: 5px;
+    padding: 0 7px;
+    font-size: 30px;
     border: none;
     margin: 5px 10px;
 }
 
 .edit-button{
-    padding: 5px;
+    padding: 0 7px;
+    font-size: 30px;
     border: none;
     margin: 5px 10px;
 }
 
+textarea {
+    resize: none;
+}
