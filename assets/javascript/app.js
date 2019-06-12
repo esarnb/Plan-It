@@ -114,10 +114,10 @@ $('#notes-tab').on('click', function () {
             $('.note').hover(function(){
                 
                 // appending the edit button on hover
-                $(this).append($(`<button class = "btn btn-primary edit-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#editModal">&#128463</button>`))
+                $(this).append($(`<button class = "btn btn-light edit-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#editModal">&#128463</button>`))
 
                 // appending the delete button on hover
-                $(this).append($(`<button class = "btn btn-primary delete-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#deleteModal">&#128465</button>`))
+                $(this).append($(`<button class = "btn btn-light delete-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#deleteModal">&#128465</button>`))
                
                
             }, function () {
