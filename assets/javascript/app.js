@@ -39,6 +39,7 @@ function updateUserNotes(type, note) {
             var edit = $('#edit-comment').val().trim()
             userData.notes.splice(note,1,edit);
             console.log(userData.notes)
+            $('#edit-comment').val("")
         }
         else if (type === "remove") userData.notes.splice(note, 1);
 
@@ -72,7 +73,7 @@ $('#notes-tab').on('click', function () {
 
     var notesSubmitButton = $("#submit-text")
 
-    var textArray;
+    var textArray, deleteOrEdit;
     database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).on("value", function(snapshot) {
         textArray = Object.values(snapshot.val())[0].notes;
         
@@ -83,8 +84,8 @@ $('#notes-tab').on('click', function () {
             for (var i = 0; i < textArray.length; i++) {
                 var p = $('<span>')
                 p.append(textArray[i])
-                p.append(`<button class = "btn btn-primary delete-button" data-posloc='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
-                p.append(`<button class = "btn btn-primary edit-button" data-posloc='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
+                p.append(`<button class = "btn btn-primary delete-button" data-position='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
+                p.append(`<button class = "btn btn-primary edit-button" data-position='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
                 p.append('<br>')
                 p.attr("data-posloc", i)
                 // p.addClass('my-notes')
@@ -93,25 +94,20 @@ $('#notes-tab').on('click', function () {
             }
         }
     });
-    $(document).on('click', '.delete-button' , function() {
-        // console.log($(this).attr('data-posloc'))
-        updateUserNotes("remove", $(this).attr("data-posloc"))
-    })
-
-    $(document).on('click', '.edit-button' , function() {
-       
-        updateUserNotes('replace', $(this).attr("data-posloc"))
-    })
+    $(document).on('click', '.delete-button' , function() { deleteOrEdit = $(this).attr('data-position') })
+    $(document).on('click', '.edit-button' , function() { deleteOrEdit = $(this).attr('data-position') })
     $(document).on('click', '.confirm-button', function() {
-        $('#editModal').modal('hide')
-
+        
+        if ($(this).val()==="deleting") {
+            updateUserNotes("remove", deleteOrEdit)
+            $('#deleteModal').modal('hide')
+        }
+        else if ($(this).val() === "editing") {
+            updateUserNotes("replace", deleteOrEdit)
+            $('#editModal').modal('hide')
+        }
     })
-    $(document).on('click', '.clickTextDelete', function() {
-        if(!auth.currentUser) location.reload();        
-        var confirmed = confirm("Would you like to delete this text?");
-        if (confirmed) updateUserNotes("remove", $(this).attr("data-posloc"))
-    });
-
+    
     notesSubmitButton.on('click', function (event) {
         event.preventDefault();
         if(!auth.currentUser) location.reload();
