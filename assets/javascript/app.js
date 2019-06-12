@@ -24,12 +24,21 @@ var widgetTop = $("#widget-display-top");
  * or deleting a note from a button click. Then, the new object 
  * is updated to firebase.
  */
+
+
 function updateUserNotes(type, note) {
+    console.log(note)
     database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
     .then(function (snapshot) {
         var userData = Object.values(snapshot.val())[0];
         if (!userData.notes) userData.notes = []; 
         if (type === "add") userData.notes.push(note);
+        else if(type === 'replace') {
+            var edit = $('#edit-comment').val().trim()
+            userData.notes.splice(note,1,edit);
+            console.log(userData.notes)
+            $('#edit-comment').val("")
+        }
         else if (type === "remove") userData.notes.splice(note, 1);
 
         database.ref("/users").child(auth.currentUser.uid).update({
@@ -38,6 +47,7 @@ function updateUserNotes(type, note) {
     })
 }
 
+//Notes Tab
 $('#notes-tab').on('click', function () {
     if (!auth.currentUser) {
         alert("You need to first sign in!");
@@ -50,8 +60,8 @@ $('#notes-tab').on('click', function () {
 
     var textArea = $('<div class="form-group">')
     textArea.append("<br>")
-    textArea.append($('<label for="comment">Comment:</label>'))
-    textArea.append($('<textarea class="form-control" rows="1" id = "comment"></textarea>'))
+    textArea.append($('<label for="comment">Add Note</label>'))
+    textArea.append($('<textarea class="form-control bg-light" rows="1" id = "comment"></textarea>'))
     
     $('#widget-input').append(textArea)
 
@@ -61,31 +71,77 @@ $('#notes-tab').on('click', function () {
 
     var notesSubmitButton = $("#submit-text")
 
-    var textArray;
+    var textArray, deleteOrEdit;
     database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).on("value", function(snapshot) {
         textArray = Object.values(snapshot.val())[0].notes;
-        if (!textArray) { updateUserNotes("add", "Welcome to your notes!") }
+        
+        if (!textArray) { $('#widget-display-top').text('Welcome to your Notes!')}
         else {
-            textArray = textArray.map((perNote, index) => ((index + 1) + ". " + perNote+"<br><br>").replace("\n", "<br>"));
+            textArray = textArray.map((perNote, index) => ((index + 1) + ". " + perNote+"").replace("\n", "<br>"));
             $('#widget-display-top').empty()        
+
+            var notesCard = $('<div>').addClass('card');
+            var notesCardBody = $("<div>").addClass("card-body");
+            var notesCardTitle = $("<h5>").addClass("card-title")
+            var notesCardText = $("<div>").addClass("card-text")
+            // Work Here for adding card
+            
+            // End work adding card 
+
+
             for (var i = 0; i < textArray.length; i++) {
-                var p = $('<p>')
+                var p = $('<p class="note" data-position = '+i+'>')
                 p.append(textArray[i])
-                p.addClass("clickTextDelete")
-                p.attr("data-position", i)
-                $('#widget-display-top').append(p)
+                // p.append(`<button class = "btn.sm btn-primary delete-button" data-position='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
+                // p.append(`<button class = "btn.sm btn-primary edit-button" data-position='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
+                // p.attr("data-posloc", i)
+                // console.log(p.attr('data-posloc'))
+                notesCardText.append(p)
+                notesCardText.append('<br>')
             }
+    
+            notesCardTitle.append(notesCardText)
+            notesCardBody.append(notesCardTitle)
+            notesCard.append(notesCardBody)
+            $('#widget-display-top').append(notesCard)
+            $('.delete-button').hide()
+            $('.edit-button').hide()
+
+
+            // on hover, we want to append a delete or edit button that the user can select
+
+
+            $('.note').hover(function(){
+                
+                // appending the edit button on hover
+                $(this).append($(`<button class = "btn btn-light edit-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#editModal">&#128463</button>`))
+
+                // appending the delete button on hover
+                $(this).append($(`<button class = "btn btn-light delete-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#deleteModal">&#128465</button>`))
+               
+               
+            }, function () {
+
+                // Here I remove both of the buttons when I move the cursor off of it
+                $(this).find('button:last').remove();
+                $(this).find('button:last').remove();
+            })
         }
     });
-
-    $(document).on('click', '.clickTextDelete', function() {
-        console.log($(this).attr("data-position"));
+    $(document).on('click', '.delete-button' , function() { deleteOrEdit = $(this).attr('data-position') })
+    $(document).on('click', '.edit-button' , function() { deleteOrEdit = $(this).attr('data-position') })
+    $(document).on('click', '.confirm-button', function() {
         
-        if(!auth.currentUser) location.reload();        
-        var confirmed = confirm("Would you like to delete this text?");
-        if (confirmed) updateUserNotes("remove", $(this).attr("data-position"))
-    });
-
+        if ($(this).val()==="deleting") {
+            updateUserNotes("remove", deleteOrEdit)
+            $('#deleteModal').modal('hide')
+        }
+        else if ($(this).val() === "editing") {
+            updateUserNotes("replace", deleteOrEdit)
+            $('#editModal').modal('hide')
+        }
+    })
+    
     notesSubmitButton.on('click', function (event) {
         event.preventDefault();
         if(!auth.currentUser) location.reload();

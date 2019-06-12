@@ -16,11 +16,33 @@
 #comment {
     width: 20%;
     margin: 0 auto;
+    border: none;
+    border-bottom: 1px, solid;
 }
 
 .customColor {
     background-color:  #66666648
 }
+
+
+.delete-button{
+    padding: 0 7px;
+    font-size: 20px;
+    border: none;
+    margin: 5px 10px;
+}
+
+.edit-button{
+    padding: 0 7px;
+    font-size: 20px;
+    border: none;
+    margin: 5px 10px;
+}
+
+textarea {
+    resize: none;
+}
+
 #mapbutton {
     background : url(https://www.bart.gov/sites/default/files/images/basic_page/system-map-weekday.png) no-repeat center center;
     background-size: contain;
@@ -42,5 +64,6 @@
     font-size: 30px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
 
 
