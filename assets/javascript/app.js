@@ -221,6 +221,11 @@ $('#transport-tab').on('click', function () {
     })
 })
 
+function kelvin2Fahrenheit(kelvinTemp) {
+    return ((((kelvinTemp - 273.15) * (9/5)) + 32).toFixed(2)+"℉")
+
+    
+}
 
 // WEATHER TAB 
 $('#weather-tab').on('click', function () {
@@ -239,6 +244,7 @@ $('#weather-tab').on('click', function () {
         $('#widget-display').empty()
         $('#widget-display-top').empty()
         var locationInput = $('#location-input').val().trim()
+        if (!locationInput) return;
         console.log(locationInput)
         // This is our API key. Add your own API key between the ""
         var APIKey = "fb510d3360292806c424e84f2751add1";
@@ -251,14 +257,14 @@ $('#weather-tab').on('click', function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response)
+            // console.log(response)
             var kelvin = response.main.temp
-            var fah = (kelvin - 273.15) * 1.80 + 32
-            var locationTag = $('<h3>')
-            locationTag.append(locationInput)
-            $('#widget-display').append(locationTag)
+            var fah = kelvin2Fahrenheit(kelvin)
+            // var locationTag = $('<h3>')
+            // locationTag.append(locationInput)
+            // $('#widget-display').append(locationTag)
             var tempTag = $('<p>')
-            tempTag.append('Current Temperature: ' + fah.toFixed(1) + '℉')
+            tempTag.append('Current Temperature: ' + fah)
             $('#widget-display').append(tempTag)
 
             $.ajax({
@@ -267,28 +273,43 @@ $('#weather-tab').on('click', function () {
             }).then(function (response) {
                 console.log(response)
                 var forecastDiv = $('<div>')
-                var tempList = [response.list[4].main.temp, response.list[12].main.temp, response.list[20].main.temp, response.list[28].main.temp, response.list[36].main.temp]
-                var fahList = []
-                for (var i = 0; i < tempList.length; i++) {
-                    var fah = (tempList[i] - 273.15) * 1.80 + 32
-                    fah = fah.toFixed(1)
-                    fahList.push(fah)
-                }
-                console.log(fahList)
                 var forecastList = [];
-                var forecast1 = ($('<p>' + moment(response.list[4].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[0] + '℉</p>'))
-                var forecast2 = ($('<p>' + moment(response.list[12].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[1] + '℉</p>'))
-                var forecast3 = ($('<p>' + moment(response.list[20].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[2] + '℉</p>'))
-                var forecast4 = ($('<p>' + moment(response.list[28].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[3] + '℉</p>'))
-                var forecast5 = ($('<p>' + moment(response.list[36].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do") + "<br>" + fahList[4] + '℉</p>'))
-                forecastList.push(forecast1, forecast2, forecast3, forecast4, forecast5);
-                console.log(forecastList);
+                var sum = 0, avg5Day=[];
+                for(var i = 1; i <= response.list.length; i++) {
+                    sum += response.list[i-1].main.temp
+                    if (i % 8 == 0) {
+                        avg5Day.push( kelvin2Fahrenheit((sum / 8)) )
+                        sum = 0;
+                    }
+                }
+                
+                var minMaxF = [];
+                for (var k = 0; k < response.list.length; k++) {
+                    minMaxF.push({min: kelvin2Fahrenheit(response.list[k].main.temp_min), max: kelvin2Fahrenheit(response.list[k].main.temp_max)})
+                }
+
+                console.log(minMaxF);
+                
+                var eachday=[4, 12, 20, 28, 36];
+                for(var j = 0; j < avg5Day.length; j++) {
+                    var day = $("<p>");
+                    day.text(moment(response.list[eachday[j]].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do"))
+                    day.append($("<p>").text("Avg Temp: " + avg5Day[j]))
+                    // day.append($("<p>").text("High: " + minMaxF[eachday[j]].max))
+                    // day.append($("<p>").text("Low: " + minMaxF[eachday[j]].min))
+                    day.append($("<p>").text("Humidity: " + response.list[eachday[j]].main.humidity + "%"))
+                    forecastList.push(day)
+                }
+
+                // forecastList.push(monday, tuesday, wednesday, thursday, friday);
+
                 var cardDeckForfast = ($("<div>").addClass("card-deck"));
                 for (var i = 0; i < forecastList.length; i++) {
                     cardForfast = ($("<div>").addClass("card"));
                     var cardBody = ($("<div>").addClass("card-body"));
                     var cardTitle = ($("<h5>").addClass("card-title"));
                     cardTitle.append(forecastList[i]);
+
                     var cardText = ($("<div>").addClass("card-text"));
                     cardBody.append(cardTitle);
                     cardBody.append(cardText);
