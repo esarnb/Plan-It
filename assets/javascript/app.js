@@ -98,9 +98,7 @@ $('#notes-tab').on('click', function () {
     
 })
 
-//////////////////////////////////////////////Working Above, Need to fix Below//////////////////////////////////////////////
-
-// TRANSPORTATION TAB //
+// TRANSPORTATION TAB 
 function stationNameButton() {
 
     $.ajax({
@@ -147,7 +145,12 @@ $('#transport-tab').on('click', function () {
 
     $('#widget-button').empty()
     var transportButton = $('<button type = "button" class="btn btn-primary" id = "submit-transport">Submit</button>')
+    
+    var bartmapBtn = $('<button type="button" id="mapbutton" class="btn btn-primary" data-toggle="modal" data-target="#mapmodal">Bart Map</button><div class="modal fade mapmodal" id="mapmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/BART_web_map_effective_September_2018.png"></img></div></div></div>')
+
     $('#widget-button').append(transportButton)
+    $('#widget-title').append("  ")
+    $('#widget-title').append(bartmapBtn)
 
     // var transTable = $("<thead>");
     // transTable.append(transRow)
@@ -197,7 +200,10 @@ $('#transport-tab').on('click', function () {
                         transHead.append(transR);
                         transTable.append(transHead);
                         $("widget-display").append(transTable);
-                        
+                        if (!trainTypes){
+                            $('#widget-display').append("Error: There are no trains at this time")
+                            return;
+                        }
                         for (var i = 0; i < trainTypes.length; i++) {
                             // console.log("185 LOG");
                             for(var j = 0; j < trainTypes[i].estimate.length; j++) {

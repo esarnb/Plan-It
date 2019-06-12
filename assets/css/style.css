@@ -22,3 +22,25 @@
 .customColor {
     background-color:  #66666648
 }
+#mapbutton {
+    background : url(https://www.bart.gov/sites/default/files/images/basic_page/system-map-weekday.png) no-repeat center center;
+    background-size: contain;
+	width : 20px;
+	height :20px;
+	border : none;
+	color : transparent;
+}
+#mapbutton:hover {
+    background : url(https://www.bart.gov/sites/default/files/images/basic_page/system-map-weekday.png) no-repeat center center;
+    background-size: contain;
+	width : 30px;
+	height :30px;
+	border : none;
+	color : transparent;
+}
+#widget-title {
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
