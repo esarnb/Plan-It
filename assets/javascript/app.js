@@ -99,6 +99,7 @@ $('#notes-tab').on('click', function () {
 })
 
 // TRANSPORTATION TAB //
+
 function stationNameButton() {
 
     $.ajax({
@@ -145,7 +146,12 @@ $('#transport-tab').on('click', function () {
 
     $('#widget-button').empty()
     var transportButton = $('<button type = "button" class="btn btn-primary" id = "submit-transport">Submit</button>')
+    
+    var bartmapBtn = $('<button type="button" id="mapbutton" class="btn btn-primary" data-toggle="modal" data-target="#mapmodal">Bart Map</button><div class="modal fade mapmodal" id="mapmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/BART_web_map_effective_September_2018.png"></img></div></div></div>')
+
     $('#widget-button').append(transportButton)
+    $('#widget-title').append("  ")
+    $('#widget-title').append(bartmapBtn)
 
     // var transTable = $("<thead>");
     // transTable.append(transRow)
@@ -195,7 +201,10 @@ $('#transport-tab').on('click', function () {
                         transHead.append(transR);
                         transTable.append(transHead);
                         $("widget-display").append(transTable);
-                        
+                        if (!trainTypes){
+                            $('#widget-display').append("Error: There are no trains at this time")
+                            return;
+                        }
                         for (var i = 0; i < trainTypes.length; i++) {
                             // console.log("185 LOG");
                             for(var j = 0; j < trainTypes[i].estimate.length; j++) {
@@ -337,7 +346,7 @@ $('#weather-tab').on('click', function () {
 // })
 
 
-// Food Tab Start
+// Food Tab // -----------------------------------------
 var userLongitude;
 var userLatitude;
 var businessDiv;
@@ -411,22 +420,37 @@ $('#food-tab').on('click', function () {
             method: "GET"
         }).then(function (response) {
             console.log(response)
-
+            console.log(heroku + queryURL);
             var business = response.businesses
-            for (var i = 0; i < business.length; i++) {
-                var businessName = response.businesses[i].name
-                var businessImage = response.businesses[i].image_url
+            
+            var k = 0;
+            var p = 0;
 
-                var businessImageDiv = $('<img src =' + businessImage + ' style = widgth = "200px" height = "200px">')
+            for (var k = 0; k < business.length; k++) {
+        
+                var cardDeckFood = ($("<div>").addClass("card-deck"));
+                for (var j = 0; j < 4; j++) {
+                    var businessName = response.businesses[p].name
+                    console.log(businessName);
+                    var businessImage = response.businesses[p].image_url
+                    p++;
+                    var cardFood = ($("<div>").addClass("card"));
 
+                    var cardImg = $("<img src = " + businessImage + ">").addClass("card-img-top thumbnailImg");
 
-                var businessDiv = $('<h4>')
-                businessDiv.append(businessName)
-
-                $('#widget-display').append(businessDiv)
-                $('#widget-display').append(businessImageDiv)
+                    cardFood.append(cardImg);
+                    
+                    var cardBodyFood = ($("<div>").addClass("card-body"));
+                    var cardTitleFood = ($("<div>").addClass("card-title"));
+                    
+                    cardTitleFood.text(businessName);
+                    cardBodyFood.append(cardTitleFood);
+                    cardFood.append(cardBodyFood);
+                    
+                    cardDeckFood.append(cardFood);
+                    $('#widget-display').append(cardDeckFood)    
+                }
             }
-
         });
 
     })
