@@ -25,44 +25,60 @@ $(document).on('click', '#theme', function() {
     //if it is dark theme, make it light theme
     if ($(this).val() === "dark") {
 
+        
+    $("body").css("background", "light");
         //Elements will not have the class bg-dark here because it is now light theme
         $(this).val("light");
         $(this).text("Lights On")
         
-        $("#footerId").removeClass("darkThemeNav")
-        $("#footerId").removeClass("lightText")
+        // $("#footerId").removeClass("pureDark")
+        // $("#footerId").removeClass("lightText")
 
-        $(".navbar").removeClass("darkThemeNav")
-        $(".navbar").removeClass("lightText")
+        // $(".navbar").removeClass("pureDark")
+        // $(".navbar").removeClass("lightText")
 
-        $(".card-body").removeClass("darkTheme")
-        $(".card-body").removeClass("lightText")
+        // // $(".navMeClass").css("background-color", "#fff").color("color", "#000")
+
         
-        $(".jumbotron").removeClass("darkTheme")
-        $(".jumbotron").removeClass("lightText")
+        // $(".card-body").removeClass("darkTheme")
+        // $(".card-body").removeClass("lightText")
+        
+        // $(".jumbotron").removeClass("darkTheme")
+        // $(".jumbotron").removeClass("lightText")
 
-        $(document).css("background-image", "")
+        // $(".navbar").removeClass("text-white")
+        // $(".navbar").removeClass("bg-dark")
+        
+        
+        // $(document).css("background-image", "")
     }
     else {
         //Elements will have the class bg-dark here because it is now dark theme
+    // $("body").css("background", "dark");
+
         $(this).val("dark");
         $(this).text("Lights Off")
         //ok
         // wait
         //this doesnt work
-        $("#footerId").addClass("darkThemeNav")
-        $("#footerId").addClass("lightText")
+        // $(".navbar").css("background transparant")
 
-        $(".navbar").addClass("darkThemeNav")
-        $(".navbar").addClass("lightText")
+        // $(".navbar").addClass("text-white")
+        // $(".navbar").addClass("bg-dark")
 
-        $(".card-body").addClass("darkTheme")
-        $(".card-body").addClass("lightText")
+        // $("#footerId").addClass("pureDark")
+        // $("#footerId").addClass("lightText")
+
+        // $(".navbar").addClass("pureDark")
+        // $(".navbar").addClass("lightText")
+
+        // $(".card-body").addClass("darkTheme")
+        // $(".card-body").addClass("lightText")
         
-        $(".jumbotron").addClass("darkTheme")
-        $(".jumbotron").addClass("lightText")
+        // $(".jumbotron").addClass("darkTheme")
+        // $(".jumbotron").addClass("lightText")
 
-        $(document).css("background-image", "assets/images/darkTiles.jpeg")
+        // $(document).css("background-image", "assets/images/darkTiles.jpeg")
 
         //Navbar doesnt change color, 
     }
@@ -138,7 +154,7 @@ $('#notes-tab').on('click', function () {
     $('#widget-input').append(textArea)
 
     var commentTextBox = $("#comment");
-    var textButton = $('<button type = "button" class="btn btn-light border " id = "submit-text">Submit</button>')
+    var textButton = $('<button type = "button" class="btn btn-light border" id = "submit-text">Submit</button>')
     $('#widget-button').append(textButton)
 
     var notesSubmitButton = $("#submit-text")
@@ -187,10 +203,10 @@ $('#notes-tab').on('click', function () {
             $('.note').hover(function(){
                 
                 // appending the edit button on hover
-                $(this).append($(`<button class = "btn btn-light edit-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#editModal">&#128463</button>`))
+                $(this).append($(`<button class = "btn btn-light border edit-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#editModal">&#128463</button>`))
 
                 // appending the delete button on hover
-                $(this).append($(`<button class = "btn btn-light delete-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#deleteModal">&#128465</button>`))
+                $(this).append($(`<button class = "btn btn-light border delete-button rounded" data-position=`+ $(this).attr('data-position') +` data-toggle="modal" data-target="#deleteModal">&#128465</button>`))
                
                
             }, function () {
@@ -277,7 +293,7 @@ $('#transport-tab').on('click', function () {
     $('#widget-input').append(transportForm)
 
     $('#widget-button').empty()
-    var transportButton = $('<button type = "button" class="btn btn-light border border-secondary" id = "submit-transport">Submit</button>')
+    var transportButton = $('<button type = "button" class="btn btn-light border" id = "submit-transport">Submit</button>')
     var bartmapBtn = $('<button type="button" id="mapbutton" class="btn btn-primary" data-toggle="modal" data-target="#mapmodal"></button><div class="modal fade mapmodal" id="mapmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/BART_web_map_effective_September_2018.png" height = "500px" width = "800px"></img></div></div></div>')
 
     $('#widget-button').append(transportButton)
@@ -340,7 +356,7 @@ $('#transport-tab').on('click', function () {
                             // console.log("185 LOG");
                             for(var j = 0; j < trainTypes[i].estimate.length; j++) {
                             // console.log("187 LOG");
-                            var transRow = $(`<tr style=background-color:${trainTypes[i].estimate[j].hexcolor+"3f"}>`)
+                            var transRow = $(`<tr style=background-color:${trainTypes[i].estimate[j].hexcolor+"10"}>`)
                                 transRow.append($("<td>").text(`${trainTypes[i].destination} Train: ${j+1} `))
                                 transRow.append($("<td>").text(trainTypes[i].estimate[j].minutes))
                                 transRow.append($("<td>").text(trainTypes[i].estimate[j].platform))
@@ -377,7 +393,7 @@ $('#weather-tab').on('click', function () {
     weatherInput.append($('<input type="text" class = "rounded" id = "location-input" placeholder="city,country">'))
     $("#widget-input").append(weatherInput)
     $('#widget-button').empty();
-    var weatherButton = ('<button type = "button" class="btn btn-light border border-secondary" id = "location-submit">Submit</button>')
+    var weatherButton = ('<button type = "button" class="btn btn-light border" id = "location-submit">Submit</button>')
     $('#widget-button').append(weatherButton)
     $('#location-submit').on('click', function (event) {
         //When user hits submit button after putting loction, start the loading icon
@@ -529,7 +545,7 @@ $('#food-tab').on('click', function () {
 
     $("#widget-button").empty();
     var foodButton = $("<div class='col-auto my-1'>")
-    foodButton.append("<button type = 'button' class='btn btn-light border border-secondary' id = 'food-submit'>Submit</button>")
+    foodButton.append("<button type = 'button' class='btn btn-light border' id = 'food-submit'>Submit</button>")
     $("#widget-button").append(foodButton)
 
     $("#widget-display").empty()
@@ -539,7 +555,7 @@ $('#food-tab').on('click', function () {
 
      $('#food-submit').on('click', function (event) {
         widgetTop.empty();
-        widgetDisplay.empty()
+        $('#widget-display').empty()
         event.preventDefault();
 
         var foodInput = $('#food-input').val().trim()

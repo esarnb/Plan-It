@@ -1,5 +1,10 @@
 body {
     font-family: 'Open Sans', sans-serif;
+    
+}
+
+p {
+    line-height: 23px;
 }
 
 .jumbotron {
@@ -118,6 +123,12 @@ textarea {
     padding: 5px
 }
 
+/* button styling */
+
+#location-submit {
+    margin-bottom: 15px;
+}
+
 /* Here we will center the card 'note-card' */
 #note-card {
     margin: 0 auto;
@@ -125,6 +136,10 @@ textarea {
     border-left: none;
     border-radius: 0;
 
+}
+
+#forecast-card {
+    margin-top: 15px;
 }
  /* 
             LightOn: Grayscale website how we had it like an hour ago
@@ -138,12 +153,27 @@ textarea {
     background-size: cover;
 
 }
-
 .darkTheme {
     background-color: #000;
     z-index: 6;
- } 
+} 
 
+.lightText {
+    color:#fff;
+ }  
+
+ .pureDark {
+     opacity: 1;
+     z-index: 10;
+     background-color: #000;
+     color: white;
+ }
+
+.navMeClass {
+    background-color: white;
+ }
+
+  /*
  .darkThemeNav {
     background-color: #000;
     z-index: 1;
@@ -157,19 +187,14 @@ textarea {
  .darkTheme, p.note, h3, .card-text {
      color: black;
  }
-/*Navbar is fully disappeared only when i add background-url
-navbar dynamically which class you gave
 
-line 35 darkThemeNav, adds when lightsOff, 
-removed when lightsOn
-
-dark mode is perfect, light mode: the navbar disappears
-
-*/
- #navbar {
-     /* opacity: 1; */
- }
-  
+   /* #navbar {
+   opacity: 1;
+ }*/
+ /*
+  #navMeClass{
+    background-color: #fff;
+  }
  .darkThemeNav #navbarNav ul li a {
      color:#fff;
  }  
@@ -178,5 +203,23 @@ dark mode is perfect, light mode: the navbar disappears
  }  
 
  html {
-     background-color: black;
+     /* background-color: white; */
+/*
  }
+ 
+
+ 
+/*
+    background transparant
+
+class="navbar navbar-expand-lg navbar-light bg-white"
+
+
+//if it is light, change to dark, else change to light
+if ($(this).val() === "light") {
+    $("body").css("background", "dark");
+} 
+else {
+    $("body").css("background", "light");
+}
+*/
