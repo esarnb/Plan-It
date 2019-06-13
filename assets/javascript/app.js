@@ -439,7 +439,7 @@ $('#food-tab').on('click', function () {
 
     //ELEMENTS
     $("#widget-input").empty()
-    var foodInput = $("<label for='food-input'>Please Enter a Location (for food)</label>")
+    var foodInput = $("<label for='food-input'>Please Enter a Location </label>")
     foodInput.append($("<input type='text' id='food-input' placeholder='city, country'>"))
     $("#widget-input").append(foodInput)
 
@@ -485,10 +485,11 @@ $('#food-tab').on('click', function () {
             for (var k = 0; k < business.length; k++) {
         
                 var cardDeckFood = ($("<div>").addClass("card-deck"));
-                for (var j = 0; j < 4; j++) {
+                for (var j = 0; j < 3; j++) {
                     var businessName = response.businesses[p].name
                     console.log(businessName);
                     var businessImage = response.businesses[p].image_url
+                    var businessRatings = response.businesses[p].rating
                     p++;
                     var cardFood = ($("<div>").addClass("card"));
 
@@ -498,9 +499,12 @@ $('#food-tab').on('click', function () {
                     
                     var cardBodyFood = ($("<div>").addClass("card-body"));
                     var cardTitleFood = ($("<div>").addClass("card-title"));
+                    var cardTextFood = ($("<div>").addClass("card-text"));
                     
                     cardTitleFood.text(businessName);
+                    cardTextFood.text("Ratings: " + businessRatings);
                     cardBodyFood.append(cardTitleFood);
+                    cardBodyFood.append(cardTextFood);
                     cardFood.append(cardBodyFood);
                     
                     cardDeckFood.append(cardFood);

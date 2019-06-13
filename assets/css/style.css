@@ -1,3 +1,13 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.jumbotron {
+    height: 92vh;
+    margin-bottom: 0;
+}
+
+
 #bg-modal {
     background-color: #eee;
 }
@@ -64,6 +74,17 @@ textarea {
     font-size: 30px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+.thumbnailImg{
+    height:260px;
+}
+.card-deck .card{
+    margin-bottom:20px;
 
+}
 
+/* Input style */
+
+#food-input {
+    margin-left: 15px;
+}
 
