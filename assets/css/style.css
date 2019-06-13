@@ -21,8 +21,48 @@ h2 {
     color: #000;
 }
 
+/* Modal for login-error */
+#bg-modal {
+    background-color: #eee;
+    margin-top: 25%;
+}
 
-/* custom scrollbar */
+#example-modal-title {
+    font-size: 20px;
+}
+
+
+/* Time and Date for all Widgets */
+#dynamicTime{
+    padding:4px 0px;
+ }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #ccccccaf;
+    text-align: center;
+    padding:15px;
+ }
+
+/*--------------------- Widget Style Properties ----------------*/
+
+/* Widget Title */
+#widget-title {
+    font-weight: 500;
+    font-size: 50px;
+    letter-spacing: 2px;
+}
+
+#widget-input{
+    padding:0px 0px 10px 0px;
+}
+
+/* -------------------------------------------------------------- */
+
+/*---------------------- Custom Scrollbar -----------------------*/
 /* Webkit browsers, such as Chrome, Safari and Opera, supports the non-standard ::-webkit-scrollbar pseudo element, which allows us to modify the look of the browser's scrollbar. */
 
 ::-webkit-scrollbar {
@@ -44,15 +84,12 @@ background: #888;
 background: #666; 
 }
 
+/* -------------------------------------------------------- */
+
 .jumbotron {
     height: 92vh;
     /* height: 100%; */
     margin-bottom: 0;
-}
-
-
-#bg-modal {
-    background-color: #eee;
 }
 
 .errorMsg {
@@ -66,8 +103,31 @@ background: #666;
     margin: 0 auto;
 }
 
-.note{
+/* --------------------- */
+/* Notes Tab Styling */
+
+/* Height of each note */
+
+.note {
     height: 32px;
+    /* width: 20%; */
+    margin-bottom: 15px;
+    font-size: 20px;
+    display: inline-block;
+}
+
+.note:hover {
+    position: relative;
+    top: -3px;
+}
+
+textarea {
+    resize: none;
+}
+
+label {
+    font-size: 21px;
+    font-weight: 500;
 }
 
 #comment {
@@ -75,6 +135,8 @@ background: #666;
     margin: 10px auto;
     border-bottom: 1px, solid #cccccc;
 }
+
+/* -------------------------- */
 
 .customColor {
     background-color:  #66666648
@@ -94,10 +156,6 @@ background: #666;
     margin: 0 10px;
 }
 
-textarea {
-    resize: none;
-}
-
 #mapbutton {
     background : url(https://www.bart.gov/sites/default/files/images/basic_page/system-map-weekday.png) no-repeat center center;
     background-size: contain;
@@ -114,12 +172,7 @@ textarea {
 	border : none;
 	color : transparent;
 }
-#widget-title {
-    font-weight: bold;
-    font-size: 30px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
-}
+
 .thumbnailImg{
     height:260px;
 }
@@ -127,22 +180,10 @@ textarea {
     margin-bottom:20px;
     border-radius:10px;
 }
-/* minal new changes */
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #ccccccaf;
-    text-align: center;
-    padding:15px;
- }
- #widget-input{
-     padding:0px 0px 10px 0px;
- }
- #dynamicTime{
-    padding:4px 0px;
- }
+
+
+
+
 
 /* Input style */
 #weather-input {
