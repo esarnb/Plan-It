@@ -1,10 +1,47 @@
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     
 }
 
 p {
     line-height: 23px;
+}
+
+/* Quote */
+h2 {
+    font-size: 25px;
+    font-style: italic;
+    line-height: 30px;  
+}
+
+/* Navbar links */
+.nav-link {
+    font-size: 21px;
+    font-weight: 500;
+    color: #000;
+}
+
+
+/* custom scrollbar */
+/* Webkit browsers, such as Chrome, Safari and Opera, supports the non-standard ::-webkit-scrollbar pseudo element, which allows us to modify the look of the browser's scrollbar. */
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #666; 
 }
 
 .jumbotron {
@@ -29,6 +66,10 @@ p {
     margin: 0 auto;
 }
 
+.note{
+    height: 32px;
+}
+
 #comment {
     width: 20%;
     margin: 10px auto;
@@ -43,14 +84,14 @@ p {
     padding: 0 7px;
     font-size: 20px;
     border: none;
-    margin: 5px 10px;
+    margin: 0 10px;
 }
 
 .edit-button{
     padding: 0 7px;
     font-size: 20px;
     border: none;
-    margin: 5px 10px;
+    margin: 0 10px;
 }
 
 textarea {

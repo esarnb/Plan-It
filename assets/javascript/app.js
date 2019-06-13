@@ -79,7 +79,6 @@ $.ajax({
     $('#widget-display-top').append('<hr>')
     $('#widget-display-top').append(h)
     $('#widget-display-top').append('<hr>')
-    $('#widget-display-top').append($('<br>'))
     $('#widget-display-top').append(p)
 })
 ////////////////////////////////////////////////
