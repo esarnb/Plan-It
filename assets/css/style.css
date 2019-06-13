@@ -19,6 +19,7 @@ body {
 main {
     min-height: 100vh; /* Will cover 100% of the viewport */
     overflow: hidden;
+    /* width: 100%; */
     display: block;
     position: relative;
     padding-bottom: 53px;
@@ -27,8 +28,9 @@ main {
 .footer {
     position: absolute;
     bottom: 0;
-    left: -120px;
-    width: 100vw;
+    /* right:20px; */
+    /* left: -118px; */
+    width: 100%;
     background-color: #ccccccaf;
     text-align: center;
     padding:15px;
@@ -43,6 +45,22 @@ h2 {
     font-size: 25px;
     font-style: italic;
     line-height: 30px;  
+}
+
+.navbar-brand {
+    padding: 0;
+    margin: 0;
+}
+
+#navMe {
+    /* padding */
+}
+
+#logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+
 }
 
 /* Navbar links */
@@ -70,7 +88,7 @@ h2 {
 
  /* Jumbotron */
 .jumbotron {
-    /* height: 91vh; */
+    margin-bottom:0 ;
     /* height: 100%; */
     /* margin-bottom: 5rem; */
 }

@@ -474,8 +474,10 @@ $('#food-tab').on('click', function () {
             
             var k = 0;
             var p = 0;
+                        
+            business.length > 18 ? business.length = 18 : business.length;
 
-            for (var k = 0; k < business.length; k++) {
+            for (var k = 0; k < (business.length); k++) {
         
                 var cardDeckFood = ($("<div>").addClass("card-deck"));
                 for (var j = 0; j < 3; j++) {
@@ -494,7 +496,6 @@ $('#food-tab').on('click', function () {
                     var cardTitleFood = ($("<div><a target = '_blank' href="+businessURL+">"+businessName+"</a></div>").addClass("card-title"));
                     var cardTextFood = ($("<div>").addClass("card-text"));
                     
-                    // cardTitleFood.text(businessName);
                     cardTextFood.text("Ratings: " + businessRatings);
                     cardBodyFood.append(cardTitleFood);
                     cardBodyFood.append(cardTextFood);
@@ -589,15 +590,6 @@ auth.onAuthStateChanged(user => {
         btnLogOut.text("Logout")
         $("#exampleModal").modal('hide');
         authPrompt.text("Planner App")
-
-        // //Get the current user data obj
-        // var userData;
-        // database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
-        //     .then(function (snapshot) {
-        //         userData = Object.values(snapshot.val())[0];
-        //         //Convert the object to a list of numbered notes and display it to the screen
-        //         var userNotes = userData.notes.map((perNote, index) => ((index + 1) + ". " + perNote)).join("<br>");
-        //     })
 
     } else {
         btnLogOut.text("Login")
