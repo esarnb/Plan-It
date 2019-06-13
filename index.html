@@ -42,176 +42,179 @@
 </head>
 
 <body>
+    <main>
     <!-- navbar starts-->
 
-    <nav id="navMe" class="navbar navbar-expand-lg navbar-light navMeClass">
-        <a class="navbar-brand" href="/Plan-It/">
-            <img src="assets/favicons/mstile-310x310.png" width="30" height="30" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id='notes-tab'>Notes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id='transport-tab'>Transportation</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id='weather-tab'>Weather</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id='food-tab'>Food</a>
-                </li>
-            </ul>
-            <!-- Sign in modal -->
-            <form class="form-inline my-2 my-lg-0" id="form-left">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary mr-2" id='sign-out'>
-                    Sign Out
-                </button>
-            </form>
-        </div>
-    </nav>
+        <nav id="navMe" class="navbar navbar-expand-lg navbar-light navMeClass">
+            <a class="navbar-brand" href="/Plan-It/">
+                <img src="assets/favicons/mstile-310x310.png" width="30" height="30" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id='notes-tab'>Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id='transport-tab'>Transportation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id='weather-tab'>Weather</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id='food-tab'>Food</a>
+                    </li>
+                </ul>
+                <!-- Sign in modal -->
+                <form class="form-inline my-2 my-lg-0" id="form-left">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary mr-2" id='sign-out'>
+                        Sign Out
+                    </button>
+                </form>
+            </div>
+        </nav>
 
-    <!-- Widget for everything -->
-    <div class="jumbotron jumbotron-fluid bg-gray">
-        <div class="container text-center">
-            <div class="card">
-                <div class="card-body">
+        <!-- Widget for everything -->
+        <div class="jumbotron jumbotron-fluid bg-gray">
+            <div class="container text-center">
+                <div class="card">
+                    <div class="card-body">
 
-                    <!-- Title of the widget -->
-                    <h5 class="card-title mb-3" id='widget-title'></h5>
+                        <!-- Title of the widget -->
+                        <h5 class="card-title mb-3" id='widget-title'></h5>
 
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        <p class="lead" id="dynamicTime"></p>
-                    </h6>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <p class="lead" id="dynamicTime"></p>
+                        </h6>
 
-                    <div id='widget-display-top'></div>
+                        <div id='widget-display-top'></div>
 
-                    <!-- Input for the Widget -->
-                    <div id='widget-input'></div>
+                        <!-- Input for the Widget -->
+                        <div id='widget-input'></div>
 
-                    <div class="col-auto my-1">
+                        <div class="col-auto my-1">
 
-                        <!-- The widget button -->
-                        <div id='widget-button'>
+                            <!-- The widget button -->
+                            <div id='widget-button'>
 
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- The widget display -->
-                    <div id='widget-display'></div>
+                        <!-- The widget display -->
+                        <div id='widget-display'></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Modal 1 Sign In-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="bg-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email
+                                    with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                    placeholder="Password">
+                            </div>
+                            <div class="form-group form-check pl-0">
+                                <label for="exampleErrorMessage" id="authPrompt" class="errorMsg">Error Message</label>
+                            </div>
+                            <button type="button" id="authLogin" class="btn btn-primary">Login</button>
+                            <button type="button" id="authSignUp" class="btn btn-primary">Sign Up</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 
-    </div>
+    <!----------------------------------------------- Delete Modal ------------------------------------------>
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="bg-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this note?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <button type="button" class="btn btn-primary confirm-button" value="deleting">Confirm</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!---------------------------------------------Edit Modal-------------------------------------------------------->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="bg-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit this note</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <textarea class='form-control' id="edit-comment" rows="1"></textarea>
+                            <button type="button" class="btn btn-primary confirm-button" value="editing">Confirm</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!---------------------------------------------Error Modal (Sign-In)-------------------------------------------------------->
+        <div class="modal fade" id="SignErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="bg-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">You need to first sign in to your account to see your
+                            personal notes! (Top right, click the Log In button)</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <button type="button" class="btn btn-primary confirm-button" value="signError">Ok</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="footer" id="footerId">
                     <p>@2019</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--This will be used to display a welcome -->
-
-    <!-- Modal 1 Sign In-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" id="bg-modal">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email
-                                with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1"
-                                placeholder="Password">
-                        </div>
-                        <div class="form-group form-check pl-0">
-                            <label for="exampleErrorMessage" id="authPrompt" class="errorMsg">Error Message</label>
-                        </div>
-                        <button type="button" id="authLogin" class="btn btn-primary">Login</button>
-                        <button type="button" id="authSignUp" class="btn btn-primary">Sign Up</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!----------------------------------------------- Delete Modal ------------------------------------------>
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" id="bg-modal">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this note?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <button type="button" class="btn btn-primary confirm-button" value="deleting">Confirm</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!---------------------------------------------Edit Modal-------------------------------------------------------->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" id="bg-modal">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit this note</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <textarea class='form-control' id="edit-comment" rows="1"></textarea>
-                        <button type="button" class="btn btn-primary confirm-button" value="editing">Confirm</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!---------------------------------------------Error Modal (Sign-In)-------------------------------------------------------->
-    <div class="modal fade" id="SignErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" id="bg-modal">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">You need to first sign in to your account to see your
-                        personal notes! (Top right, click the Log In button)</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <button type="button" class="btn btn-primary confirm-button" value="signError">Ok</button>
-                    </form>
                 </div>
             </div>
         </div>

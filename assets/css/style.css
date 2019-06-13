@@ -1,7 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Cormorant Garamond', serif;
-    
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* min-height: 100vh; */
+    position: relative;
+    height: 100%;
 }
+
+main {
+    min-height: 100vh; /* Will cover 100% of the viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 53px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: -120px;
+    width: 100vw;
+    background-color: #ccccccaf;
+    text-align: center;
+    padding:15px;
+ }
 
 p {
     line-height: 23px;
@@ -37,15 +68,14 @@ h2 {
     padding:4px 0px;
  }
 
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #ccccccaf;
-    text-align: center;
-    padding:15px;
- }
+ /* Jumbotron */
+.jumbotron {
+    /* height: 91vh; */
+    /* height: 100%; */
+    /* margin-bottom: 5rem; */
+}
+
+
 
 /*--------------------- Widget Style Properties ----------------*/
 
@@ -86,11 +116,6 @@ background: #666;
 
 /* -------------------------------------------------------- */
 
-.jumbotron {
-    height: 92vh;
-    /* height: 100%; */
-    margin-bottom: 0;
-}
 
 .errorMsg {
     color: red;
@@ -114,6 +139,10 @@ background: #666;
     margin-bottom: 15px;
     font-size: 20px;
     display: inline-block;
+}
+
+#note-body {
+    padding-bottom: 0;
 }
 
 .note:hover {

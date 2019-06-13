@@ -127,7 +127,7 @@ $('#notes-tab').on('click', function () {
 
             // Here I we change the width of the card
             var notesCard = $('<div id = "note-card">').addClass('card w-50');
-            var notesCardBody = $("<div>").addClass("card-body");
+            var notesCardBody = $("<div id ='note-body'>").addClass("card-body");
             var notesCardTitle = $("<h5>").addClass("card-title")
             var notesCardText = $("<div>").addClass("card-text")
             
