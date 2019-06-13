@@ -1,3 +1,19 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    
+}
+
+p {
+    line-height: 23px;
+}
+
+.jumbotron {
+    height: 92vh;
+    /* height: 100%; */
+    margin-bottom: 0;
+}
+
+
 #bg-modal {
     background-color: #eee;
 }
@@ -15,15 +31,13 @@
 
 #comment {
     width: 20%;
-    margin: 0 auto;
-    border: none;
-    border-bottom: 1px, solid;
+    margin: 10px auto;
+    border-bottom: 1px, solid #cccccc;
 }
 
 .customColor {
     background-color:  #66666648
 }
-
 
 .delete-button{
     padding: 0 7px;
@@ -63,7 +77,149 @@ textarea {
     font-weight: bold;
     font-size: 30px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+}
+.thumbnailImg{
+    height:260px;
+}
+.card-deck .card{
+    margin-bottom:20px;
+    border-radius:10px;
+}
+/* minal new changes */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #ccccccaf;
+    text-align: center;
+    padding:15px;
+ }
+ #widget-input{
+     padding:0px 0px 10px 0px;
+ }
+ #dynamicTime{
+    padding:4px 0px;
+ }
+
+/* Input style */
+#weather-input {
+    width:210px;
 }
 
+#food-input {
+    margin-left: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    width:210px;
+}
+
+#location-input {
+    margin-left: 18px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    padding: 5px
+}
+
+/* button styling */
+
+#location-submit {
+    margin-bottom: 15px;
+}
+
+/* Here we will center the card 'note-card' */
+#note-card {
+    margin: 0 auto;
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
+
+}
+
+#forecast-card {
+    margin-top: 15px;
+}
+ /* 
+            LightOn: Grayscale website how we had it like an hour ago
+            LightOff: Black navbar, footer. DarkGray Body with opacity to see bg-blackTiles
+            Those nubs did something
+ */
+
+ body {
+    /* background-image: url("../images/darkTiles.jpeg"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+.darkTheme {
+    background-color: #000;
+    z-index: 6;
+} 
+
+.lightText {
+    color:#fff;
+ }  
+
+ .pureDark {
+     opacity: 1;
+     z-index: 10;
+     background-color: #000;
+     color: white;
+ }
+
+.navMeClass {
+    background-color: white;
+ }
+
+  /*
+ .darkThemeNav {
+    background-color: #000;
+    z-index: 1;
+    color:#fff;
+ }
+
+ .darkTheme.jumbotron {
+     opacity: 0.8;
+ }
+ 
+ .darkTheme, p.note, h3, .card-text {
+     color: black;
+ }
+
+   /* #navbar {
+   opacity: 1;
+ }*/
+ /*
+  #navMeClass{
+    background-color: #fff;
+  }
+ .darkThemeNav #navbarNav ul li a {
+     color:#fff;
+ }  
+ .lightText {
+    color:#fff;
+ }  
+
+ html {
+     /* background-color: white; */
+/*
+ }
+ 
+
+ 
+/*
+    background transparant
+
+class="navbar navbar-expand-lg navbar-light bg-white"
 
 
+//if it is light, change to dark, else change to light
+if ($(this).val() === "light") {
+    $("body").css("background", "dark");
+} 
+else {
+    $("body").css("background", "light");
+}
+*/
