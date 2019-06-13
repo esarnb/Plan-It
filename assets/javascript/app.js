@@ -1,13 +1,76 @@
-/**
- * Look at trello for ToDo's or ask a member.
- */
 //Begin JS for index.html//
-
 
 //Dynamic time across all tabs
 setInterval(function(){
     $("#dynamicTime").text(moment().format("dddd, MMMM Do, hh:mm:ss A"))
 }, 1000)
+
+$(document).keypress('#comment', function(event){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13') $("#submit-text").click()
+});
+
+$(document).keypress('#location-input', function(event){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13') $("#location-submit").click()
+});
+
+$(document).keypress('#food-input', function(event){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13') $("#food-submit").click()
+});
+
+$("#theme").text("Lights On")
+$(document).on('click', '#theme', function() {
+    //if it is dark theme, make it light theme
+    if ($(this).val() === "dark") {
+
+        //Elements will not have the class bg-dark here because it is now light theme
+        $(this).val("light");
+        $(this).text("Lights On")
+        
+        $("#footerId").removeClass("darkThemeNav")
+        $("#footerId").removeClass("lightText")
+
+        $(".navbar").removeClass("darkThemeNav")
+        $(".navbar").removeClass("lightText")
+
+        $(".card-body").removeClass("darkTheme")
+        $(".card-body").removeClass("lightText")
+        
+        $(".jumbotron").removeClass("darkTheme")
+        $(".jumbotron").removeClass("lightText")
+
+        $(document).css("background-image", "")
+    }
+    else {
+        //Elements will have the class bg-dark here because it is now dark theme
+        $(this).val("dark");
+        $(this).text("Lights Off")
+        //ok
+        // wait
+        //this doesnt work
+        $("#footerId").addClass("darkThemeNav")
+        $("#footerId").addClass("lightText")
+
+        $(".navbar").addClass("darkThemeNav")
+        $(".navbar").addClass("lightText")
+
+        $(".card-body").addClass("darkTheme")
+        $(".card-body").addClass("lightText")
+        
+        $(".jumbotron").addClass("darkTheme")
+        $(".jumbotron").addClass("lightText")
+
+        $(document).css("background-image", "assets/images/darkTiles.jpeg")
+
+        //Navbar doesnt change color, 
+    }
+})
+
+//coloring for class "themeColoring"
+$(".themeColoring").css("background-color: #f8c6c68f")
+
 
 var widgetTop = $("#widget-display-top");
 // Notes Tab
@@ -49,8 +112,17 @@ function updateUserNotes(type, note) {
 
 //Notes Tab
 $('#notes-tab').on('click', function () {
+    
+    //Special case if not signed in, confirm will close modal.
+    //The rest of the modals are 
+    $(document).on('click', '.confirm-button', function() {
+        if ($(this).val() === "signError") {
+            $("#SignErrorModal").modal("hide");
+        }
+    })
+    
     if (!auth.currentUser) {
-        alert("You need to first sign in!");
+        $("#SignErrorModal").modal('show');        
         return;
     }
     $('#widget-title').text('Notes');
@@ -61,12 +133,12 @@ $('#notes-tab').on('click', function () {
     var textArea = $('<div class="form-group">')
     textArea.append("<br>")
     textArea.append($('<label for="comment">Add Note</label>'))
-    textArea.append($('<textarea class="form-control bg-light" rows="1" id = "comment"></textarea>'))
+    textArea.append($('<textarea class="form-control bg-light border" rows="1" id = "comment"></textarea>'))
     
     $('#widget-input').append(textArea)
 
     var commentTextBox = $("#comment");
-    var textButton = $('<button type = "button" class="btn btn-primary" id = "submit-text">Submit</button>')
+    var textButton = $('<button type = "button" class="btn btn-light border " id = "submit-text">Submit</button>')
     $('#widget-button').append(textButton)
 
     var notesSubmitButton = $("#submit-text")
@@ -80,7 +152,8 @@ $('#notes-tab').on('click', function () {
             textArray = textArray.map((perNote, index) => ((index + 1) + ". " + perNote+"").replace("\n", "<br>"));
             $('#widget-display-top').empty()        
 
-            var notesCard = $('<div>').addClass('card');
+            // Here I we change the width of the card
+            var notesCard = $('<div id = "note-card">').addClass('card w-50');
             var notesCardBody = $("<div>").addClass("card-body");
             var notesCardTitle = $("<h5>").addClass("card-title")
             var notesCardText = $("<div>").addClass("card-text")
@@ -139,6 +212,9 @@ $('#notes-tab').on('click', function () {
         else if ($(this).val() === "editing") {
             updateUserNotes("replace", deleteOrEdit)
             $('#editModal').modal('hide')
+        }
+        else if ($(this).val() === "signError") {
+            $("#SignErrorModal").modal("hide");
         }
     })
     
@@ -201,9 +277,8 @@ $('#transport-tab').on('click', function () {
     $('#widget-input').append(transportForm)
 
     $('#widget-button').empty()
-    var transportButton = $('<button type = "button" class="btn btn-primary" id = "submit-transport">Submit</button>')
-    
-    var bartmapBtn = $('<button type="button" id="mapbutton" class="btn btn-primary" data-toggle="modal" data-target="#mapmodal">Bart Map</button><div class="modal fade mapmodal" id="mapmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/BART_web_map_effective_September_2018.png"></img></div></div></div>')
+    var transportButton = $('<button type = "button" class="btn btn-light border border-secondary" id = "submit-transport">Submit</button>')
+    var bartmapBtn = $('<button type="button" id="mapbutton" class="btn btn-primary" data-toggle="modal" data-target="#mapmodal"></button><div class="modal fade mapmodal" id="mapmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/BART_web_map_effective_September_2018.png" height = "500px" width = "800px"></img></div></div></div>')
 
     $('#widget-button').append(transportButton)
     $('#widget-title').append("  ")
@@ -224,7 +299,7 @@ $('#transport-tab').on('click', function () {
             method: "GET"
         })
             .then(function (response) {
-                console.log(response);
+                
                 var jsObjects = response.root.stations.station
                 var result = jsObjects.filter(obj => {
                     return obj.name === pickedPlace
@@ -299,12 +374,15 @@ $('#weather-tab').on('click', function () {
     $('#widget-title').text('Weather');
     $('#widget-input').empty()
     var weatherInput = $('<label for="location-input">Please Enter a Location</label>')
-    weatherInput.append($('<input type="text" id = "location-input" placeholder="city,country">'))
+    weatherInput.append($('<input type="text" class = "rounded" id = "location-input" placeholder="city,country">'))
     $("#widget-input").append(weatherInput)
     $('#widget-button').empty();
-    var weatherButton = ('<button type = "button" class="btn btn-primary" id = "location-submit">Submit</button>')
+    var weatherButton = ('<button type = "button" class="btn btn-light border border-secondary" id = "location-submit">Submit</button>')
     $('#widget-button').append(weatherButton)
     $('#location-submit').on('click', function (event) {
+        //When user hits submit button after putting loction, start the loading icon
+        $("#widget-display").append("<img src='' id='loadingWeather'>Loading...")
+
         event.preventDefault();
         $('#widget-display').empty()
         $('#widget-display-top').empty()
@@ -364,12 +442,15 @@ $('#weather-tab').on('click', function () {
                 for(var j = 0; j < avg5Day.length; j++) {
                     if (response.list[eachday[j]].weather.main === "Cloudy") skyType = "assets/images/clouds.png"
                     else skyType = "assets/images/sun.png"
-                    var day = $("<p>");
-                    day.text(moment(response.list[eachday[j]].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do"))
+                    var day = $("<h3>");
+                    day.append(moment(response.list[eachday[j]].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do"))
+                    day.append("<br><br>")
                     day.append($("<p>").text("Avg Temp: " + avg5Day[j]))
                     // day.append($("<p>").text("High: " + kelvin2Fahrenheit(min)))
                     // day.append($("<p>").text("Low: " + kelvin2Fahrenheit(max)))
+                    day.append("<br>")
                     day.append($("<p>").text("Humidity: " + response.list[eachday[j]].main.humidity + "%"));
+                    day.append("<br>")
                     day.append($(`<img src='${skyType}' width= '100px' height= '100px'>`))
                     forecastList.push(day)
                 }
@@ -388,6 +469,9 @@ $('#weather-tab').on('click', function () {
                     cardDeckForfast.append(cardForfast);
                     forecastDiv.append(cardDeckForfast);
                     $('#widget-display').append(forecastDiv)
+
+                    //When data loads, erase loading prompt
+                    $("#loadingWeather").remove();
                 }
             });
         });
@@ -423,11 +507,11 @@ function getLocal() {
 
 }
 
+
 // if (userLongitude) {
 //     var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + userLatitude + "&longitude=" + userLongitude;
 //     console.log(queryURL)
-// } else {
-    https://api.yelp.com/v3/autocomplete?text=del&latitude=37.786882&longitude=-122.399972
+// } else {    https://api.yelp.com/v3/autocomplete?text=del&latitude=37.786882&longitude=-122.399972
 $('#food-tab').on('click', function () {
     widgetTop.empty();
     getLocal();
@@ -440,12 +524,12 @@ $('#food-tab').on('click', function () {
     //ELEMENTS
     $("#widget-input").empty()
     var foodInput = $("<label for='food-input'>Please Enter a Location </label>")
-    foodInput.append($("<input type='text' id='food-input' placeholder='city, country'>"))
+    foodInput.append($("<input type='text' class = 'rounded' id='food-input' placeholder='city, country'>"))
     $("#widget-input").append(foodInput)
 
     $("#widget-button").empty();
     var foodButton = $("<div class='col-auto my-1'>")
-    foodButton.append("<button type = 'button' class='btn btn-primary' id = 'food-submit'>Submit</button>")
+    foodButton.append("<button type = 'button' class='btn btn-light border border-secondary' id = 'food-submit'>Submit</button>")
     $("#widget-button").append(foodButton)
 
     $("#widget-display").empty()
@@ -490,6 +574,8 @@ $('#food-tab').on('click', function () {
                     console.log(businessName);
                     var businessImage = response.businesses[p].image_url
                     var businessRatings = response.businesses[p].rating
+                    var businessURL = response.businesses[p].url
+                    console.log(businessURL)
                     p++;
                     var cardFood = ($("<div>").addClass("card"));
 
@@ -628,6 +714,7 @@ btnLogOut.on('click', () => {
         $("#exampleModal").modal("show")
     }
 })
+
 
 //When a user signs in/out listener
 auth.onAuthStateChanged(user => {
