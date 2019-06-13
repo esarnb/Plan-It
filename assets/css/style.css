@@ -4,6 +4,7 @@ body {
 
 .jumbotron {
     height: 92vh;
+    /* height: 100%; */
     margin-bottom: 0;
 }
 
@@ -120,19 +121,19 @@ textarea {
 /* Here we will center the card 'note-card' */
 #note-card {
     margin: 0 auto;
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
 
 }
-
  /* 
- 
-
             LightOn: Grayscale website how we had it like an hour ago
             LightOff: Black navbar, footer. DarkGray Body with opacity to see bg-blackTiles
             Those nubs did something
  */
-/*  
+
  body {
-    background-image: url("../images/darkTiles.jpeg");
+    /* background-image: url("../images/darkTiles.jpeg"); */
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -140,31 +141,42 @@ textarea {
 
 .darkTheme {
     background-color: #000;
-     opacity: 0.8; 
     z-index: 6;
-
- }
+ } 
 
  .darkThemeNav {
     background-color: #000;
-    z-index: 6;
-    color:#fff;
- }
- 
- #footerId .darkThemeNav {
-    background-color: #000;
     z-index: 1;
     color:#fff;
-    opacity:0.5; 
-
  }
 
+ .darkTheme.jumbotron {
+     opacity: 0.8;
+ }
+ 
+ .darkTheme, p.note, h3, .card-text {
+     color: black;
+ }
+/*Navbar is fully disappeared only when i add background-url
+navbar dynamically which class you gave
+
+line 35 darkThemeNav, adds when lightsOff, 
+removed when lightsOn
+
+dark mode is perfect, light mode: the navbar disappears
+
+*/
+ #navbar {
+     /* opacity: 1; */
+ }
+  
  .darkThemeNav #navbarNav ul li a {
      color:#fff;
- }
-
+ }  
  .lightText {
     color:#fff;
- } */
+ }  
 
- 
+ html {
+     background-color: black;
+ }

@@ -539,7 +539,7 @@ $('#food-tab').on('click', function () {
 
      $('#food-submit').on('click', function (event) {
         widgetTop.empty();
-
+        widgetDisplay.empty()
         event.preventDefault();
 
         var foodInput = $('#food-input').val().trim()
@@ -584,10 +584,10 @@ $('#food-tab').on('click', function () {
                     cardFood.append(cardImg);
                     
                     var cardBodyFood = ($("<div>").addClass("card-body"));
-                    var cardTitleFood = ($("<div>").addClass("card-title"));
+                    var cardTitleFood = ($("<div><a target = '_blank' href="+businessURL+">"+businessName+"</a></div>").addClass("card-title"));
                     var cardTextFood = ($("<div>").addClass("card-text"));
                     
-                    cardTitleFood.text(businessName);
+                    // cardTitleFood.text(businessName);
                     cardTextFood.text("Ratings: " + businessRatings);
                     cardBodyFood.append(cardTitleFood);
                     cardBodyFood.append(cardTextFood);
