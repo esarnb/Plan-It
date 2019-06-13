@@ -20,74 +20,6 @@ $(document).keypress('#food-input', function(event){
     if(keycode == '13') $("#food-submit").click()
 });
 
-$("#theme").text("Lights On")
-$(document).on('click', '#theme', function() {
-    //if it is dark theme, make it light theme
-    if ($(this).val() === "dark") {
-
-        
-    $("body").css("background", "light");
-        //Elements will not have the class bg-dark here because it is now light theme
-        $(this).val("light");
-        $(this).text("Lights On")
-        
-        // $("#footerId").removeClass("pureDark")
-        // $("#footerId").removeClass("lightText")
-
-        // $(".navbar").removeClass("pureDark")
-        // $(".navbar").removeClass("lightText")
-
-        // // $(".navMeClass").css("background-color", "#fff").color("color", "#000")
-
-        
-        // $(".card-body").removeClass("darkTheme")
-        // $(".card-body").removeClass("lightText")
-        
-        // $(".jumbotron").removeClass("darkTheme")
-        // $(".jumbotron").removeClass("lightText")
-
-        // $(".navbar").removeClass("text-white")
-        // $(".navbar").removeClass("bg-dark")
-        
-        
-        // $(document).css("background-image", "")
-    }
-    else {
-        //Elements will have the class bg-dark here because it is now dark theme
-    // $("body").css("background", "dark");
-
-        $(this).val("dark");
-        $(this).text("Lights Off")
-        //ok
-        // wait
-        //this doesnt work
-        // $(".navbar").css("background transparant")
-
-        // $(".navbar").addClass("text-white")
-        // $(".navbar").addClass("bg-dark")
-
-        // $("#footerId").addClass("pureDark")
-        // $("#footerId").addClass("lightText")
-
-        // $(".navbar").addClass("pureDark")
-        // $(".navbar").addClass("lightText")
-
-        // $(".card-body").addClass("darkTheme")
-        // $(".card-body").addClass("lightText")
-        
-        // $(".jumbotron").addClass("darkTheme")
-        // $(".jumbotron").addClass("lightText")
-
-        // $(document).css("background-image", "assets/images/darkTiles.jpeg")
-
-        //Navbar doesnt change color, 
-    }
-})
-
-//coloring for class "themeColoring"
-$(".themeColoring").css("background-color: #f8c6c68f")
-
-
 var widgetTop = $("#widget-display-top");
 // Notes Tab
 
@@ -106,7 +38,6 @@ var widgetTop = $("#widget-display-top");
 
 
 function updateUserNotes(type, note) {
-    console.log(note)
     database.ref("/users").orderByChild("email").equalTo(auth.currentUser.email).once('value')
     .then(function (snapshot) {
         var userData = Object.values(snapshot.val())[0];
@@ -115,7 +46,6 @@ function updateUserNotes(type, note) {
         else if(type === 'replace') {
             var edit = $('#edit-comment').val().trim()
             userData.notes.splice(note,1,edit);
-            console.log(userData.notes)
             $('#edit-comment').val("")
         }
         else if (type === "remove") userData.notes.splice(note, 1);
@@ -173,18 +103,11 @@ $('#notes-tab').on('click', function () {
             var notesCardBody = $("<div>").addClass("card-body");
             var notesCardTitle = $("<h5>").addClass("card-title")
             var notesCardText = $("<div>").addClass("card-text")
-            // Work Here for adding card
             
-            // End work adding card 
-
 
             for (var i = 0; i < textArray.length; i++) {
                 var p = $('<p class="note" data-position = '+i+'>')
                 p.append(textArray[i])
-                // p.append(`<button class = "btn.sm btn-primary delete-button" data-position='${i}' data-toggle="modal" data-target="#deleteModal">Delete</button>`)
-                // p.append(`<button class = "btn.sm btn-primary edit-button" data-position='${i}' data-toggle="modal" data-target="#editModal">Edit</button>`)
-                // p.attr("data-posloc", i)
-                // console.log(p.attr('data-posloc'))
                 notesCardText.append(p)
                 notesCardText.append('<br>')
             }
@@ -255,13 +178,12 @@ function stationNameButton() {
         method: "GET"
     })
         .then(function (response) {
-            console.log(response)
             var stationName = response.root.stations.station;
-            // console.log(stationName)
+            
             for (var i = 0; i < stationName.length; i++) {
 
                 var statName = response.root.stations.station[i].name;
-                // console.log(i)
+                
                 var newOption = $("<option>")
                 newOption.addClass("station-button")
                 newOption.attr("name-value", statName)
@@ -321,7 +243,7 @@ $('#transport-tab').on('click', function () {
                     return obj.name === pickedPlace
                 })
                 var abbrev = result[0].abbr;
-                console.log(abbrev);
+                
                 /////////Second Query////////
                 var abbrQuery = "https://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + abbrev + "&key=MW9S-E7SL-26DU-VV8V&json=y";
                 $.ajax({
@@ -329,10 +251,10 @@ $('#transport-tab').on('click', function () {
                     method: "GET"
                 })
                     .then(function (response) {
-                        // console.log("180 LOG");
+                        
                         
                         var trainTypes = response.root.station[0].etd
-                        // console.log(`Train Types: ${trainTypes}`);
+                       
                         var transTable = $("<table>").addClass("table")
                         transTable.addClass("table-bordered");
 
@@ -353,16 +275,13 @@ $('#transport-tab').on('click', function () {
                             return;
                         }
                         for (var i = 0; i < trainTypes.length; i++) {
-                            // console.log("185 LOG");
                             for(var j = 0; j < trainTypes[i].estimate.length; j++) {
-                            // console.log("187 LOG");
                             var transRow = $(`<tr style=background-color:${trainTypes[i].estimate[j].hexcolor+"10"}>`)
                                 transRow.append($("<td>").text(`${trainTypes[i].destination} Train: ${j+1} `))
                                 transRow.append($("<td>").text(trainTypes[i].estimate[j].minutes))
                                 transRow.append($("<td>").text(trainTypes[i].estimate[j].platform))
                                 transRow.append($("<td>").text(trainTypes[i].estimate[j].length))
                                 transRow.append($("<td>").text(trainTypes[i].estimate[j].direction))
-                            console.log(transRow);
                             transTable.append(transRow)
                         }
                     } 
@@ -404,25 +323,19 @@ $('#weather-tab').on('click', function () {
         $('#widget-display-top').empty()
         var locationInput = $('#location-input').val().trim()
         if (!locationInput) return;
-        console.log(locationInput)
         // This is our API key. Add your own API key between the ""
         var APIKey = "fb510d3360292806c424e84f2751add1";
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput + "&appid=" + APIKey;
         var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + locationInput + "&appid=" + APIKey;
-        console.log(forecastURL);
         
         // We then created an AJAX call
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            // console.log(response)
             var kelvin = response.main.temp
             var fah = kelvin2Fahrenheit(kelvin)
-            // var locationTag = $('<h3>')
-            // locationTag.append(locationInput)
-            // $('#widget-display').append(locationTag)
             var tempTag = $('<p>')
             tempTag.append('Current Temperature: ' + fah)
             $('#widget-display').append(tempTag)
@@ -431,7 +344,6 @@ $('#weather-tab').on('click', function () {
                 url: forecastURL,
                 method: "GET"
             }).then(function (response) {
-                console.log(response)
                 var forecastDiv = $('<div>')
                 var forecastList = [];
                 var sum = 0, avg5Day=[];
@@ -442,18 +354,7 @@ $('#weather-tab').on('click', function () {
                         sum = 0;
                     }
                 }
-
-                // var  min = 1000, max = 0;
-                // var s,r,temparray,chunk = 8;
-                // for (s=0,r=response.list.length; s<r; s+=chunk) {
-                //     temparray = response.list.slice(s,s+chunk);
-                //     for(var k = 0; k < temparray.length; k++) {
-                //         if (temparray[k].main.temp_min < min) min = temparray[k].main.temp;
-                //         if (temparray[k].main.temp_max > max) max = temparray[k].main.temp;
-                //     }
-                // }
-                // console.log(`Min: ${min} Max: ${max}`);
-                
+       
                 var eachday=[4, 12, 20, 28, 36];
                 for(var j = 0; j < avg5Day.length; j++) {
                     if (response.list[eachday[j]].weather.main === "Cloudy") skyType = "assets/images/clouds.png"
@@ -462,8 +363,6 @@ $('#weather-tab').on('click', function () {
                     day.append(moment(response.list[eachday[j]].dt_txt.substring(0, 11), "YY-MM-DD").format("dddd, MMM Do"))
                     day.append("<br><br>")
                     day.append($("<p>").text("Avg Temp: " + avg5Day[j]))
-                    // day.append($("<p>").text("High: " + kelvin2Fahrenheit(min)))
-                    // day.append($("<p>").text("Low: " + kelvin2Fahrenheit(max)))
                     day.append("<br>")
                     day.append($("<p>").text("Humidity: " + response.list[eachday[j]].main.humidity + "%"));
                     day.append("<br>")
@@ -495,13 +394,6 @@ $('#weather-tab').on('click', function () {
     })
 })
 
-// $('#events-tab').on('click', function () {
-//     var title = $('<h1>')
-//     title.text('Events')
-//     $('.card-title').html(title);
-// })
-
-
 // Food Tab // -----------------------------------------
 var userLongitude;
 var userLatitude;
@@ -523,11 +415,6 @@ function getLocal() {
 
 }
 
-
-// if (userLongitude) {
-//     var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + userLatitude + "&longitude=" + userLongitude;
-//     console.log(queryURL)
-// } else {    https://api.yelp.com/v3/autocomplete?text=del&latitude=37.786882&longitude=-122.399972
 $('#food-tab').on('click', function () {
     widgetTop.empty();
     getLocal();
@@ -559,13 +446,11 @@ $('#food-tab').on('click', function () {
         event.preventDefault();
 
         var foodInput = $('#food-input').val().trim()
-        console.log(foodInput)
         // This is our API key. Add your own API key between the ""
         var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
 
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.yelp.com/v3/businesses/search?&location=" + foodInput
-        console.log(queryURL)
         var heroku = 'https://cors-anywhere.herokuapp.com/'
         // We then created an AJAX call
         $.ajax({
@@ -575,8 +460,6 @@ $('#food-tab').on('click', function () {
             },
             method: "GET"
         }).then(function (response) {
-            console.log(response)
-            console.log(heroku + queryURL);
             var business = response.businesses
             
             var k = 0;
@@ -587,11 +470,9 @@ $('#food-tab').on('click', function () {
                 var cardDeckFood = ($("<div>").addClass("card-deck"));
                 for (var j = 0; j < 3; j++) {
                     var businessName = response.businesses[p].name
-                    console.log(businessName);
                     var businessImage = response.businesses[p].image_url
                     var businessRatings = response.businesses[p].rating
                     var businessURL = response.businesses[p].url
-                    console.log(businessURL)
                     p++;
                     var cardFood = ($("<div>").addClass("card"));
 
@@ -616,43 +497,6 @@ $('#food-tab').on('click', function () {
         });
 
     })
-    // --------------------------------------------------  Geolocation -------------------------------------- //
-    
-    var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + 37.786882 + "&longitude=" + -122.399972;
-            console.log(queryURL)
-            var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
-            var heroku = 'https://cors-anywhere.herokuapp.com/'
-            $.ajax({
-                url: heroku + queryURL,
-                headers: {
-                    'Authorization': 'Bearer ' + APIKey
-                },
-                method: "GET"
-            }).then(function (response) {
-                console.log(JSON.stringify(response));
-                
-            })
-    $("ownLocationButton").on('click', function(event) {
-        if (userLongitude) {
-            var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=" + 37.786882 + "&longitude=" + -122.399972;
-            console.log(queryURL)
-            var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
-            var heroku = 'https://cors-anywhere.herokuapp.com/'
-            $.ajax({
-                url: heroku + queryURL,
-                headers: {
-                    'Authorization': 'Bearer ' + APIKey
-                },
-                method: "GET"
-            }).then(function (response) {
-                console.log(response);
-                
-            })
-        } else {
-            $('#food-submit').click()
-        }
-     })
-
 })
 
 
@@ -700,7 +544,6 @@ btnSignUp.on('click', () => {
             dateAdded: firebase.database.ServerValue.TIMESTAMP
         })
     }).catch(err => {
-        console.log(err);
         if (err.code === "auth/weak-password") authPrompt.text(err.message)
         else if (err.code === "auth/email-already-in-use") authPrompt.text("Email already in use!")
     })
@@ -712,7 +555,6 @@ btnLogin.on('click', () => {
     const email = txtEmail.val().trim();
     const pass = txtPassword.val().trim();
     auth.signInWithEmailAndPassword(email, pass).catch(err => {
-        console.log(err);
         if (err.code === "auth/user-not-found") authPrompt.text("New email detected. Make sure you have registered first!")
         else if (err.code === "auth/wrong-password") authPrompt.text("Invalid password.")
         else if (err.code === "auth/invalid-email") authPrompt.text("Invalid email format.")
@@ -724,7 +566,6 @@ btnLogin.on('click', () => {
 btnLogOut.on('click', () => {
     if (auth.currentUser) {
         auth.signOut();
-        console.log('logged out')
     }
     else {
         $("#exampleModal").modal("show")
@@ -738,7 +579,6 @@ auth.onAuthStateChanged(user => {
         btnLogOut.text("Logout")
         $("#exampleModal").modal('hide');
         authPrompt.text("Planner App")
-        console.log("User has now logged in.");
 
         // //Get the current user data obj
         // var userData;
@@ -751,7 +591,6 @@ auth.onAuthStateChanged(user => {
 
     } else {
         btnLogOut.text("Login")
-        console.log("User has now logged out.");
         authPrompt.text("Please Log in!")
 
     }
