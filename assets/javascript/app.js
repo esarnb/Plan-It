@@ -56,6 +56,34 @@ function updateUserNotes(type, note) {
     })
 }
 
+////////////////////////////////////////////////
+
+$('#widget-display').empty()
+$('#widget-display-top').empty()
+
+// Here we are building the URL we need to query the database
+var queryURL = "https://favqs.com/api/qotd"
+console.log(queryURL);
+
+// We then created an AJAX call
+$.ajax({
+    url: queryURL,
+    method: "GET"
+}).then(function (response) {
+    console.log(response)
+    var quoteInfo = response.quote;
+    var h = $('<h2>')
+    var p = $('<p id ="author">')
+    h.text('"'+quoteInfo.body+'"')
+    p.text('-'+quoteInfo.author+'-')
+    $('#widget-display-top').append('<hr>')
+    $('#widget-display-top').append(h)
+    $('#widget-display-top').append('<hr>')
+    $('#widget-display-top').append($('<br>'))
+    $('#widget-display-top').append(p)
+})
+////////////////////////////////////////////////
+
 //Notes Tab
 $('#notes-tab').on('click', function () {
     
