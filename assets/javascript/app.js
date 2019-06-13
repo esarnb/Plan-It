@@ -428,28 +428,11 @@ var userLatitude;
 var businessDiv;
 var businessImageDiv;
 
-
-function getLocal() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        alert("Geoloction not available")
-    }
-
-    function showPosition(position) {
-        userLongitude = position.coords.longitude;
-        userLatitude = position.coords.latitude
-    }
-
-}
-
 $('#food-tab').on('click', function () {
     widgetTop.empty();
-    getLocal();
     var title = $('<h1>')
     title.text('Food')
     $('.card-title').html(title);
-    getLocal();
     $("#widget-title").text("Food");
 
     //ELEMENTS
