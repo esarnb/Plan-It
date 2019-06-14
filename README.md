@@ -49,14 +49,74 @@ The response is in the format: JSON
 
 
 ----
-## code snippets
+### Firebase's Authorization and Realtime Database Example Codes
 <!-- put snippets of code inside ``` ``` so it will look like code -->
 <!-- if you want to put blockquotes use a > -->
+
+Creating a new user in firebase-auth (auth),
+and passing in the custom user-id from auth to the realtime database:
 ```javascript
-    //code 
-   
+auth.createUserWithEmailAndPassword(email, pass).then(user => {
+    database.ref("/users").child(auth.currentUser.uid).update({
+        email: user.email,
+        notes: ["Welcome to your notes!"],
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+    })
+})
 ```
-## Explanation of code
+We pass in the object we want to store for the new user as a first-time login
+
+
+
+To sign a user in:
+```javascript
+auth.signInWithEmailAndPassword(email, pass).catch(err => console.log(err.message));
+```
+We catch all errors and display them to the console, within the project we get the err.code
+and display error messages within the sign-in modal 
+(You may see it in the javascript file 'app.js' near the end of the file)
+
+
+
+A listener to detect whenever a user signs in or logs out:
+```javascript
+auth.onAuthStateChanged(user => {
+    if (user) {
+        //User has logged into the website
+        //auth.currentUser gets updated to the current user
+    } else {
+        //The user has logged out of the site
+        //auth.currentUser is now undefined/null
+    }
+})
+```
+This listener may be used to display information based on a specific user, however
+we utilized it to update the sign-out button between login & logout.
+
+### JQuery AJAX call to an API: Yelp Example
+```javascript
+var queryURL = "https://api.yelp.com/v3/businesses/search?&location=" + foodInput
+var heroku = 'https://cors-anywhere.herokuapp.com/'
+// We then created an AJAX call
+$.ajax({
+    url: heroku + queryURL,
+    headers: {
+        'Authorization': 'Bearer ' + APIKey
+    },
+    method: "GET"
+}).then(function (response) {
+  //You may use response from the api to display information to the site,
+  //dynamically using jquery
+})
+```
+The project uses several kinds of apis, where each uses an AJAX call to the api. 
+Some sites (like Yelp) have an api restriction where CORS (Cross-Origin Resource Sharing) is necessary.
+
+So we use the Heroku app's cors-anywhere proxy alongside our query api call to run our query through Heroku,
+in which they then relay to Yelp. Then the api returns data based on the query given, and passed into 'response'.
+
+The Yelp API requires their apikey in a header, unlike many other apis where they may ask for the key as part of the query.
+
   
   
 ## Learning points
@@ -66,7 +126,7 @@ The response is in the format: JSON
   * Communicating when changes made to master
 2. Communicationg within group members
   * Updating members every day about the progress
-## Author 
+## Authors
 <!-- make a link to the deployed site and have your name as the link -->
 * [Esar](https://github.com/esarnb)
 * [Minal](https://github.com/minalk24)
