@@ -47,6 +47,11 @@ The response is in the format: JSON
 https://www.yelp.com/developers/documentation/v3 + apiKey
 The response is in the format: JSON
 
+4. Favqs Api
+  * Fetches quotes from famous past figures per api call
+
+ * API: https://favqs.com/api/qotd 
+The response is in the format: JSON
 
 ----
 ### Firebase's Authorization and Realtime Database Example Codes
