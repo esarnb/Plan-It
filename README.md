@@ -4,7 +4,7 @@ We created a planner application that allows you to take notes, check bart infor
 https://esarnb.github.io/Plan-It/
 
 ## Images
-![Plan-It](assets/images/Plan-IT.gif)
+![Plan-It](assets/images/Plan-It.gif)
 ## Technologies used
 <!-- make a list of technology used -->
 <!-- what you used for this web app, like html css -->
@@ -47,6 +47,11 @@ The response is in the format: JSON
 https://www.yelp.com/developers/documentation/v3 + apiKey
 The response is in the format: JSON
 
+4. Favqs Api
+  * Fetches quotes from famous past figures per api call
+
+API: https://favqs.com/api/qotd 
+The response is in the format: JSON
 
 ----
 ### Firebase's Authorization and Realtime Database Example Codes
