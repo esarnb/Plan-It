@@ -335,8 +335,8 @@ $('#weather-tab').on('click', function () {
     $('#widget-display-top').empty()
     $('#widget-title').text('Weather');
     $('#widget-input').empty()
-    var weatherInput = $('<label for="location-input">Please Enter a Location</label>')
-    weatherInput.append($('<input type="text" class = "rounded" id = "location-input" placeholder="city, country">'))
+    var weatherInput = $('<label for="location-input"></label>')
+    weatherInput.append($('<input type="text" id = "location-input" placeholder="Enter a location">'))
     $("#widget-input").append(weatherInput)
     $('#widget-button').empty();
     var weatherButton = ('<button type = "button" class="btn btn-light border" id = "location-submit">Submit</button>')
@@ -436,8 +436,8 @@ $('#food-tab').on('click', function () {
 
     //ELEMENTS
     $("#widget-input").empty()
-    var foodInput = $("<label for='food-input'>Please Enter a Location </label>")
-    foodInput.append($("<input type='text' class = 'rounded' id='food-input' placeholder='city, country'>"))
+    var foodInput = $("<label for='food-input'></label>")
+    foodInput.append($("<input type='text' id='food-input' placeholder='Enter a location'>"))
     $("#widget-input").append(foodInput)
 
     $("#widget-button").empty();
@@ -496,7 +496,7 @@ $('#food-tab').on('click', function () {
                     var cardTitleFood = ($("<div><a target = '_blank' href="+businessURL+">"+businessName+"</a></div>").addClass("card-title"));
                     var cardTextFood = ($("<div>").addClass("card-text"));
                     
-                    cardTextFood.text("Ratings: " + businessRatings);
+                    cardTextFood.text("Rating: " + businessRatings);
                     cardBodyFood.append(cardTitleFood);
                     cardBodyFood.append(cardTextFood);
                     cardFood.append(cardBodyFood);
