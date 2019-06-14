@@ -50,7 +50,7 @@ The response is in the format: JSON
 4. Favqs Api
   * Fetches quotes from famous past figures per api call
 
- * API: https://favqs.com/api/qotd 
+API: https://favqs.com/api/qotd 
 The response is in the format: JSON
 
 ----
