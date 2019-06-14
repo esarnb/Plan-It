@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+*:focus {
+    outline: none;
+}
+
 *:before,
 *:after {
     box-sizing: border-box;
@@ -9,9 +13,6 @@
 
 body {
     font-family: 'Cormorant Garamond', serif;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* min-height: 100vh; */
     position: relative;
     height: 100%;
 }
@@ -19,7 +20,6 @@ body {
 main {
     min-height: 100vh; /* Will cover 100% of the viewport */
     overflow: hidden;
-    /* width: 100%; */
     display: block;
     position: relative;
     padding-bottom: 53px;
@@ -28,8 +28,6 @@ main {
 .footer {
     position: absolute;
     bottom: 0;
-    /* right:20px; */
-    /* left: -118px; */
     width: 100%;
     background-color: #ccccccaf;
     text-align: center;
@@ -50,10 +48,6 @@ h2 {
 .navbar-brand {
     padding: 0;
     margin: 0;
-}
-
-#navMe {
-    /* padding */
 }
 
 #logo {
@@ -84,13 +78,12 @@ h2 {
 /* Time and Date for all Widgets */
 #dynamicTime{
     padding:4px 0px;
+    font-size: 25px;
  }
 
  /* Jumbotron */
 .jumbotron {
     margin-bottom:0 ;
-    /* height: 100%; */
-    /* margin-bottom: 5rem; */
 }
 
 
@@ -149,11 +142,8 @@ background: #666;
 /* --------------------- */
 /* Notes Tab Styling */
 
-/* Height of each note */
-
 .note {
     height: 32px;
-    /* width: 20%; */
     margin-bottom: 15px;
     font-size: 20px;
     display: inline-block;
@@ -172,18 +162,26 @@ textarea {
     resize: none;
 }
 
-label {
-    font-size: 21px;
-    font-weight: 500;
+textarea:active {
+    box-shadow: 1px 1px #888;
 }
 
 #comment {
     width: 20%;
     margin: 10px auto;
     border-bottom: 1px, solid #cccccc;
+    box-shadow: none;
 }
 
-/* -------------------------- */
+
+label {
+    font-size: 21px;
+    font-weight: 500;
+}
+
+
+
+/* ----------End of Notes Tab Styling---------------- */
 
 .customColor {
     background-color:  #66666648

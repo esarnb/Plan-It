@@ -336,7 +336,7 @@ $('#weather-tab').on('click', function () {
     $('#widget-title').text('Weather');
     $('#widget-input').empty()
     var weatherInput = $('<label for="location-input">Please Enter a Location</label>')
-    weatherInput.append($('<input type="text" class = "rounded" id = "location-input" placeholder="city,country">'))
+    weatherInput.append($('<input type="text" class = "rounded" id = "location-input" placeholder="city, country">'))
     $("#widget-input").append(weatherInput)
     $('#widget-button').empty();
     var weatherButton = ('<button type = "button" class="btn btn-light border" id = "location-submit">Submit</button>')
