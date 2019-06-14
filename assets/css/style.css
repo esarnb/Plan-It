@@ -1,22 +1,132 @@
-body {
-    font-family: 'Open Sans', sans-serif;
-    
+* {
+    box-sizing: border-box;
 }
+
+*:focus {
+    outline: none;
+}
+
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cormorant Garamond', serif;
+    position: relative;
+    height: 100%;
+}
+
+main {
+    min-height: 100vh; /* Will cover 100% of the viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 53px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #ccccccaf;
+    text-align: center;
+    padding:15px;
+ }
 
 p {
     line-height: 23px;
 }
 
-.jumbotron {
-    height: 92vh;
-    /* height: 100%; */
-    margin-bottom: 0;
+/* Quote */
+h2 {
+    font-size: 25px;
+    font-style: italic;
+    line-height: 30px;  
 }
 
+.navbar-brand {
+    padding: 0;
+    margin: 0;
+}
 
+#logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+
+}
+
+/* Navbar links */
+.nav-link {
+    font-size: 21px;
+    font-weight: 500;
+    color: #000;
+}
+
+/* Modal for login-error */
 #bg-modal {
     background-color: #eee;
+    margin-top: 25%;
 }
+
+#example-modal-title {
+    font-size: 20px;
+}
+
+
+/* Time and Date for all Widgets */
+#dynamicTime{
+    padding:4px 0px;
+    font-size: 25px;
+ }
+
+ /* Jumbotron */
+.jumbotron {
+    margin-bottom:0 ;
+}
+
+
+
+/*--------------------- Widget Style Properties ----------------*/
+
+/* Widget Title */
+#widget-title {
+    font-weight: 500;
+    font-size: 50px;
+    letter-spacing: 2px;
+}
+
+#widget-input{
+    padding:0px 0px 10px 0px;
+}
+
+/* -------------------------------------------------------------- */
+
+/*---------------------- Custom Scrollbar -----------------------*/
+/* Webkit browsers, such as Chrome, Safari and Opera, supports the non-standard ::-webkit-scrollbar pseudo element, which allows us to modify the look of the browser's scrollbar. */
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #666; 
+}
+
+/* -------------------------------------------------------- */
+
 
 .errorMsg {
     color: red;
@@ -29,11 +139,49 @@ p {
     margin: 0 auto;
 }
 
+/* --------------------- */
+/* Notes Tab Styling */
+
+.note {
+    height: 32px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    display: inline-block;
+}
+
+#note-body {
+    padding-bottom: 0;
+}
+
+.note:hover {
+    position: relative;
+    top: -3px;
+}
+
+textarea {
+    resize: none;
+}
+
+textarea:active {
+    box-shadow: 1px 1px #888;
+}
+
 #comment {
     width: 20%;
     margin: 10px auto;
     border-bottom: 1px, solid #cccccc;
+    box-shadow: none;
 }
+
+
+label {
+    font-size: 21px;
+    font-weight: 500;
+}
+
+
+
+/* ----------End of Notes Tab Styling---------------- */
 
 .customColor {
     background-color:  #66666648
@@ -43,18 +191,14 @@ p {
     padding: 0 7px;
     font-size: 20px;
     border: none;
-    margin: 5px 10px;
+    margin: 0 10px;
 }
 
 .edit-button{
     padding: 0 7px;
     font-size: 20px;
     border: none;
-    margin: 5px 10px;
-}
-
-textarea {
-    resize: none;
+    margin: 0 10px;
 }
 
 #mapbutton {
@@ -73,12 +217,7 @@ textarea {
 	border : none;
 	color : transparent;
 }
-#widget-title {
-    font-weight: bold;
-    font-size: 30px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
-}
+
 .thumbnailImg{
     height:260px;
 }
@@ -86,22 +225,10 @@ textarea {
     margin-bottom:20px;
     border-radius:10px;
 }
-/* minal new changes */
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #ccccccaf;
-    text-align: center;
-    padding:15px;
- }
- #widget-input{
-     padding:0px 0px 10px 0px;
- }
- #dynamicTime{
-    padding:4px 0px;
- }
+
+
+
+
 
 /* Input style */
 #weather-input {
@@ -111,16 +238,26 @@ textarea {
 #food-input {
     margin-left: 15px;
     margin-bottom: 15px;
-    border: 1px solid #cccccc;
+    border: none;
+    border-bottom: 1px solid #cccccc;
     padding: 5px;
     width:210px;
+    border-radius: 0;
+    text-align: center;
+}
+
+#food-submit {
+    margin-bottom: 10px;
 }
 
 #location-input {
     margin-left: 18px;
     margin-bottom: 15px;
-    border: 1px solid #cccccc;
-    padding: 5px
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    padding: 5px;
+    border-radius: 0;
+    text-align: center;
 }
 
 /* button styling */
@@ -135,91 +272,8 @@ textarea {
     border-right: none;
     border-left: none;
     border-radius: 0;
-
 }
 
 #forecast-card {
     margin-top: 15px;
 }
- /* 
-            LightOn: Grayscale website how we had it like an hour ago
-            LightOff: Black navbar, footer. DarkGray Body with opacity to see bg-blackTiles
-            Those nubs did something
- */
-
- body {
-    /* background-image: url("../images/darkTiles.jpeg"); */
-    background-repeat: no-repeat;
-    background-size: cover;
-
-}
-.darkTheme {
-    background-color: #000;
-    z-index: 6;
-} 
-
-.lightText {
-    color:#fff;
- }  
-
- .pureDark {
-     opacity: 1;
-     z-index: 10;
-     background-color: #000;
-     color: white;
- }
-
-.navMeClass {
-    background-color: white;
- }
-
-  /*
- .darkThemeNav {
-    background-color: #000;
-    z-index: 1;
-    color:#fff;
- }
-
- .darkTheme.jumbotron {
-     opacity: 0.8;
- }
- 
- .darkTheme, p.note, h3, .card-text {
-     color: black;
- }
-
-   /* #navbar {
-   opacity: 1;
- }*/
- /*
-  #navMeClass{
-    background-color: #fff;
-  }
- .darkThemeNav #navbarNav ul li a {
-     color:#fff;
- }  
- .lightText {
-    color:#fff;
- }  
-
- html {
-     /* background-color: white; */
-/*
- }
- 
-
- 
-/*
-    background transparant
-
-class="navbar navbar-expand-lg navbar-light bg-white"
-
-
-//if it is light, change to dark, else change to light
-if ($(this).val() === "light") {
-    $("body").css("background", "dark");
-} 
-else {
-    $("body").css("background", "light");
-}
-*/
