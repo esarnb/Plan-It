@@ -4,7 +4,7 @@ We created a planner application that allows you to take notes, check bart infor
 https://esarnb.github.io/Plan-It/
 
 ## Images
-![Plan-It](assets/images/Plan-IT.gif)
+![Plan-It](assets/images/Plan-It.gif)
 ## Technologies used
 <!-- make a list of technology used -->
 <!-- what you used for this web app, like html css -->
