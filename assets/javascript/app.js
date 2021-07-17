@@ -351,7 +351,7 @@ $('#weather-tab').on('click', function () {
         var locationInput = $('#location-input').val().trim()
         if (!locationInput) return;
         // This is our API key. Add your own API key between the ""
-        var APIKey = "fb510d3360292806c424e84f2751add1";
+        var APIKey = weatherApikey;
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput + "&appid=" + APIKey;
         var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + locationInput + "&appid=" + APIKey;
@@ -457,7 +457,7 @@ $('#food-tab').on('click', function () {
 
         var foodInput = $('#food-input').val().trim()
         // This is our API key. Add your own API key between the ""
-        var APIKey = "bnRdt6tABPwVy-_r8VJsslJ50Fpx44t18Ks5srqJTsQxv2cHZuB_UqX1Fp0XSKJVmjGIQkMRgEm-ve7qXU1I3yX0xNvH_IJo-h83WtIhb9DfhHIXcaW0l_zPQ9_9XHYx";
+        var APIKey = foodApikey;
 
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.yelp.com/v3/businesses/search?&location=" + foodInput
@@ -528,7 +528,7 @@ var authPrompt = $("#authPrompt");
 //Configurations for storage
 // Your web app's Firebase configuration
 var firebaseConfig = {
-    apiKey: "AIzaSyDJv0Jv2KLKENhptp1oyNhsJj6bxs2chZw",
+    apiKey: firebaseApikey,
     authDomain: "planner-sr.firebaseapp.com",
     databaseURL: "https://planner-sr.firebaseio.com",
     projectId: "planner-sr",
